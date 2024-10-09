@@ -5,8 +5,8 @@
 </template>
 
 <script setup>
-import { mdData } from '/casual/index.js'
-console.log(mdData)
+import { tagsData } from '@casual/index.js'
+console.log(tagsData)
 </script>
 
 <style scoped></style>

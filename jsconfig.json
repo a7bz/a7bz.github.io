@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
-        "baseUrl": "./",
-            "paths": {
-            "@/*": [".vitepress/theme/*"]    
+        "baseUrl": "/",
+        "paths": {
+            "@/*": [
+                ".vitepress/theme/*"
+            ],
+            "@casual*": [
+                "casual/*"
+            ]
         }
     },
     "include": [
