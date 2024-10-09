@@ -1,11 +1,9 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
-import { siteData,themeConfig,viteConfig } from './theme/config/index'
+import { siteData, themeConfig, viteConfig } from './theme/config/index'
+import { initData } from './theme/scripts/handleMd'
 
-import path from "path"
-
-const postDir = path.join(process.cwd(), 'posts')
-console.log(postDir)
+await initData()
 
 export default withPwa(
   defineConfig({

@@ -6,7 +6,7 @@ import { addMd, changeMd, delMd } from '../scripts/index'
 export const viteConfig = {
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "./theme"),
+            "@": path.resolve(__dirname, "../../theme"),
         },
     },
     server: {
