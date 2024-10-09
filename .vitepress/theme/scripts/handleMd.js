@@ -86,12 +86,12 @@ const getExcerpt = (file) => {
 
 // 解析 Markdown 文件数据
 const getMdData = (e) => {
-    const href = `posts${e.replace(postDir, '').replace('.md', '').replace(/\\/g, '/')}`
+    const href = `posts${e.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index','')}`
     const timestamp = fs.statSync(e).mtimeMs
     const cached = mdCache[href]
 
     if (cached && timestamp === cached.timestamp) {
-        return cached
+        return cached.post
     }
     const src = fs.readFileSync(e, 'utf-8')
     let matterData
@@ -110,11 +110,7 @@ const getMdData = (e) => {
     }
     if (!post.title) {
         const titleMatch = matterData.content.match(/^#\s(.+)$/m)
-        if (titleMatch && titleMatch.length > 0) {
-            post.title = titleMatch[1]
-        } else {
-            post.title = '无标题'
-        }
+        post.title = titleMatch ? titleMatch[1] : '无标题'
     }
     mdCache[href] = { timestamp, post } // 存储到对象
     return post
@@ -200,11 +196,16 @@ export const initData = async () => {
         // 获取现有的所有缓存键
         const existingCacheKeys = Object.keys(mdCache)
         // 重新扫描文件夹并更新 mdCache
-        const actualFiles = fs.readdirSync(postDir).filter(file => file.endsWith('.md'))
-        actualFiles.forEach(file => {
-            const href = `posts/${file.replace(/\.md$/, '')}`
-            const timestamp = fs.statSync(path.join(postDir, file)).mtimeMs
-            const post = getMdData(path.join(postDir, file))
+        const actualFiles = fs.readdirSync(postDir)
+            .filter(file => file.endsWith('.md'))
+            .map(file => {
+                const filePath = path.join(postDir, file)
+                const timestamp = fs.statSync(filePath).mtimeMs
+                const post = getMdData(filePath)
+                return { href: `posts/${file.replace(/\.md$/, '').replace('index','')}`, post, timestamp }
+            })
+        actualFiles.sort((a, b) => b.post.create - a.post.create)
+        for (const { href, post, timestamp } of actualFiles) {
             mdCache[href] = { timestamp, post }
             updateCategoryAndTag(post)
             // 从缓存键中移除实际存在的文件
@@ -212,7 +213,7 @@ export const initData = async () => {
             if (index !== -1) {
                 existingCacheKeys.splice(index, 1)
             }
-        })
+        }
         // 删除缓存中存在但实际文件不存在的项
         existingCacheKeys.forEach(key => {
             const cachedPost = mdCache[key].post
