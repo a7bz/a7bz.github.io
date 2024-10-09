@@ -7,6 +7,7 @@ export const viteConfig = {
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "../../theme"),
+            "@casual": path.resolve(__dirname, "../../../casual")
         },
     },
     server: {
