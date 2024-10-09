@@ -5,8 +5,8 @@
 </template>
 
 <script setup>
-import { useData } from 'vitepress'
-
+import { mdData } from '/casual/index.js'
+console.log(mdData)
 </script>
 
 <style scoped></style>
