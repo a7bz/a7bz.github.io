@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+            "paths": {
+            "@/*": [".vitepress/theme/*"]    
+        }
+    },
+    "include": [
+        ".vitepress/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
