@@ -9,10 +9,8 @@
 </template>
 
 <script setup>
-const backgroundUrl = "https://tuapi.eees.cc/api.php?category={dongman,fengjing}&type=302"
-const backgroundType = "patterns"
-const themeValue = "light"
-
+import { useStore } from '@/store/index'
+const { backgroundType, themeValue, backgroundUrl } = useStore()
 
 // 加载失败
 const coverError = (e) => {
@@ -31,6 +29,14 @@ const coverLoaded = (e) => {
 </script>
 
 <style lang="scss" scoped>
+#background-cover {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 .background {
     position: fixed;
     top: 0;
