@@ -25,14 +25,15 @@
         <!-- 导航栏菜单 -->
         <div class="nav-center">
           <div class="site-menu">
-            <div v-for="(item, index) in theme.nav" :key="index" class="menu-item">
-              <span class="link-btn">
+            <div v-for="(item, index) in theme.nav" :key="index" class="menu-item"
+              @click="() => { item.link ? router.go(item.link) : '' }">
+              <span class="link-btn" :class="[pageHref == item.link ? 'selected' : '']">
                 <i v-if="item.icon" :class="`iconfont icon-${item.icon}`" />
                 {{ item.text }}
               </span>
               <div v-if="item.items" class="link-child">
                 <span v-for="(child, childIndex) in item.items" :key="childIndex" class="link-child-btn"
-                  @click="router.go(child.link)">
+                  @click="router.go(child.link)" :class="[pageHref == child.link ? 'selected' : '']">
                   <i v-if="child.icon" :class="`iconfont icon-${child.icon}`" />
                   {{ child.text }}
                 </span>
@@ -77,9 +78,9 @@
             </div>
           </div>
           <!-- 移动端菜单 -->
-          <div class="menu-btn nav-btn mobile" title="打开菜单" @click="store.changeShowStatus('mobileMenuShow')">
+          <!-- <div class="menu-btn nav-btn mobile" title="打开菜单" @click="store.changeShowStatus('mobileMenuShow')">
             <i class="iconfont icon-toc" />
-          </div>
+          </div> -->
         </div>
       </div>
     </nav>
@@ -97,14 +98,41 @@ import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
 import { mainStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
+import { ref } from "vue";
 
 const router = useRouter()
 const store = mainStore()
 const { scrollData } = storeToRefs(store)
 const { site, theme, frontmatter, page } = useData()
+
+const pageHref = ref('/' + page.value.filePath.replace('.md', '').replace('index', ''))
+console.log(pageHref)
 </script>
 
 <style lang="scss" scoped>
+.link-btn {
+  &.selected {
+    &:hover {
+      &::after {
+        content: none;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 20%;
+      width: 20%;
+      right: 0;
+      height: 2px;
+      padding: 0 20%;
+      background-color: var(--main-color);
+      border-radius: 2px;
+    }
+  }
+}
+
 .main-header {
   position: relative;
   width: 100%;
