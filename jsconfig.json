@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "baseUrl": "/",
+        "baseUrl": "./",
         "paths": {
             "@/*": [
                 ".vitepress/theme/*"
             ],
-            "@casual*": [
+            "@casual/*": [
                 "casual/*"
             ]
         }
