@@ -9,8 +9,10 @@
 </template>
 
 <script setup>
-import { useStore } from '@/store/index'
-const { backgroundType, themeValue, backgroundUrl } = useStore()
+import { storeToRefs } from 'pinia'
+import { mainStore } from '@/store/index'
+const store = mainStore()
+const { backgroundType, themeValue, backgroundUrl } = storeToRefs(store)
 
 // 加载失败
 const coverError = (e) => {

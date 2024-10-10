@@ -1,11 +1,20 @@
-import { reactive } from "vue"
+import { defineStore } from 'pinia'
 
-const state = reactive({
-    backgroundUrl: "https://ftp.bmp.ovh/imgs/2020/01/1a5a007bffc828e0.png",
-    backgroundType: "patterns",
-    themeValue: "light"
+export const mainStore = defineStore('main', {
+    state: () => {
+        return {
+            backgroundUrl: "https://ftp.bmp.ovh/imgs/2020/01/1a5a007bffc828e0.png",
+            backgroundType: "patterns",
+            themeValue: "light"
+        }
+    },
+    actions: {
+
+    },
+    persist: [
+        {
+            key: 'casualData',
+            paths: ['backgroundUrl', 'backgroundType']
+        }
+    ]
 })
-
-export function useStore() {
-    return state
-}
