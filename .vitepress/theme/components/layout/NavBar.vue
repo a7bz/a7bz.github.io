@@ -98,14 +98,16 @@ import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
 import { mainStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
-import { ref } from "vue";
+import { computed } from "vue";
 
 const router = useRouter()
 const store = mainStore()
 const { scrollData } = storeToRefs(store)
 const { site, theme, frontmatter, page } = useData()
 
-const pageHref = ref('/' + page.value.filePath.replace('.md', '').replace('index', ''))
+const pageHref = computed(() => {
+  return '/' + page.value.filePath.replace('.md', '').replace('index', '')
+})
 console.log(pageHref)
 </script>
 
@@ -122,11 +124,10 @@ console.log(pageHref)
       content: '';
       position: absolute;
       bottom: -2px;
-      left: 20%;
-      width: 20%;
+      left: 30%;
+      width: 40%;
       right: 0;
       height: 2px;
-      padding: 0 20%;
       background-color: var(--main-color);
       border-radius: 2px;
     }
