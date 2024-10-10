@@ -1,6 +1,6 @@
 import chokidar from 'chokidar'
 import path from "path"
-import { addMd, changeMd, delMd } from '../scripts/index'
+import { addMd, changeMd, delMd } from '../scripts/handleMd'
 
 
 export const viteConfig = {

@@ -3,7 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 
 import { themeConfig } from '../config/index'
-import { generateId } from './index'
+import { generateId } from './tool'
 
 const postDir = path.join(process.cwd(), 'posts')
 const cacheDir = path.join(process.cwd(), 'casual') // 缓存目录
