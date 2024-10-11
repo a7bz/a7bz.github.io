@@ -4,7 +4,7 @@ aside: false
 ---
 
 <script setup>
-import Tags from '@/components/pages/Tags.vue'
+import Tag from '@/components/pages/Tag.vue'
 </script>
 
-<Tags />
+<Tag />
