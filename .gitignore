@@ -1,5 +1,4 @@
 .idea
 node_modules/
 .vitepress/dist
-.vitepress/cache/*
-casual/
+.vitepress/cache

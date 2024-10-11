@@ -3,19 +3,25 @@
   <BackGround />
   <Nav />
 
-  <main :class="['mian-layout']">
+  <main :class="['mian-layout', { 'is-post': isPost }]">
     <Home v-if="frontmatter.home" />
     <template v-if="!page.isNotFound">
-      <post v-if="page.relativePath.startsWith('posts/') && !page.relativePath.endsWith('index.md')" />
-      <page v-if="page.relativePath.startsWith('pages/') || page.relativePath.endsWith('index.md')" />
+      <post v-if="isPost" />
+      <page v-if="isPage" />
     </template>
     <NotFound v-else></NotFound>
   </main>
 
+  <Teleport to="body">
+    <div :class="['left-menu', { hidden: footerIsShow }]">
+
+    </div>
+  </Teleport>
+
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
 import NotFound from './components/pages/NotFound.vue'
@@ -31,10 +37,12 @@ const store = mainStore()
 const { fontFamily, fontSize } = storeToRefs(store)
 const { site, theme, page, frontmatter } = useData()
 
+const footerIsShow = false
+
+
 // 切换系统字体样式
 const changeSiteFont = () => {
   try {
-    console.log(fontFamily.value)
     const htmlElement = document.documentElement
     htmlElement.classList.remove("lxgw", "hmos")
     htmlElement.classList.add(fontFamily.value)
@@ -42,11 +50,59 @@ const changeSiteFont = () => {
   } catch (error) {
     console.error("切换系统字体样式失败", error)
   }
-};
+}
+
+
+const isPost = computed(() => {
+  return page.value.relativePath.startsWith('posts/') && !page.value.relativePath.endsWith('index.md')
+})
+
+const isPage = computed(() => {
+  return page.value.relativePath.startsWith('pages/') || page.value.relativePath.endsWith('index.md')
+})
 
 onMounted(() => {
   changeSiteFont()
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.mian-layout {
+  width: 100%;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  // 手动实现加载动画
+  animation: show 0.5s forwards;
+  animation-duration: 0.5s;
+  display: block;
+
+  &.loading {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+
+    &.is-post {
+      padding: 0;
+    }
+  }
+}
+
+.left-menu {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1002;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+}
+</style>

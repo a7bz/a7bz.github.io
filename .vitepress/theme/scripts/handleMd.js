@@ -6,7 +6,7 @@ import { themeConfig } from '../config/index'
 import { generateId } from './tool'
 
 const postDir = path.join(process.cwd(), 'posts')
-const cacheDir = path.join(process.cwd(), 'casual') // 缓存目录
+const cacheDir = path.join(process.cwd(), '.vitepress/cache/casual') // 缓存目录
 const cacheMd = path.join(cacheDir, 'mdCache.js')
 const cacheCategory = path.join(cacheDir, 'category.js')
 const cacheTags = path.join(cacheDir, 'tags.js')
@@ -67,6 +67,11 @@ const updateMdCache = async (filePath, operation) => {
                 }
             }
         } else {
+            if (operation === 'change') {
+                if (cachePosts) {
+                    removeCategoryAndTag(cachedPost.post)
+                }
+            }
             const post = await getMdData(filePath)
             if (!post) return
             updateCategoryAndTag(post)

@@ -6,7 +6,7 @@
                 ".vitepress/theme/*"
             ],
             "@casual/*": [
-                "casual/*"
+                ".vitepress/cache/casual/*"
             ]
         }
     },
