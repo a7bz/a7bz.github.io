@@ -108,11 +108,14 @@ const { site, theme, frontmatter, page } = useData()
 const pageHref = computed(() => {
   return '/' + page.value.filePath.replace('.md', '').replace('index', '')
 })
-console.log(pageHref)
+
 </script>
 
 <style lang="scss" scoped>
-.link-btn {
+.link-btn,
+.link-child-btn {
+  position: relative;
+
   &.selected {
     &:hover {
       &::after {
