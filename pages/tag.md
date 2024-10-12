@@ -7,4 +7,4 @@ aside: false
 import Tag from '@/components/pages/Tag.vue'
 </script>
 
-<Tag />
+<Tag  single />
