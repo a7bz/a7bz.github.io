@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { formatTimestamp } from "@/scripts/helper";
+import { formatTimestamp } from "@/scripts/helper"
 import { computed, ref } from 'vue'
 import { mdData } from '@casual/mdCache'
 import { useData } from 'vitepress'

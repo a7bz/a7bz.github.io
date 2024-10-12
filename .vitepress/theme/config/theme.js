@@ -1,6 +1,6 @@
 export const themeConfig = {
   blog: {
-    excerptLength: 300
+    excerptLength: 200
   },
   nav: [
     { icon: "home", text: "主页", link: "/", },

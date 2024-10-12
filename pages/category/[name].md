@@ -1,5 +1,5 @@
 ---
-title: 标签
+title: {{$params}}
 aside: false
 ---
 

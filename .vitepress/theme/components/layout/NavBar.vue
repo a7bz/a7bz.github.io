@@ -98,7 +98,7 @@ import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
 import { mainStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
-import { computed } from "vue";
+import { computed } from "vue"
 
 const router = useRouter()
 const store = mainStore()
