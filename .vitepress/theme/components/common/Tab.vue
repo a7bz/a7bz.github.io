@@ -2,13 +2,13 @@
     <div class="type-bar s-card hover">
         <div class="all-type">
             <a href="/" v-if="home" :class="['type-item', { choose: pageHref == '/' }]">主页</a>
-            <a :href="`/pages/${type}/${item.name}`" v-for="(item, index) in data" :key="index"
-                :class="['type-item', { choose: pageHref == `/pages/${type}/${item.name}` }]">
+            <a :href="`/${prefix}/${type}/${item.name}`" v-for="(item, index) in data" :key="index"
+                :class="['type-item', { choose: pageHref == `/${prefix}/${type}/${item.name}` }]">
                 {{ item.name }}
                 <span class="num">{{ item.count }}</span>
             </a>
         </div>
-        <a :href="`/pages/${type}`" class="more-type">
+        <a :href="`/${prefix}/${type}`" class="more-type">
             <i class="iconfont icon-arrow-right" />
             更多
         </a>
@@ -20,6 +20,10 @@ import { useData } from 'vitepress'
 import { computed } from 'vue'
 
 const props = defineProps({
+    prefix: {
+        type: String,
+        default: 'pages'
+    },
     type: {
         type: String,
         default: 'category'
