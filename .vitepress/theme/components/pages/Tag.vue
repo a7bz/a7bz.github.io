@@ -5,21 +5,26 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import Tab from '../layout/Tab.vue'
+import { computed, ref } from 'vue';
+import Tab from '../common/Tab.vue'
 import { tagsData } from '@casual/index.js'
 
+const data = ref(tagsData)
+
 const tabData = computed(() => {
-  const tmp = Object.keys(tagsData).map(item => {
+  return Object.keys(data.value).map(item => {
     return {
       name: item,
-      count: tagsData[item].length
+      count: data.value[item].length
     }
   })
-  console.log(tmp)
-  return tmp
 })
 
+if (import.meta.env.DEV && import.meta.hot) {
+  __VUE_HMR_RUNTIME__.tagsDataUpdate = (data) => {
+    data.value = data
+  }
+}
 
 </script>
 

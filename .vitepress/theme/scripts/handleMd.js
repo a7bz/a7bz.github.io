@@ -6,7 +6,7 @@ import { themeConfig } from '../config/index'
 import { generateId } from './tool'
 
 const postDir = path.join(process.cwd(), 'posts')
-const cacheDir = path.join(process.cwd(), '.vitepress/cache/casual') // 缓存目录
+const cacheDir = path.join(process.cwd(), 'casual') // 缓存目录
 const cacheMd = path.join(cacheDir, 'mdCache.js')
 const cacheCategory = path.join(cacheDir, 'category.js')
 const cacheTags = path.join(cacheDir, 'tags.js')
@@ -28,6 +28,14 @@ const categoryCache = {}
 const tagsCache = {}
 const postsCache = []
 const starCache = []
+
+let lastSavedCache = {
+    mdCache: {},
+    categoryCache: {},
+    tagsCache: {},
+    postsCache: [],
+    starCache: []
+}
 
 // 获取所有 Markdown 文件
 const getAllMdFiles = async (dirPath) => {
@@ -97,14 +105,44 @@ export const changeMd = async (e) => {
     updateMdCache(e, 'change')
 }
 
+
+const hotCode = (data) => {
+    return `
+if (import.meta.hot)
+  import.meta.hot.accept(({ ${data} }) => {
+    if(__VUE_HMR_RUNTIME__.${data}Update)
+        __VUE_HMR_RUNTIME__.${data}Update(${data})
+  })
+    `
+}
+
+const shallowClone = (source) => {
+    return JSON.parse(JSON.stringify(source))
+}
+
 // 保存缓存到文件
 const saveCache = async () => {
     try {
-        await fs.promises.writeFile(cacheMd, `export const mdData = ${JSON.stringify(mdCache, null, 2)}`, 'utf-8')
-        await fs.promises.writeFile(cacheCategory, `export const categoryData = ${JSON.stringify(categoryCache, null, 2)}`, 'utf-8')
-        await fs.promises.writeFile(cacheTags, `export const tagsData = ${JSON.stringify(tagsCache, null, 2)}`, 'utf-8')
-        await fs.promises.writeFile(cachePosts, `export const postsData = ${JSON.stringify(postsCache, null, 2)}`, 'utf-8')
-        await fs.promises.writeFile(cacheStar, `export const starData = ${JSON.stringify(starCache, null, 2)}`, 'utf-8')
+        if (JSON.stringify(lastSavedCache.mdCache) !== JSON.stringify(mdCache) || !fs.existsSync(cacheMd)) {
+            await fs.promises.writeFile(cacheMd, `export const mdData = ${JSON.stringify(mdCache, null, 2)}` + hotCode('mdData'), 'utf-8')
+            lastSavedCache.mdCache = shallowClone(mdCache)
+        }
+        if (JSON.stringify(lastSavedCache.tagsCache) !== JSON.stringify(tagsCache) || !fs.existsSync(cacheTags)) {
+            await fs.promises.writeFile(cacheTags, `export const tagsData = ${JSON.stringify(tagsCache, null, 2)}` + hotCode('tagsData'), 'utf-8')
+            lastSavedCache.tagsCache = shallowClone(tagsCache)
+        }
+        if (JSON.stringify(lastSavedCache.categoryCache) !== JSON.stringify(categoryCache) || !fs.existsSync(cacheCategory)) {
+            await fs.promises.writeFile(cacheCategory, `export const categoryData = ${JSON.stringify(categoryCache, null, 2)}` + hotCode('categoryData'), 'utf-8')
+            lastSavedCache.categoryCache = shallowClone(categoryCache)
+        }
+        if (JSON.stringify(lastSavedCache.postsCache) !== JSON.stringify(postsCache) || !fs.existsSync(cachePosts)) {
+            await fs.promises.writeFile(cachePosts, `export const postsData = ${JSON.stringify(postsCache, null, 2)}` + hotCode('postsData'), 'utf-8')
+            lastSavedCache.postsCache = shallowClone(postsCache)
+        }
+        if (JSON.stringify(lastSavedCache.starCache) !== JSON.stringify(starCache) || !fs.existsSync(cacheStar)) {
+            await fs.promises.writeFile(cacheStar, `export const starData = ${JSON.stringify(starCache, null, 2)}` + hotCode('starData'), 'utf-8')
+            lastSavedCache.starCache = shallowClone(starCache)
+        }
     } catch (error) {
         console.error('Failed to save cache:', error)
     }
@@ -293,7 +331,6 @@ export const initData = async () => {
 
 // 加载缓存文件
 const loadCache = async () => {
-    console.log(cacheMd)
     if (fs.existsSync(cacheMd)) {
         const { mdData } = await import(`file://${cacheMd}`);
         Object.assign(mdCache, mdData)

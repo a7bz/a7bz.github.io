@@ -42,16 +42,24 @@
 
 <script setup>
 import { formatTimestamp } from "@/scripts/helper";
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { mdData } from '@casual/mdCache'
 import { useData } from 'vitepress'
 
 const { page, frontmatter } = useData()
 
+const curData = ref(mdData)
+
 const postData = computed(() => {
     const href = page.value.filePath.replace('.md', '').replace('index', '')
-    return mdData[href].post
+    return curData.value[href].post
 })
+
+if (import.meta.env.DEV && import.meta.hot) {
+    __VUE_HMR_RUNTIME__.mdDataUpdate = (data) => {
+        Object.assign(curData.value, data)
+    }
+}
 
 </script>
 
