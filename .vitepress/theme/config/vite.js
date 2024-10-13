@@ -16,7 +16,7 @@ export const viteConfig = {
         name: 'md-file-watcher',
         configureServer(server) {
             const watcher = chokidar.watch(path.join(process.cwd(), 'posts'))
-            watcher.on('add', (e) => { addMd(e) })
+            watcher.on('add', (e) => { addMd(e); server.ws.send({ type: 'full-reload' }) })
                 .on('change', (e) => { changeMd(e) })
                 .on('unlink', (e) => { delMd(e) })
         }

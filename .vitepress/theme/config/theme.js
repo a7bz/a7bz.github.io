@@ -1,4 +1,33 @@
+import { siteData } from './index'
+const social = {
+  email: {
+    icon: 'email',
+    link: 'mailto:2484068670@qq.com'
+  },
+  github: {
+    icon: 'github',
+    link: 'https://github.com/a7bz'
+  },
+  qq: {
+    icon: 'qq',
+    link: 'https://admin.qidian.qq.com/static_proxy/b2b-qq/wpa-link/index.html#/person?uin=2484068670'
+  },
+}
+
+const footer = {
+  btn: [
+    social.email,
+    social.github,
+    social.qq,
+    {
+      icon: 'home',
+      link: '/'
+    }
+  ],
+}
+
 export const themeConfig = {
+  ...siteData,
   blog: {
     excerptLength: 200
   },
@@ -37,4 +66,6 @@ export const themeConfig = {
       ],
     },
   ],
+  social,
+  footer,
 }
