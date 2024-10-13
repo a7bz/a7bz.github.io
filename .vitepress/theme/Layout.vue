@@ -11,6 +11,8 @@
     <NotFound v-else></NotFound>
   </main>
 
+  <FooterLink />
+
   <Teleport to="body">
     <div :class="['left-menu', { hidden: footerIsShow }]">
 
@@ -20,16 +22,16 @@
 </template>
 
 <script setup>
+import { useData } from 'vitepress'
 import { computed, onMounted } from 'vue';
+import { storeToRefs } from "pinia"
+import { mainStore } from "@/store"
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
 import NotFound from './components/pages/NotFound.vue'
 import Post from './components/view/Post.vue'
 import Page from './components/view/Page.vue'
-import { useData } from 'vitepress'
-
-import { storeToRefs } from "pinia"
-import { mainStore } from "@/store"
+import FooterLink from './components/layout/FooterLink.vue'
 
 const store = mainStore()
 const { fontFamily, fontSize } = storeToRefs(store)
