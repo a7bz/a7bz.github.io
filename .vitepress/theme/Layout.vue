@@ -4,7 +4,6 @@
   <Nav />
 
   <main :class="['mian-layout', { 'is-post': isPost }]">
-    <Home v-if="frontmatter.home" />
     <template v-if="!page.isNotFound">
       <post v-if="isPost" />
       <page v-if="isPage" />
@@ -25,7 +24,6 @@ import { computed, onMounted } from 'vue';
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
 import NotFound from './components/pages/NotFound.vue'
-import Home from './components/pages/Home.vue'
 import Post from './components/view/Post.vue'
 import Page from './components/view/Page.vue'
 import { useData } from 'vitepress'

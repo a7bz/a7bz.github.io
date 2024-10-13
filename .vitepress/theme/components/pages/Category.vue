@@ -1,7 +1,10 @@
 <template>
   <div>
     <ShowTab icon="folder" name="分类" :data="tabData" hrefKey="category" v-if="single" />
-    <Tab type="category" :data="tabData" v-else />
+    <div  v-else>
+      <Tab home type="category" :data="tabData" />
+      <PostList :data="curData[params.name]" />
+    </div>
   </div>
 </template>
 
@@ -11,6 +14,7 @@ import { useData } from 'vitepress'
 import { categoryData } from '@casual/index.js'
 import ShowTab from '../common/ShowTab.vue'
 import Tab from '../common/Tab.vue'
+import PostList from '../common/PostList.vue'
 
 const props = defineProps({
   single: {
