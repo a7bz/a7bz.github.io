@@ -183,7 +183,7 @@ const getMdData = async (filePath) => {
         }
         if (!post.title) {
             const titleMatch = matterData.content.match(/^#\s(.+)$/m)
-            post.title = titleMatch ? titleMatch[1] : '无标题'
+            post.title = titleMatch ? titleMatch[1] : '未命名'
         }
         return post
     } catch (error) {

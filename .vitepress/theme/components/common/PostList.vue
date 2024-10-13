@@ -15,17 +15,18 @@
           </span>
         </div>
         <span class="post-title">{{ post(item).title }}</span>
-        <span v-if="post(item).excerpt" class="post-desc">
+        <span v-if="post(item).excerpt" class="post-desc markdown-main-style">
           <div class="post-excerpt" v-html="renderExcerpt(post(item).excerpt)" />
         </span>
         <div v-if="!simple" class="post-meta">
-          <div v-if="post(item)?.tags" class="post-tags">
+          <div v-if="post(item)?.tag" class="post-tags">
             <span v-for="tag in post(item)?.tag" :key="tag" class="tags-name">
               <i class="iconfont icon-hashtag" />
               {{ tag }}
             </span>
           </div>
-          <span class="post-time">{{ formatTimestamp(post(item)?.date) }}</span>
+          <span class="post-time">{{ post(item)?.date ?
+            formatTimestamp(post(item)?.date) : formatTimestamp(post(item)?.create) }}</span>
         </div>
       </div>
     </div>
@@ -54,7 +55,8 @@ const props = defineProps({
 const curData = ref(mdData)
 
 const post = (item) => {
-  return curData.value[item].post
+  return item.href ? curData.value[item.href].post
+    : curData.value[item].post
 }
 
 const router = useRouter()
@@ -63,7 +65,7 @@ const toPost = (href) => {
 }
 
 if (import.meta.env.DEV && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.postsDataUpdate = (data) => {
+  __VUE_HMR_RUNTIME__.mdDataUpdate = (data) => {
     Object.assign(curData.value, data)
   }
 }
@@ -86,6 +88,8 @@ const renderExcerpt = (excerpt) => {
 
   h2 {
     font-size: 1rem !important;
+    margin: 5px 0;
+    padding: 0 !important;
   }
 }
 
