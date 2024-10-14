@@ -10,9 +10,8 @@
             }">
                 <img @dragstart.prevent src="/logo.png" alt="" class="avatar" />
                 <span class="name">{{ name }}</span>
-                <span class="motto">
-                    {{ mottoText }}
-                </span>
+                <div class="motto">{{ mottoText }}</div>
+                <div class="author">{{ author }}</div>
             </div>
         </transition>
     </div>
@@ -23,70 +22,42 @@ import { useData } from 'vitepress'
 import { ref, onMounted } from 'vue'
 
 const themeConfig = useData().theme.value
-console.log(themeConfig)
 const name = themeConfig.title
 const welcomeText = '欢迎'
-const social = themeConfig.social
-
 const multiple = 30
 const welcomeBoxRef = ref(null)
-const calcY = ref(0)
-const calcX = ref(0)
-const angle = ref(0)
+const calcY = ref(0), calcX = ref(0), angle = ref(0)
 const visible = ref(false)
+const mottoText = ref(''), author = ref('')
 
 const parallax = (e) => {
-    if (welcomeBoxRef.value) {
-        window.requestAnimationFrame(() => {
-            const box = welcomeBoxRef.value.getBoundingClientRect()
-            calcY.value = (e.clientX - box.x - box.width / 2) / multiple
-            calcX.value = -(e.clientY - box.y - box.height / 2) / multiple
-            angle.value = Math.floor(
-                getMouseAngle(e.clientY - box.y - box.height / 2, e.clientX - box.x - box.width / 2),
-            )
-        })
+    const box = welcomeBoxRef.value?.getBoundingClientRect()
+    if (box) {
+        const [x, y] = [e.clientX - box.x - box.width / 2, e.clientY - box.y - box.height / 2]
+        calcY.value = x / multiple
+        calcX.value = -y / multiple
+        angle.value = Math.atan2(x, y) * (180 / Math.PI) + (x < 0 ? 360 : 0)
     }
 }
 
-const getMouseAngle = (x, y) => {
-    const radians = Math.atan2(y, x)
-    let angle = radians * (180 / Math.PI)
+const reset = () => calcX.value = calcY.value = angle.value = 0
 
-    if (angle < 0) {
-        angle += 360
-    }
-
-    return angle
-}
-
-const reset = () => {
-    calcX.value = calcY.value = angle.value = 0
-}
-
-let index = 0
-const mottoText = ref('')
-let randomMotto = ''
 fetch("https://v1.hitokoto.cn")
-    .then((res) => res.json())
-    .then(({ from, hitokoto }) => {
-        randomMotto = hitokoto
-        addNextCharacter()
-    })
+    .then(res => res.json())
+    .then(({ from, hitokoto }) => addNextCharacter(hitokoto, from))
 
-const addNextCharacter = () => {
-    if (index < randomMotto.length) {
-        mottoText.value += randomMotto[index]
-        index++
-        setTimeout(addNextCharacter, Math.random() * 150 + 50)
+const addNextCharacter = (motto, from) => {
+    let index = 0
+    const typeMotto = () => {
+        if (index < motto.length) {
+            mottoText.value += motto[index++]
+            setTimeout(typeMotto, Math.random() * 150 + 50)
+        } else author.value = '-' + from
     }
+    typeMotto()
 }
 
-
-onMounted(() => {
-    setTimeout(() => {
-        visible.value = true
-    }, 50)
-})
+onMounted(() => setTimeout(() => visible.value = true, 50))
 </script>
 
 <style scoped lang="scss">
@@ -100,7 +71,7 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 50px 8px 50px 8px;
+    margin: 50px 8px;
     z-index: 100;
     transform-style: preserve-3d;
     transition: all 0.2s;
@@ -136,7 +107,7 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding: 60px 40px 35px 40px;
+    padding: 60px 40px 35px;
     width: 720px;
     border-radius: 50px;
     border: solid 2px white;
@@ -179,17 +150,15 @@ onMounted(() => {
         text-align: center;
 
         @keyframes color-change {
-
-            0%,
-            40% {
-                --pointerColor: var(--font-color-grey);
-            }
-
-            60%,
-            100% {
-                --pointerColor: transparent;
-            }
+            0%, 40% { --pointerColor: var(--font-color-grey); }
+            60%, 100% { --pointerColor: transparent; }
         }
+    }
+
+    .author{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
     }
 
     ul {
@@ -199,21 +168,10 @@ onMounted(() => {
         margin-top: 30px;
         width: 200px;
         padding: 0;
-
-        .social {
-            font-size: 32px;
-            transition: all 0.5s;
-            color: var(--font-color-grey);
-
-            &:hover {
-                filter: drop-shadow(0 0 5px var(--font-color-grey));
-            }
-        }
     }
 }
 
 @media (max-width: 768px) {
-
     .welcome-text {
         font-size: 45px;
         margin-top: -20px;
