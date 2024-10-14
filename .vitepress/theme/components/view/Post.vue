@@ -66,7 +66,7 @@ if (import.meta.env.DEV && import.meta.hot) {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import "@/styles/post.scss";
 
 .post {

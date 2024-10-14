@@ -1,6 +1,6 @@
 <template>
   <header class="main-header">
-    <nav :class="['main-nav', scrollData.direction, { top: scrollData.height === 0 }]">
+    <nav :class="['main-nav', 'up', { top: scrollData.height === 0 }]">
       <div class="nav-all">
         <!-- 导航栏左侧 -->
         <div class="left-nav">
@@ -40,9 +40,9 @@
               </div>
             </div>
           </div>
-          <span class="site-title" @click="smoothScrolling">
+          <!-- <span class="site-title" @click="smoothScrolling">
             {{ (frontmatter.home ? site.description : page.title) || site.description }}
-          </span>
+          </span> -->
         </div>
         <div class="right-nav">
           <!-- 开往 -->
@@ -51,7 +51,7 @@
             <i class="iconfont icon-subway"></i>
           </a>
           <!-- 随机文章 -->
-          <div class="menu-btn nav-btn" title="随机前往一篇文章" @click="router.go(shufflePost(theme.postData))">
+          <div class="menu-btn nav-btn" title="随机前往一篇文章" @click="router.go(shufflePost(postsData))">
             <i class="iconfont icon-shuffle"></i>
           </div>
           <!-- 搜索 -->
@@ -99,6 +99,7 @@ import { storeToRefs } from "pinia"
 import { mainStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
 import { computed } from "vue"
+import { postsData } from "@casual/posts"
 
 const router = useRouter()
 const store = mainStore()

@@ -26,6 +26,7 @@ import { useData } from 'vitepress'
 import { computed, onMounted } from 'vue';
 import { storeToRefs } from "pinia"
 import { mainStore } from "@/store"
+import { calculateScroll } from './scripts/helper';
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
 import NotFound from './components/pages/NotFound.vue'
@@ -63,6 +64,7 @@ const isPage = computed(() => {
 
 onMounted(() => {
   changeSiteFont()
+  window.addEventListener("scroll", calculateScroll);
 })
 </script>
 

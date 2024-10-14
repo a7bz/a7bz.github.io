@@ -81,8 +81,6 @@ const props = defineProps({
     }
 })
 
-console.log(props)
-
 const slotsExist = useSlotsExist(['default', 'description', 'footer'])
 
 const showDescription = computed(() => {

@@ -15,16 +15,43 @@
         </a>
       </div>
     </div>
-
+    <div class="footer-sitemap">
+      <div v-for="(item, index) in footer.sitemap" :key="index" class="sitemap-item">
+        <span class="title">{{ item.text }}</span>
+        <div class="links">
+          <a v-for="(link, linkIndex) in item.items" :key="linkIndex" :href="link.link" class="link-text"
+            :target="link.newTab ? '_blank' : null">{{ link.text }}</a>
+        </div>
+      </div>
+      <!-- 随机友链 -->
+      <div class="sitemap-item">
+        <span class="title friends">
+          友链
+          <i class="iconfont icon-refresh" />
+        </span>
+        <div v-if="randomFriends?.length" class="links">
+          <a v-for="(link, linkIndex) in randomFriends" :key="linkIndex" :href="link.url" target="_blank"
+            class="link-text">
+            {{ link.name }}
+          </a>
+          <a href="/pages/link" class="link-text"> 更多 </a>
+        </div>
+        <div v-else class="links">
+          <a class="link-text"> 暂无友链 </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useData } from 'vitepress'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 const { theme } = useData()
 const { footer } = theme.value
 console.log(footer)
+
+const randomFriends = ref([])
 
 const btnData = computed(() => {
   if (footer.btn.length % 2 == 0) {
@@ -38,7 +65,6 @@ const btnData = computed(() => {
   }
 })
 
-console.log(btnData.value)
 </script>
 
 <style lang="scss" scoped>
