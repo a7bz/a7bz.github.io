@@ -7,7 +7,8 @@ import '@/styles/main.scss'
 import Empty from '@/components/view/Empty.vue'
 
 const pinia = createPinia()
-pinia.use(persistedstate)
+if (typeof window !== 'undefined') 
+  pinia.use(persistedstate)
 
 export default {
   Layout,

@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { tagsData } from '@casual/index.js'
 import Tab from '../common/Tab.vue'
@@ -25,10 +25,12 @@ const props = defineProps({
 
 const curData = ref(tagsData)
 
-const { params,site } = useData()
+const { params, site } = useData()
 
-if(params.value)
-  document.title = `标签：${params.value.name} | ${site.value.title}`
+onMounted(() => {
+  if (params.value)
+    document.title = `分类：${params.value.name} | ${site.value.title}`
+})
 
 const tabData = computed(() => {
   return Object.keys(curData.value).map(item => {

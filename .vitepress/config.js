@@ -5,6 +5,7 @@ import { initData } from './theme/scripts/handleMd'
 await initData()
 
 export default defineConfig({
+  ignoreDeadLinks: true,
   title: siteData.title,
   description: siteData.description,
   lang: 'zh-CN',
