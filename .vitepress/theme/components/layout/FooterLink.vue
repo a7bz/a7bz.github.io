@@ -49,7 +49,6 @@ import { useData } from 'vitepress'
 import { ref, computed } from 'vue'
 const { theme } = useData()
 const { footer } = theme.value
-console.log(footer)
 
 const randomFriends = ref([])
 
