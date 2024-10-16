@@ -10,15 +10,19 @@
                     </a>
                 </div>
                 <div class="tags">
-                    <a v-for="(item, index) in postData.tag" :key="index" :href="`/pages/tag/${item}`"
-                        class="tag-item">
+                    <a v-for="(item, index) in postData.tag" :key="index" :href="`/pages/tag/${item}`" class="tag-item">
                         <i class="iconfont icon-hashtag" />
                         <span class="name">{{ item }}</span>
                     </a>
                 </div>
             </div>
-            <h1 class="title">
-                {{ postData.title || "未命名文章" }}
+            <h1 class="title" style="display: flex;align-items: center;">
+                <div>
+                    <i :class="`iconfont icon-${postData.icon}`" style="font-size: 40px;margin-right: 10px;" />
+                </div>
+                <div>
+                    {{ postData.title || "未命名文章" }}
+                </div>
             </h1>
             <div class="other-meta">
                 <span class="meta date">
@@ -26,7 +30,7 @@
                     {{ postData.date ? formatTimestamp(postData.date) : formatTimestamp(postData.create) }}
                 </span>
                 <span class="update meta">
-                    <i class="iconfont icon-time" />
+                    <i class="iconfont icon-update" />
                     {{ formatTimestamp(postData.update) }}
                 </span>
             </div>
