@@ -74,7 +74,7 @@
                 <span :key="scrollData.percentage > 90" class="num">
                   {{ scrollData.percentage <= 90 ? scrollData.percentage : "返回顶部" }} </span>
               </Transition>
-              <i class="iconfont icon-up"></i>
+              <i class="iconfont icon-rocket"></i>
             </div>
           </div>
           <!-- 移动端菜单 -->
@@ -317,7 +317,7 @@ const pageHref = computed(() => {
         cursor: pointer;
 
         &::after {
-          content: "\e032";
+          content: "\e607";
           font-family: "iconfont";
           display: flex;
           align-items: center;

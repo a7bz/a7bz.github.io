@@ -66,6 +66,7 @@ export const themeConfig = {
       ],
     },
     {
+      icon: "clipboard",
       text: "专栏",
       items: [
         { text: "技术分享", link: "/pages/category/技术分享", icon: "technical" },
@@ -74,6 +75,7 @@ export const themeConfig = {
       ],
     },
     {
+      icon: "links",
       text: "友链",
       items: [
         { text: "友链鱼塘", link: "/pages/friends", icon: "fish" },
@@ -81,6 +83,7 @@ export const themeConfig = {
       ],
     },
     {
+      icon: "cross",
       text: "我的",
       items: [
         { text: "畅所欲言", link: "/pages/message", icon: "chat" },
