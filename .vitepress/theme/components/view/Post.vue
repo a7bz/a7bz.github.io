@@ -38,7 +38,7 @@
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
             </article>
-            <Aside />
+            <Aside toc />
         </div>
 
     </div>
