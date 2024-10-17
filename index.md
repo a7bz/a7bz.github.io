@@ -1,5 +1,6 @@
 ---
 home: true
+aside: true
 ---
 
 <script setup>

@@ -16,13 +16,9 @@
                     </a>
                 </div>
             </div>
-            <h1 class="title" style="display: flex;align-items: center;">
-                <div>
-                    <i :class="`iconfont icon-${postData.icon}`" style="font-size: 40px;margin-right: 10px;" />
-                </div>
-                <div>
-                    {{ postData.title || "未命名文章" }}
-                </div>
+            <h1 class="title">
+                <i :class="`iconfont icon-${postData.icon}`" style="font-size: 1.8rem;" />
+                {{ postData.title || "未命名文章" }}
             </h1>
             <div class="other-meta">
                 <span class="meta date">
@@ -42,6 +38,7 @@
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
             </article>
+            <Aside />
         </div>
 
     </div>
@@ -52,6 +49,7 @@ import { formatTimestamp } from "@/scripts/helper"
 import { computed, ref } from 'vue'
 import { mdData } from '@casual/mdCache'
 import { useData } from 'vitepress'
+import Aside from '@/components/layout/Aside/index.vue'
 
 const { page, frontmatter } = useData()
 

@@ -4,6 +4,7 @@
   <Nav />
 
   <main :class="['mian-layout', { 'is-post': isPost }]">
+    <WelcomeBox v-if="page.filePath=='index.md'" />
     <template v-if="!page.isNotFound">
       <post v-if="isPost" />
       <page v-if="isPage" />
@@ -33,6 +34,7 @@ import NotFound from './components/pages/NotFound.vue'
 import Post from './components/view/Post.vue'
 import Page from './components/view/Page.vue'
 import FooterLink from './components/layout/FooterLink.vue'
+import WelcomeBox from './components/view/WelcomeBox.vue'
 
 const store = mainStore()
 const { fontFamily, fontSize } = storeToRefs(store)

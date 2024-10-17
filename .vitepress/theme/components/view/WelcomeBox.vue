@@ -45,6 +45,7 @@ const reset = () => calcX.value = calcY.value = angle.value = 0
 fetch("https://v1.hitokoto.cn")
     .then(res => res.json())
     .then(({ from, hitokoto }) => addNextCharacter(hitokoto, from))
+    .catch(err => addNextCharacter("星空不问赶路人，岁月不负有心人","大冰"))
 
 const addNextCharacter = (motto, from) => {
     let index = 0
@@ -150,12 +151,20 @@ onMounted(() => setTimeout(() => visible.value = true, 50))
         text-align: center;
 
         @keyframes color-change {
-            0%, 40% { --pointerColor: var(--font-color-grey); }
-            60%, 100% { --pointerColor: transparent; }
+
+            0%,
+            40% {
+                --pointerColor: var(--font-color-grey);
+            }
+
+            60%,
+            100% {
+                --pointerColor: transparent;
+            }
         }
     }
 
-    .author{
+    .author {
         width: 100%;
         display: flex;
         justify-content: flex-end;
