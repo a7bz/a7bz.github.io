@@ -1,6 +1,5 @@
 <template>
   <div>
-    <WelcomeBox />
     <Tab home type="category" :data="tabData" />
     <div>
       <PostList :data="curPosts" />
@@ -13,7 +12,6 @@ import { ref, computed } from 'vue'
 import { postsData, categoryData } from '@casual/index'
 import Tab from '../common/Tab.vue'
 import PostList from '../common/PostList.vue'
-import WelcomeBox from '../view/WelcomeBox.vue'
 
 const curData = ref(categoryData)
 const curPosts = ref(postsData)

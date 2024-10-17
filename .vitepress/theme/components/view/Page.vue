@@ -3,11 +3,13 @@
     <div class="page-content">
       <Content id="page-content" :class="['markdown-main-style', { 's-card': frontmatter.card }]" />
     </div>
+    <Aside v-if="frontmatter.aside" />
   </div>
 </template>
 
 <script setup>
 import { useData } from 'vitepress'
+import Aside from '@/components/layout/Aside/index.vue'
 const { frontmatter } = useData()
 </script>
 

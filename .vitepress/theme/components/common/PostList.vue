@@ -14,7 +14,10 @@
             置顶
           </span>
         </div>
-        <span class="post-title">{{ post(item).title }}</span>
+        <span class="post-title">
+          <i :class="`iconfont icon-${post(item).icon}`" />
+          {{ post(item).title }}
+        </span>
         <span v-if="post(item).excerpt" class="post-desc markdown-main-style">
           <div class="post-excerpt" v-html="renderExcerpt(post(item).excerpt)" />
         </span>
