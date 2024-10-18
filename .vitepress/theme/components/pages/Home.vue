@@ -2,34 +2,29 @@
   <div>
     <Tab home type="category" :data="tabData" />
     <div>
-      <PostList :data="curPosts" />
+      <PostList :data="postsData" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { postsData, categoryData } from '@casual/index'
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useDataStore } from '@/store/index'
 import Tab from '../common/Tab.vue'
 import PostList from '../common/PostList.vue'
 
-const curData = ref(categoryData)
-const curPosts = ref(postsData)
+const dataStore = useDataStore()
+const { categoryData, postsData } = storeToRefs(dataStore)
 
 const tabData = computed(() => {
-  return Object.keys(curData.value).map(item => {
+  return Object.keys(categoryData.value).map(item => {
     return {
       name: item,
-      count: curData.value[item].length
+      count: categoryData.value[item].length
     }
   }).sort((a, b) => b.count - a.count)
 })
-
-if (import.meta.env.DEV && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.postsDataUpdate = (data) => {
-    Object.assign(curPosts.value, data)
-  }
-}
 
 </script>
 

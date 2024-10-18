@@ -10,8 +10,9 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { mainStore } from '@/store/index'
-const store = mainStore()
+import { useMainStore } from '@/store/index'
+
+const store = useMainStore()
 const { backgroundType, themeValue, backgroundUrl } = storeToRefs(store)
 
 // 加载失败

@@ -4,5 +4,7 @@ aside: false
 ---
 
 <script setup>
-
+import Archives from '@/components/pages/Archives.vue'
 </script>
+
+<Archives />

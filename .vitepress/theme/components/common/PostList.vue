@@ -37,12 +37,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import { useRouter } from 'vitepress'
-import { mdData } from '@casual/index'
+import { storeToRefs } from 'pinia'
+import { useDataStore } from '@/store/index'
 import { formatTimestamp } from '@/scripts/helper'
 
+const dataStore = useDataStore()
+const { mdData } = storeToRefs(dataStore)
 
 const props = defineProps({
   data: {
@@ -55,22 +57,14 @@ const props = defineProps({
   }
 })
 
-const curData = ref(mdData)
-
 const post = (item) => {
-  return item.href ? curData.value[item.href].post
-    : curData.value[item].post
+  return item.href ? mdData.value[item.href].post
+    : mdData.value[item].post
 }
 
 const router = useRouter()
 const toPost = (href) => {
   router.go(href)
-}
-
-if (import.meta.env.DEV && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.mdDataUpdate = (data) => {
-    Object.assign(curData.value, data)
-  }
 }
 
 const md = new MarkdownIt()

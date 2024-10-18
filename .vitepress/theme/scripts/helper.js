@@ -1,4 +1,4 @@
-import { mainStore } from "../store/index"
+import { useMainStore } from "../store/index"
 
 /**
  * 防抖函数
@@ -55,7 +55,7 @@ export const calculateScroll = throttle(
   () => {
     try {
       if (typeof window === "undefined" || typeof document === "undefined") return false
-      const store = mainStore()
+      const store = useMainStore()
       const scrollY = window.scrollY || window.pageYOffset
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
       const scrollPercentage = ((scrollY / totalHeight) * 100).toFixed(0)

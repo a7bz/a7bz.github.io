@@ -3,28 +3,27 @@
     <ShowTab icon="folder" name="分类" :data="tabData" hrefKey="category" v-if="single" />
     <div v-else>
       <Tab home type="category" :data="tabData" />
-      <PostList :data="curData[params.name]" />
+      <PostList :data="categoryData[params.name]" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useData } from 'vitepress'
-import { categoryData } from '@casual/index.js'
+import { storeToRefs } from 'pinia'
 import ShowTab from '../common/ShowTab.vue'
 import Tab from '../common/Tab.vue'
 import PostList from '../common/PostList.vue'
-
+import { useDataStore } from '@/store/index'
 const props = defineProps({
   single: {
     type: Boolean,
     default: false
   }
 })
-
-const curData = ref(categoryData)
-
+const dataStore = useDataStore()
+const { categoryData } = storeToRefs(dataStore)
 const { params, site } = useData()
 
 onMounted(() => {
@@ -32,21 +31,14 @@ onMounted(() => {
     document.title = `分类：${params.value.name} | ${site.value.title}`
 })
 
-
 const tabData = computed(() => {
-  return Object.keys(curData.value).map(item => {
+  return Object.keys(categoryData.value).map(item => {
     return {
       name: item,
-      count: curData.value[item].length
+      count: categoryData.value[item].length
     }
   }).sort((a, b) => b.count - a.count)
 })
-
-if (import.meta.env.DEV && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {
-    Object.assign(curData.value, data)
-  }
-}
 
 </script>
 

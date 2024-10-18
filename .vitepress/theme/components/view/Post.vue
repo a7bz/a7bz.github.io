@@ -45,27 +45,21 @@
 </template>
 
 <script setup>
-import { formatTimestamp } from "@/scripts/helper"
 import { computed, ref } from 'vue'
-import { mdData } from '@casual/mdCache'
+import { storeToRefs } from 'pinia'
 import { useData } from 'vitepress'
+import { formatTimestamp } from "@/scripts/helper"
 import Aside from '@/components/layout/Aside/index.vue'
+import { useDataStore } from '@/store/index'
 
+const dataStore = useDataStore()
 const { page, frontmatter } = useData()
-
-const curData = ref(mdData)
+const { mdData } = storeToRefs(dataStore)
 
 const postData = computed(() => {
     const href = page.value.filePath.replace('.md', '').replace('index', '')
-    return curData.value[href].post
+    return mdData.value[href].post
 })
-
-if (import.meta.env.DEV && import.meta.hot) {
-    __VUE_HMR_RUNTIME__.mdDataUpdate = (data) => {
-        Object.assign(curData.value, data)
-    }
-}
-
 </script>
 
 <style lang="scss" scoped>
