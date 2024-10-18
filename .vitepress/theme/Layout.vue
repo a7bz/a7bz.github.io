@@ -4,7 +4,7 @@
   <Nav />
 
   <main :class="['mian-layout', { 'is-post': isPost }]">
-    <WelcomeBox v-if="page.filePath=='index.md'" />
+    <WelcomeBox v-if="page.filePath == 'index.md'" />
     <template v-if="!page.isNotFound">
       <post v-if="isPost" />
       <page v-if="isPage" />
@@ -26,7 +26,7 @@
 import { useData } from 'vitepress'
 import { computed, onMounted } from 'vue';
 import { storeToRefs } from "pinia"
-import { mainStore } from "@/store"
+import { useMainStore, useDataStore } from "@/store/index"
 import { calculateScroll } from './scripts/helper';
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
@@ -36,14 +36,12 @@ import Page from './components/view/Page.vue'
 import FooterLink from './components/layout/FooterLink.vue'
 import WelcomeBox from './components/view/WelcomeBox.vue'
 
-const store = mainStore()
+const store = useMainStore()
 const { fontFamily, fontSize } = storeToRefs(store)
 const { site, theme, page, frontmatter } = useData()
 
 const footerIsShow = false
 
-
-// 切换系统字体样式
 const changeSiteFont = () => {
   try {
     const htmlElement = document.documentElement
@@ -54,7 +52,6 @@ const changeSiteFont = () => {
     console.error("切换系统字体样式失败", error)
   }
 }
-
 
 const isPost = computed(() => {
   return page.value.relativePath.startsWith('posts/') && !page.value.relativePath.endsWith('index.md')
@@ -68,6 +65,32 @@ onMounted(() => {
   changeSiteFont()
   window.addEventListener("scroll", calculateScroll);
 })
+
+const dataStore = useDataStore()
+const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
+
+if (import.meta.env.DEV && import.meta.hot) {
+  __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {
+    categoryData.value = {}
+    Object.assign(categoryData.value, data)
+  }
+  __VUE_HMR_RUNTIME__.mdDataUpdate = (data) => {
+    mdData.value = {}
+    Object.assign(mdData.value, data)
+  }
+  __VUE_HMR_RUNTIME__.postsDataUpdate = (data) => {
+    postsData.value = []
+    Object.assign(postsData.value, data)
+  }
+  __VUE_HMR_RUNTIME__.starDataUpdate = (data) => {
+    starData.value = []
+    Object.assign(starData.value, data)
+  }
+  __VUE_HMR_RUNTIME__.tagsDataUpdate = (data) => {
+    tagsData.value = {}
+    Object.assign(tagsData.value, data)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

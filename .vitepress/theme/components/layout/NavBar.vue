@@ -94,15 +94,16 @@
 </template>
 
 <script setup>
+import { computed } from "vue"
 import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
-import { mainStore } from "@/store/index"
+import { useMainStore, useDataStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
-import { computed } from "vue"
-import { postsData } from "@casual/posts"
 
 const router = useRouter()
-const store = mainStore()
+const store = useMainStore()
+const dataStore = useDataStore
+const { postsData } = storeToRefs(dataStore)
 const { scrollData } = storeToRefs(store)
 const { site, theme, frontmatter, page } = useData()
 

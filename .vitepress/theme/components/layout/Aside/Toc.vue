@@ -5,25 +5,24 @@
       <span class="name">目录</span>
     </div>
     <div id="toc-all" class="toc-list" :style="{ '--height': activeTocHeight + 'px' }">
-      <span v-for="(item, index) in tocData" :key="index" :id="'toc-' + item.id" :class="[
-        'toc-item',
-        item.type,
+      <a v-for="(item, index) in tocData" :key="index" :id="'toc-' + item.id" :class="[
+        'toc-item', item.type,
         { active: item.id === activeHeader || (index === 0 && !activeHeader) },
-      ]" @click="scrollToHeader(item.id)">
+      ]" :href="'#' + item.id" @click="activeHeader = item.id">
         {{ item.text }}
-      </span>
+      </a>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRoute } from 'vitepress'
 import { throttle } from '@/scripts/helper'
-import { mainStore } from '@/store'
+import { useMainStore } from '@/store/index'
 
 const route = useRoute()
-const store = mainStore()
+const store = useMainStore()
 
 const tocData = ref(null)
 const postDom = ref(null)
@@ -57,37 +56,36 @@ const generateDirData = () => {
   tocData.value = nestedData
 }
 
-const activeTocItem = throttle(
-  () => {
-    if (!tocData.value) return false
-    const headers = getAllTitle()
-    if (!headers) return false
-    const bufferheight = 120
-    for (let header of headers) {
-      const rect = header.getBoundingClientRect()
-      if (rect.top - bufferheight <= 0 && rect.bottom + bufferheight >= 0) {
-        activeHeader.value = header.id
-      }
-    }
-  }, 100, true)
-
-const scrollToHeader = (id) => {
-  try {
-    const headerDom = document.getElementById(id)
-    if (!headerDom || !postDom.value) return false
-    const headerTop = headerDom.offsetTop
-    const scrollHeight = headerTop + postDom.value.offsetTop - 80
-    window.scroll({ top: scrollHeight, behavior: "smooth" })
-  } catch (error) {
-    console.error("目录滚动失败：", error)
-  }
+const tocScroll = (val) => {
+  const tocAllDom = document.getElementById("toc-all");
+  const activeTocItem = document.getElementById("toc-" + val);
+  if (!tocAllDom || !activeTocItem) return false;
+  activeTocHeight.value = activeTocItem?.offsetTop - 2 || 0;
+  tocAllDom?.scrollTo({ top: activeTocHeight.value - 80, behavior: "smooth" });
 }
+
+const activeTocItem = throttle(() => {
+  if (!tocData.value) return false
+  const headers = getAllTitle()
+  if (!headers) return false
+  const bufferHeight = 120
+  for (let header of headers) {
+    const rect = header.getBoundingClientRect()
+    if (rect.top <= bufferHeight && rect.bottom + bufferHeight / 2 >= 0) {
+      activeHeader.value = header.id
+    }
+  }
+}, 100, true)
+
+
+watch(() => activeHeader.value, (val) => {
+  tocScroll(val)
+})
 
 watch(
   () => store.scrollData.percentage,
   (val) => {
     if (val === 0 && tocData.value) {
-      console.log("回到顶部")
       const headers = getAllTitle()
       if (!headers) return false
       activeTocHeight.value = 0
@@ -96,22 +94,16 @@ watch(
   })
 
 watch(
-  () => activeHeader.value,
-  (val) => {
-    const tocAllDom = document.getElementById("toc-all")
-    const activeTocItem = document.getElementById("toc-" + val)
-    if (!tocAllDom || !activeTocItem) return false
-    activeTocHeight.value = activeTocItem?.offsetTop - 2 || 0
-    tocAllDom?.scrollTo({ top: activeTocHeight.value - 80, behavior: "smooth" })
-  },)
-
-watch(
   () => route.path,
   () => generateDirData(),
 )
 
 onMounted(() => {
   generateDirData()
+  activeHeader.value = decodeURIComponent(window.location.hash).replace('#', "")
+  nextTick(() => {
+    tocScroll(activeHeader.value)
+  })
   window.addEventListener("scroll", activeTocItem)
 })
 
@@ -120,7 +112,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .toc {
   position: relative;
   padding: 0 !important;

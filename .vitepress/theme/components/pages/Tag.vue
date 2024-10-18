@@ -3,18 +3,19 @@
     <ShowTab icon="hashtag" name="标签" :data="tabData" hrefKey="tag" v-if="single" />
     <div v-else>
       <Tab type="tag" :data="tabData" />
-      <PostList :data="curData[params.name]" />
+      <PostList :data="tagsData[params.name]" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useData } from 'vitepress'
-import { tagsData } from '@casual/index.js'
+import { storeToRefs } from 'pinia'
 import Tab from '../common/Tab.vue'
 import ShowTab from '../common/ShowTab.vue'
 import PostList from '../common/PostList.vue'
+import { useDataStore } from '@/store/index'
 
 const props = defineProps({
   single: {
@@ -23,8 +24,8 @@ const props = defineProps({
   }
 })
 
-const curData = ref(tagsData)
-
+const dataStore = useDataStore()
+const { tagsData } = storeToRefs(dataStore)
 const { params, site } = useData()
 
 onMounted(() => {
@@ -33,21 +34,13 @@ onMounted(() => {
 })
 
 const tabData = computed(() => {
-  return Object.keys(curData.value).map(item => {
+  return Object.keys(tagsData.value).map(item => {
     return {
       name: item,
-      count: curData.value[item].length
+      count: tagsData.value[item].length
     }
   }).sort((a, b) => b.count - a.count)
 })
-
-if (import.meta.env.DEV && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.tagsDataUpdate = (data) => {
-    Object.assign(curData.value, data)
-  }
-}
-
-
 </script>
 
 <style scoped></style>
