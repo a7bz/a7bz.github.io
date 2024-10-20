@@ -52,7 +52,8 @@ const footer = {
 export const themeConfig = {
   ...siteData,
   blog: {
-    excerptLength: 200
+    excerptLength: 200,
+    feedback: social.qq.link,
   },
   nav: [
     { icon: "home", text: "主页", link: "/", },

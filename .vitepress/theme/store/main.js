@@ -12,7 +12,9 @@ export const useMainStore = defineStore('main', {
                 direction: "down",
             },
             fontFamily: "hmos",
-            fontSize: 16
+            fontSize: 16,
+            infoPosition: "fixed",
+            footerIsShow: false,
         }
     },
     actions: {

@@ -37,6 +37,21 @@
                     <Empty description="暂无内容" />
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
+                <div class="other-meta">
+                    <div class="all-tags">
+                        <a v-for="(item, index) in postData.tag" :key="index" :href="`/pages/tag/${item}`"
+                            class="tag-item">
+                            <i class="iconfont icon-hashtag" />
+                            <span class="name">{{ item }}</span>
+                        </a>
+                    </div>
+                    <a :href="theme.blog.feedback" class="report" target="_blank">
+                        <i class="iconfont icon-question" />
+                        反馈与投诉
+                    </a>
+                </div>
+                <NextPost />
+                <RelatedPost />
             </article>
             <Aside toc />
         </div>
@@ -45,15 +60,17 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useData } from 'vitepress'
 import { formatTimestamp } from "@/scripts/helper"
-import Aside from '@/components/layout/Aside/index.vue'
 import { useDataStore } from '@/store/index'
+import Aside from '@/components/layout/Aside/index.vue'
+import NextPost from './NextPost.vue'
+import RelatedPost from './RelatedPost.vue'
 
 const dataStore = useDataStore()
-const { page, frontmatter } = useData()
+const { page, theme } = useData()
 const { mdData } = storeToRefs(dataStore)
 
 const postData = computed(() => {

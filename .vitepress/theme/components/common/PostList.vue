@@ -18,7 +18,7 @@
           <i :class="`iconfont icon-${post(item).icon}`" />
           {{ post(item).title }}
         </span>
-        <span v-if="post(item).excerpt" class="post-desc markdown-main-style">
+        <span v-if="post(item).excerpt && !unShowExcerpt" class="post-desc markdown-main-style">
           <div class="post-excerpt" v-html="renderExcerpt(post(item).excerpt)" />
         </span>
         <div v-if="!simple" class="post-meta">
@@ -52,6 +52,10 @@ const props = defineProps({
     default: []
   },
   simple: {
+    type: Boolean,
+    default: false
+  },
+  unShowExcerpt: {
     type: Boolean,
     default: false
   }
