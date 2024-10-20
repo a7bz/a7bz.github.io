@@ -73,6 +73,7 @@ const activeTocItem = throttle(() => {
     const rect = header.getBoundingClientRect()
     if (rect.top <= bufferHeight && rect.bottom + bufferHeight / 2 >= 0) {
       activeHeader.value = header.id
+      window.location.hash = '#' + header.id
     }
   }
 }, 100, true)
