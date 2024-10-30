@@ -52,6 +52,7 @@
                 </div>
                 <NextPost />
                 <RelatedPost />
+                <Comments />
             </article>
             <Aside toc />
         </div>
@@ -68,6 +69,7 @@ import { useDataStore } from '@/store/index'
 import Aside from '@/components/layout/Aside/index.vue'
 import NextPost from './NextPost.vue'
 import RelatedPost from './RelatedPost.vue'
+import Comments from '@/components/plugin/Comments/index.vue'
 
 const dataStore = useDataStore()
 const { page, theme } = useData()

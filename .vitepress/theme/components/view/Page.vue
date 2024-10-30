@@ -2,6 +2,7 @@
   <div :class="[frontmatter.layout || 'page', { 'has-aside': frontmatter.aside }]">
     <div class="page-content">
       <Content id="page-content" :class="['markdown-main-style', { 's-card': frontmatter.card }]" />
+      <Comments class="s-card" v-if="theme.blog.pageComment || frontmatter.comment" />
     </div>
     <Aside v-if="frontmatter.aside" />
   </div>
@@ -10,7 +11,8 @@
 <script setup>
 import { useData } from 'vitepress'
 import Aside from '@/components/layout/Aside/index.vue'
-const { frontmatter } = useData()
+import Comments from '@/components/plugin/Comments/index.vue'
+const { theme, frontmatter } = useData()
 </script>
 
 <style lang="scss" scoped>
