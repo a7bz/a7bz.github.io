@@ -1,5 +1,6 @@
 export * from './head'
 export * from './main'
-export * from './theme'
 export * from './vite'
 export * from './markdown'
+export * from './plugin'
+export * from './theme'
