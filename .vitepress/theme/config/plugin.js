@@ -15,6 +15,8 @@ const comment = {
         '//unpkg.com/@waline/emojis@1.2.0/bmoji',
         '//unpkg.com/@waline/emojis@1.2.0/bilibili'
     ],
+    comment:'.post-comment',
+    pageview:'.post-pageview'
 }
 
 export const plugin = {

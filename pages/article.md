@@ -4,7 +4,7 @@ aside: false
 ---
 
 <script setup>
-import Archives from '@/components/pages/Archives.vue'
+import Article from '@/components/pages/Article.vue'
 </script>
 
-<Archives />
+<Article />

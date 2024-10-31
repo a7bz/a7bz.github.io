@@ -11,7 +11,8 @@
       </div>
     </div>
     <div class="archives-list">
-      <PostList :data="tab == 0 ? postsData : starData" un-show-excerpt />
+      <PostList v-show="tab == 0" :data="postsData" un-show-excerpt />
+      <PostList v-show="tab == 1" :data="starData" un-show-excerpt />
     </div>
   </div>
 </template>

@@ -10,10 +10,11 @@ import { onMounted, ref } from 'vue'
 const { theme } = useData()
 const commentRef = ref(null)
 
+console.log(theme.value.plugin.comment)
 
 onMounted(async () => {
   const { init } = await import('@waline/client')
-  init({
+  const waline = init({
     el: '#comment-dom',
     ...theme.value.plugin.comment
   })

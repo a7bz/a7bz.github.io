@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from 'vue'
+import { ref } from 'vue'
 import { useData, useRouter } from 'vitepress'
 import Waline from './Waline.vue'
 const { theme } = useData()

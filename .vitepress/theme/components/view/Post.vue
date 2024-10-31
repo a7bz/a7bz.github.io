@@ -29,6 +29,14 @@
                     <i class="iconfont icon-update" />
                     {{ formatTimestamp(postData.update) }}
                 </span>
+                <span class="hot meta">
+                    <i class="iconfont icon-hot" />
+                    <span class="post-pageview" :data-path="'/' + postData.href">...</span>
+                </span>
+                <span class="chat meta hover" @click="commentRef?.scrollToComments">
+                    <i class="iconfont icon-chat" />
+                    <span class="post-comment" :data-path="'/' + postData.href">...</span>
+                </span>
             </div>
         </div>
         <div class="post-content">
@@ -52,7 +60,7 @@
                 </div>
                 <NextPost />
                 <RelatedPost />
-                <Comments />
+                <Comments ref="commentRef" />
             </article>
             <Aside toc />
         </div>
@@ -61,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useData } from 'vitepress'
 import { formatTimestamp } from "@/scripts/helper"
@@ -74,6 +82,7 @@ import Comments from '@/components/plugin/Comments/index.vue'
 const dataStore = useDataStore()
 const { page, theme } = useData()
 const { mdData } = storeToRefs(dataStore)
+const commentRef = ref(null)
 
 const postData = computed(() => {
     const href = page.value.filePath.replace('.md', '').replace('index', '')
