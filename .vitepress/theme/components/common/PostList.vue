@@ -22,10 +22,18 @@
           <div class="post-excerpt" v-html="renderExcerpt(post(item).excerpt)" />
         </span>
         <div v-if="!simple" class="post-meta">
-          <div v-if="post(item)?.tag" class="post-tags">
-            <span v-for="tag in post(item)?.tag" :key="tag" class="tags-name">
+          <div class="post-tags">
+            <span v-for="tag in post(item)?.tag" v-if="post(item)?.tag" :key="tag" class="tags-name">
               <i class="iconfont icon-hashtag" />
               {{ tag }}
+            </span>
+            <span class="meta">
+              <i class="iconfont icon-hot" />
+              <span class="post-pageview" :data-path="'/' + post(item).href">...</span>
+            </span>
+            <span class="meta">
+              <i class="iconfont icon-chat" />
+              <span class="post-comment" :data-path="'/' + post(item).href">...</span>
             </span>
           </div>
           <span class="post-time">{{ post(item)?.date ?
@@ -37,12 +45,14 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import MarkdownIt from 'markdown-it'
-import { useRouter } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
 import { formatTimestamp } from '@/scripts/helper'
 
+const { theme, frontmatter } = useData()
 const dataStore = useDataStore()
 const { mdData } = storeToRefs(dataStore)
 
@@ -76,6 +86,26 @@ const renderExcerpt = (excerpt) => {
   return md.render(excerpt)
 }
 
+const postMetaUpdate = async () => {
+  if (!frontmatter.value.comment && !theme.value.blog.pageComment) {
+    const { pageviewCount, commentCount } = await import('@waline/client')
+    pageviewCount({
+      serverURL: theme.value.plugin.comment.serverURL,
+      path: window.location.pathname,
+      selector: '.post-pageview'
+    })
+    commentCount({
+      serverURL: theme.value.plugin.comment.serverURL,
+      path: window.location.pathname,
+      selector: '.post-comment',
+      update: false
+    })
+  }
+}
+
+onMounted(() => {
+  postMetaUpdate()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -183,6 +213,14 @@ const renderExcerpt = (excerpt) => {
               #fff 90%,
               hsla(0, 0%, 100%, 0.6) 95%,
               hsla(0, 0%, 100%, 0) 100%);
+
+          .meta {
+            margin-right: 10px;
+
+            .iconfont {
+              margin-right: 5px;
+            }
+          }
 
           .tags-name {
             display: flex;
