@@ -1,5 +1,5 @@
 <template>
-  <link rel="stylesheet" href="/node_modules/@waline/client/dist/waline.css">
+  <link rel="stylesheet" href="/assets/css/waline.css">
   <div ref="commentRef" id="comment-dom" :class="['comment-container', 'waline']" />
 </template>
 
@@ -9,8 +9,6 @@ import { onMounted, ref } from 'vue'
 
 const { theme } = useData()
 const commentRef = ref(null)
-
-console.log(theme.value.plugin.comment)
 
 onMounted(async () => {
   const { init } = await import('@waline/client')
@@ -35,4 +33,6 @@ onMounted(async () => {
 }
 </style>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

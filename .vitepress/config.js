@@ -1,10 +1,11 @@
 import { defineConfig } from 'vitepress'
-import { siteData, themeConfig, viteConfig, headConfig, markdownConfig } from './theme/config/index'
+import { main, siteData, themeConfig, viteConfig, headConfig, markdownConfig } from './theme/config/index'
 import { initData } from './theme/scripts/handleMd'
 
 await initData()
 
 export default defineConfig({
+  ...main,
   ignoreDeadLinks: true,
   title: siteData.title,
   description: siteData.description,

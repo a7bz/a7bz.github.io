@@ -102,7 +102,7 @@ import { smoothScrolling, shufflePost } from "@/scripts/helper"
 
 const router = useRouter()
 const store = useMainStore()
-const dataStore = useDataStore
+const dataStore = useDataStore()
 const { postsData } = storeToRefs(dataStore)
 const { scrollData } = storeToRefs(store)
 const { site, theme, frontmatter, page } = useData()
