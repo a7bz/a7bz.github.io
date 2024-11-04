@@ -1,0 +1,1 @@
+import{_ as e,s as t,q as s}from"./chunks/framework.OdgUePS5.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"pages/friends.md","filePath":"pages/friends.md"}'),a={name:"pages/friends.md"};function r(n,o,c,d,i,p){return s(),t("div")}const m=e(a,[["render",r]]);export{_ as __pageData,m as default};
