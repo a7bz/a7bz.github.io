@@ -163,7 +163,15 @@ const getExcerpt = (file) => {
 
 // 解析 Markdown 文件内容
 const getMdData = async (filePath) => {
-    const href = `posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
+    const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
+    const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
+    let href
+    if (match) {
+        const id = match[4] || ''
+        href = id ? `posts/${match[1]}/${match[4]}` : `posts/${match[1]}/${match[3]}`
+    }
+    if(!href)
+        href = `posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
     const { mtimeMs: timestamp, birthtimeMs: createTime } = await fs.promises.stat(filePath)
     const cached = mdCache[href]
     if (cached && timestamp === cached.timestamp) {

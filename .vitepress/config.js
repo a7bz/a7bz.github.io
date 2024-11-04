@@ -23,6 +23,10 @@ export default defineConfig({
       lazyLoading: true,
     },
     config: markdownConfig,
-  }
+  },
+  rewrites: {
+    'posts/:year/(.*)/(.*)-:id': 'posts/:year/:id',
+    'posts/:year/(.*)/:filename': 'posts/:year/:filename'
+  },
 })
 

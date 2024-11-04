@@ -33,6 +33,8 @@ const path = computed(() => {
 const getRelatedData = async () => {
     const catName = frontmatter.value.category
     const filteredPosts = categoryData.value[catName]?.filter(item => item !== path.value)
+    if (filteredPosts.length == 0)
+        return
     relatedData.value = shuffleArray(filteredPosts).slice(0, 2)
     if (relatedData.value.length == 0)
         relatedData.value = null
