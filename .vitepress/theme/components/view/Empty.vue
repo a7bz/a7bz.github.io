@@ -46,9 +46,9 @@
             </svg>
             <img v-else-if="image" class="empty-image" :src="image" alt="empty" />
         </div>
-        <p v-if="showDescription" class="empty-description" :style="descriptionStyle">
+        <div v-if="showDescription" class="empty-description" :style="descriptionStyle">
             <slot name="description">{{ description }}</slot>
-        </p>
+        </div>
         <div v-if="showFooter" class="empty-footer">
             <slot name="footer">{{ footer }}</slot>
         </div>

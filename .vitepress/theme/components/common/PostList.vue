@@ -1,5 +1,8 @@
 <template>
   <div class="post-lists">
+    <div v-if="data.length == 0" class="s-card">
+      <Empty description="暂无内容" />
+    </div>
     <div v-for="(item, index) in data" :key="index" @click="toPost(post(item).href)"
       :class="['post-item', 's-card', 'hover', { simple, cover: post(item).cover }]"
       :style="{ animationDelay: `${0.4 + index / 10}s` }">
@@ -110,7 +113,16 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 :deep(.post-excerpt) {
-  font-size: 13px;
+  font-size: 12px;
+
+  p {
+    font-size: 0.8rem !important;
+  }
+
+  img {
+    object-fit: contain;
+    height: 200px !important;
+  }
 
   h1 {
     font-size: 1.2rem !important;
@@ -170,7 +182,7 @@ onMounted(() => {
 
       .post-title {
         display: inline-block;
-        font-size: 20px;
+        font-size: 15px;
         line-height: 30px;
         font-weight: bold;
         margin: 0.8rem 0;
