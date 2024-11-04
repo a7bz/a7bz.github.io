@@ -54,11 +54,13 @@ const changeSiteFont = () => {
 }
 
 const isPost = computed(() => {
-  return page.value.relativePath.startsWith('posts/') && !page.value.relativePath.endsWith('index.md')
+  return page.value.relativePath.startsWith('posts/')
+    && !page.value.relativePath.endsWith('index.md')
 })
 
 const isPage = computed(() => {
-  return page.value.relativePath.startsWith('pages/') || page.value.relativePath.endsWith('index.md')
+  return page.value.relativePath.startsWith('pages/')
+    || page.value.relativePath.endsWith('index.md')
 })
 
 onMounted(() => {
