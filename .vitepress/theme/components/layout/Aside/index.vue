@@ -3,7 +3,7 @@
         <Intro class="weidgets" />
         <div class="sticky">
             <Toc v-if="toc" class="weidgets" />
-            <Clock class="weidgets" />
+            <!-- <Clock class="weidgets" /> -->
             <HotTags class="weidgets" />
         </div>
     </aside>

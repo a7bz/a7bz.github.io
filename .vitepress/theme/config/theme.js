@@ -1,4 +1,4 @@
-import { siteData, social, nav, plugin } from './index'
+import { siteData, social, nav, plugin, main } from './index'
 
 const footer = {
   btn: [
@@ -36,6 +36,10 @@ const footer = {
 }
 
 export const themeConfig = {
+  ...main,
+  search: {
+    provider: 'local',
+  },
   ...siteData,
   blog: {
     excerptLength: 200,

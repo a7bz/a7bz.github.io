@@ -21,6 +21,7 @@
           <div class="site-name" @click="router.go('/')">
             {{ site.title }}
           </div>
+          <Search class="main-search" />
         </div>
         <!-- 导航栏菜单 -->
         <div class="nav-center">
@@ -54,15 +55,15 @@
           <div class="menu-btn nav-btn" title="随机前往一篇文章" @click="router.go(shufflePost(postsData))">
             <i class="iconfont icon-shuffle"></i>
           </div>
-          <!-- 搜索 -->
+          <!-- 搜索
           <div class="menu-btn nav-btn" title="全站搜索" @click="store.changeShowStatus('searchShow')">
             <i class="iconfont icon-search"></i>
-          </div>
+          </div> -->
           <!-- 中控台 -->
-          <div id="open-control" class="menu-btn nav-btn pc" title="打开中控台"
+          <!-- <div id="open-control" class="menu-btn nav-btn pc" title="打开中控台"
             @click="store.changeShowStatus('controlShow')">
             <i class="iconfont icon-dashboard" />
-          </div>
+          </div> -->
           <!-- 返回顶部 -->
           <div :class="[
             'to-top',
@@ -99,6 +100,7 @@ import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
+import Search from '@/components/plugin/Search/index.vue'
 
 const router = useRouter()
 const store = useMainStore()

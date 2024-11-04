@@ -1,4 +1,7 @@
 <template>
+  <div v-if="!hasContent" class="s-card empty">
+    <Empty description="暂无内容" />
+  </div>
   <div :class="[frontmatter.layout || 'page', { 'has-aside': frontmatter.aside }]">
     <div class="page-content">
       <Content id="page-content" :class="['markdown-main-style', { 's-card': frontmatter.card }]" />
@@ -9,14 +12,40 @@
 </template>
 
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import Aside from '@/components/layout/Aside/index.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
 const { theme, frontmatter } = useData()
+const route = useRoute()
+const hasContent = ref(false)
+const handle = () => {
+  hasContent.value = false
+  const content = document.querySelector('#page-content > div')
+  if (content) {
+    hasContent.value = content.hasChildNodes()
+  }
+}
+onMounted(() => {
+  handle()
+})
+watch(() => route.path, () => {
+  nextTick(() => {
+    handle()
+  })
+})
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/post.scss";
+
+.empty {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .page {
   width: 100%;
