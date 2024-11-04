@@ -7,7 +7,7 @@
             </span>
             <span class="shuffle" @click="router.go(shufflePost(postsData))"> 随便逛逛 </span>
         </div>
-        <PostList :data="relatedData" simple />
+        <PostList :data="relatedData" simple un-show-excerpt />
     </div>
 </template>
 
