@@ -11,8 +11,8 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
-import Tab from '../common/Tab.vue'
-import PostList from '../common/PostList.vue'
+import Tab from '@/components/common/Tab.vue'
+import PostList from '@/components/common/PostList.vue'
 
 const dataStore = useDataStore()
 const { categoryData, postsData } = storeToRefs(dataStore)

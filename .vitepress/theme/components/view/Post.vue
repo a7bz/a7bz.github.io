@@ -3,51 +3,52 @@
         <div class="post-meta">
             <div class="meta">
                 <div class="categories">
-                    <a v-for="(item, index) in postData.category" :key="index" :href="`/pages/category/${item}`"
+                    <a v-for="(item, index) in postData?.category" :key="index" :href="`/pages/category/${item}`"
                         class="cat-item">
                         <i class="iconfont icon-folder" />
                         <span class="name">{{ item }}</span>
                     </a>
                 </div>
                 <div class="tags">
-                    <a v-for="(item, index) in postData.tag" :key="index" :href="`/pages/tag/${item}`" class="tag-item">
+                    <a v-for="(item, index) in postData?.tag" :key="index" :href="`/pages/tag/${item}`"
+                        class="tag-item">
                         <i class="iconfont icon-hashtag" />
                         <span class="name">{{ item }}</span>
                     </a>
                 </div>
             </div>
             <h1 class="title">
-                <i :class="`iconfont icon-${postData.icon}`" style="font-size: 1.8rem;" />
-                {{ postData.title || "未命名文章" }}
+                <i :class="`iconfont icon-${postData?.icon}`" style="font-size: 1.8rem;" />
+                {{ postData?.title || "未命名文章" }}
             </h1>
             <div class="other-meta">
                 <span class="meta date">
                     <i class="iconfont icon-date" />
-                    {{ postData.date ? formatTimestamp(postData.date) : formatTimestamp(postData.create) }}
+                    {{ postData?.date ? formatTimestamp(postData?.date) : formatTimestamp(postData?.create) }}
                 </span>
                 <span class="update meta">
                     <i class="iconfont icon-update" />
-                    {{ formatTimestamp(postData.update) }}
+                    {{ formatTimestamp(postData?.update) }}
                 </span>
                 <span class="hot meta">
                     <i class="iconfont icon-hot" />
-                    <span class="post-pageview" :data-path="postData.href">...</span>
+                    <span class="post-pageview" :data-path="postData?.href">...</span>
                 </span>
                 <span class="chat meta hover" @click="commentRef?.scrollToComments">
                     <i class="iconfont icon-chat" />
-                    <span class="post-comment" :data-path="postData.href">...</span>
+                    <span class="post-comment" :data-path="postData?.href">...</span>
                 </span>
             </div>
         </div>
         <div class="post-content">
             <article class="post-article s-card">
-                <div v-if="!postData.content">
+                <div v-if="!postData?.content">
                     <Empty description="暂无内容" />
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
                 <div class="other-meta">
                     <div class="all-tags">
-                        <a v-for="(item, index) in postData.tag" :key="index" :href="`/pages/tag/${item}`"
+                        <a v-for="(item, index) in postData?.tag" :key="index" :href="`/pages/tag/${item}`"
                             class="tag-item">
                             <i class="iconfont icon-hashtag" />
                             <span class="name">{{ item }}</span>
@@ -80,13 +81,14 @@ import RelatedPost from './RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
 
 const dataStore = useDataStore()
-const { page, theme } = useData()
+const { theme } = useData()
 const { mdData } = storeToRefs(dataStore)
 const commentRef = ref(null)
 
 const postData = computed(() => {
+    if (typeof window === 'undefined') return
     const href = window.location.pathname
-    return mdData.value[href].post
+    return mdData?.value[href].post
 })
 </script>
 

@@ -12,9 +12,9 @@
 import { computed, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { storeToRefs } from 'pinia'
-import Tab from '../common/Tab.vue'
-import ShowTab from '../common/ShowTab.vue'
-import PostList from '../common/PostList.vue'
+import Tab from '@/components/common/Tab.vue'
+import ShowTab from '@/components/common/ShowTab.vue'
+import PostList from '@/components/common/PostList.vue'
 import { useDataStore } from '@/store/index'
 
 const props = defineProps({

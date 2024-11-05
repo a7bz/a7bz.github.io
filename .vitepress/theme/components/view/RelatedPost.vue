@@ -17,7 +17,7 @@ import { storeToRefs } from 'pinia'
 import { useData, useRouter } from 'vitepress'
 import { useDataStore } from '@/store/index'
 import { shuffleArray, shufflePost } from '@/scripts/helper'
-import PostList from '../common/PostList.vue'
+import PostList from '@/components/common/PostList.vue'
 
 const router = useRouter()
 const dataStore = useDataStore()
@@ -27,14 +27,15 @@ const { frontmatter } = useData()
 const relatedData = ref(null)
 
 const path = computed(() => {
+    if (typeof window === 'undefined') return
     return window.location.pathname
 })
 
 const getRelatedData = async () => {
-    const catName = frontmatter.value.category
+    const catName = frontmatter.value.category || ''
+    if (!catName) return
     const filteredPosts = categoryData.value[catName]?.filter(item => item !== path.value)
-    if (filteredPosts.length == 0)
-        return
+    if (filteredPosts.length == 0) return
     relatedData.value = shuffleArray(filteredPosts).slice(0, 2)
     if (relatedData.value.length == 0)
         relatedData.value = null

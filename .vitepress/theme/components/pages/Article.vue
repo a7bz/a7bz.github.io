@@ -21,7 +21,7 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
-import PostList from '../common/PostList.vue'
+import PostList from '@/components/common/PostList.vue'
 
 const tab = ref(0)
 const dataStore = useDataStore()
@@ -146,8 +146,7 @@ const { postsData, starData } = storeToRefs(dataStore)
 
       &:last-child {
         margin-bottom: 0;
-      }
-    }
+      } }
   }
 }
 </style>
