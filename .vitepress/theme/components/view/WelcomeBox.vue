@@ -8,7 +8,7 @@
             <div v-if="visible" class="info-box" :style="{
                 background: `linear-gradient(${angle}deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5))`,
             }">
-                <img @dragstart.prevent src="/logo.png" alt="" class="avatar" />
+                <img @dragstart.prevent src="/logo.png" alt="logo" class="avatar" />
                 <span class="name">{{ name }}</span>
                 <div class="motto">{{ mottoText }}</div>
                 <div class="author">{{ author }}</div>
@@ -45,7 +45,7 @@ const reset = () => calcX.value = calcY.value = angle.value = 0
 fetch("https://v1.hitokoto.cn")
     .then(res => res.json())
     .then(({ from, hitokoto }) => addNextCharacter(hitokoto, from))
-    .catch(err => addNextCharacter("星空不问赶路人，岁月不负有心人","大冰"))
+    .catch(err => addNextCharacter("星空不问赶路人，岁月不负有心人", "大冰"))
 
 const addNextCharacter = (motto, from) => {
     let index = 0

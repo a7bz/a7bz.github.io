@@ -16,7 +16,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { useRouter } from 'vitepress'
+import { ref, watch, onMounted } from 'vue'
 
 const props = defineProps({
     prefix: {
@@ -37,9 +38,13 @@ const props = defineProps({
     }
 })
 
-const pageHref = computed(() => {
-    if (typeof window === 'undefined') return
-    return window.location.pathname
+const pageHref = ref()
+const router = useRouter()
+onMounted(() => {
+    pageHref.value = window.location.pathname
+})
+watch(() => router.route?.path, () => {
+    pageHref.value = window.location.pathname
 })
 
 </script>

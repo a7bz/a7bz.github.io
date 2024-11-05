@@ -10,7 +10,8 @@
               <div v-for="(item, index) in theme.navMore" :key="index" class="more-item">
                 <span class="more-name">{{ item.name }}</span>
                 <div class="more-list">
-                  <a v-for="(link, i) in item.list" :key="i" :href="link.url" class="more-link" target="_blank">
+                  <a v-for="(link, i) in item.list" :key="i" :href="link.url" class="more-link" target="_blank"
+                    rel="noreferrer">
                     <img class="link-icon" :src="link?.icon" :alt="link.name" />
                     <span class="link-name">{{ link.name }}</span>
                   </a>
@@ -48,7 +49,7 @@
         <div class="right-nav">
           <!-- 开往 -->
           <a class="menu-btn nav-btn travellings" title="开往-友链接力" href="https://www.travellings.cn/go.html"
-            target="_blank">
+            target="_blank" rel="noreferrer">
             <i class="iconfont icon-subway"></i>
           </a>
           <!-- 随机文章 -->
@@ -95,7 +96,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
+import { ref, watch, onMounted } from "vue"
 import { useRouter, useData } from "vitepress"
 import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
@@ -109,9 +110,14 @@ const { postsData } = storeToRefs(dataStore)
 const { scrollData } = storeToRefs(store)
 const { site, theme } = useData()
 
-const pageHref = computed(() => {
-  if (typeof window === 'undefined') return
-  return window.location.pathname
+const pageHref = ref('')
+
+onMounted(() => {
+  pageHref.value = window.location.pathname
+})
+
+watch(() => router.route?.path, () => {
+  pageHref.value = window.location.pathname
 })
 
 </script>

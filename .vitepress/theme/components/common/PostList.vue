@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, watch, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import { useData, useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
@@ -74,9 +74,10 @@ const props = defineProps({
   }
 })
 
+const pageHref = ref()
 const post = (item) => {
-  return item.href ? mdData.value[item.href].post
-    : mdData.value[item].post
+  return item.href ? mdData.value[item.href]?.post
+    : mdData.value[item]?.post
 }
 
 const router = useRouter()
@@ -102,12 +103,12 @@ const postMetaUpdate = async () => {
     const { pageviewCount, commentCount } = await import('@waline/client')
     pageviewCount({
       serverURL: theme.value.plugin.comment.serverURL,
-      path: window.location.pathname,
+      path: pageHref.value,
       selector: '.post-pageview'
     })
     commentCount({
       serverURL: theme.value.plugin.comment.serverURL,
-      path: window.location.pathname,
+      path: pageHref.value,
       selector: '.post-comment',
       update: false
     })
@@ -116,6 +117,11 @@ const postMetaUpdate = async () => {
 
 onMounted(() => {
   postMetaUpdate()
+  pageHref.value = window.location.pathname
+})
+
+watch(() => router.route?.path, () => {
+  pageHref.value = window.location.pathname
 })
 </script>
 
