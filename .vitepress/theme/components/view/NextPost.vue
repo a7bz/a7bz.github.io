@@ -33,6 +33,7 @@ const { infoPosition, footerIsShow } = storeToRefs(mainStore)
 const { mdData, postsData } = storeToRefs(dataStore)
 
 const path = computed(() => {
+  if (typeof window === 'undefined') return
   return window.location.pathname
 })
 

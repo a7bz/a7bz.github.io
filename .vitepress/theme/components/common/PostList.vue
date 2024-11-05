@@ -3,7 +3,7 @@
     <div v-if="data.length == 0" class="s-card">
       <Empty description="暂无内容" />
     </div>
-    <div v-for="(item, index) in data" :key="index" @click="toPost(post(item).href)"
+    <div v-for="(item, index) in data" :key="index" @click="toPost(post(item)?.href)"
       :class="['post-item', 's-card', 'hover', { simple, cover: post(item).cover }]"
       :style="{ animationDelay: `${0.4 + index / 10}s` }">
       <div class="post-content">
@@ -18,11 +18,11 @@
           </span>
         </div>
         <span class="post-title">
-          <i :class="`iconfont icon-${post(item).icon}`" />
-          {{ post(item).title }}
+          <i :class="`iconfont icon-${post(item)?.icon}`" />
+          {{ post(item)?.title }}
         </span>
-        <span v-if="post(item).excerpt && !unShowExcerpt" class="post-desc markdown-main-style">
-          <div class="post-excerpt" v-html="renderExcerpt(post(item).excerpt)" />
+        <span v-if="post(item)?.excerpt && !unShowExcerpt" class="post-desc markdown-main-style">
+          <div class="post-excerpt" v-html="renderExcerpt(post(item)?.excerpt)" />
         </span>
         <div v-if="!simple" class="post-meta">
           <div class="post-tags">
@@ -32,11 +32,11 @@
             </span>
             <span class="meta">
               <i class="iconfont icon-hot" />
-              <span class="post-pageview" :data-path="post(item).href">...</span>
+              <span class="post-pageview" :data-path="post(item)?.href">...</span>
             </span>
             <span class="meta">
               <i class="iconfont icon-chat" />
-              <span class="post-comment" :data-path="post(item).href">...</span>
+              <span class="post-comment" :data-path="post(item)?.href">...</span>
             </span>
           </div>
           <span class="post-time">{{ post(item)?.date ?
@@ -95,6 +95,7 @@ const isPost = computed(() => {
 })
 
 const postMetaUpdate = async () => {
+  if (typeof window === 'undefined') return
   if (isPost.value) return
   if (!frontmatter.value.comment && !theme.value.blog.pageComment) {
     console.log('waline comment')

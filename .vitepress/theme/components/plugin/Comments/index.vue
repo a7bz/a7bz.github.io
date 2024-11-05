@@ -20,6 +20,7 @@ const router = useRouter()
 const mainCommentRef = ref(null)
 
 const scrollToComments = () => {
+    if (typeof window === 'undefined') return
     if (!mainCommentRef.value) return false
     const elementRect = mainCommentRef.value.getBoundingClientRect()
     const elementTop = elementRect.top + window.scrollY
@@ -67,7 +68,6 @@ defineExpose({ scrollToComments })
                 opacity: 1;
                 color: var(--main-color);
             }
-        }
-    }
+        } }
 }
 </style>

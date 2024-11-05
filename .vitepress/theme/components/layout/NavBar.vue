@@ -11,7 +11,7 @@
                 <span class="more-name">{{ item.name }}</span>
                 <div class="more-list">
                   <a v-for="(link, i) in item.list" :key="i" :href="link.url" class="more-link" target="_blank">
-                    <img class="link-icon" :src="link.icon" :alt="link.name" />
+                    <img class="link-icon" :src="link?.icon" :alt="link.name" />
                     <span class="link-name">{{ link.name }}</span>
                   </a>
                 </div>
@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="site-name" @click="router.go('/')">
-            {{ site.title }}
+            {{ site?.title }}
           </div>
           <Search class="main-search" />
         </div>
@@ -29,13 +29,13 @@
             <div v-for="(item, index) in theme.nav" :key="index" class="menu-item"
               @click="() => { item.link ? router.go(item.link) : '' }">
               <span class="link-btn" :class="[pageHref == item.link ? 'selected' : '']">
-                <i v-if="item.icon" :class="`iconfont icon-${item.icon}`" />
+                <i v-if="item?.icon" :class="`iconfont icon-${item?.icon}`" />
                 {{ item.text }}
               </span>
               <div v-if="item.items" class="link-child">
                 <span v-for="(child, childIndex) in item.items" :key="childIndex" class="link-child-btn"
                   @click="router.go(child.link)" :class="[pageHref == child.link ? 'selected' : '']">
-                  <i v-if="child.icon" :class="`iconfont icon-${child.icon}`" />
+                  <i v-if="child?.icon" :class="`iconfont icon-${child?.icon}`" />
                   {{ child.text }}
                 </span>
               </div>
@@ -110,6 +110,7 @@ const { scrollData } = storeToRefs(store)
 const { site, theme } = useData()
 
 const pageHref = computed(() => {
+  if (typeof window === 'undefined') return
   return window.location.pathname
 })
 
