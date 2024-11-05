@@ -168,10 +168,10 @@ const getMdData = async (filePath) => {
     let href
     if (match) {
         const id = match[4] || ''
-        href = id ? `posts/${match[1]}/${match[4]}` : `posts/${match[1]}/${match[3]}`
+        href = id ? `/posts/${match[1]}/${match[4]}` : `/posts/${match[1]}/${match[3]}`
     }
-    if(!href)
-        href = `posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
+    if (!href)
+        href = `/posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
     const { mtimeMs: timestamp, birthtimeMs: createTime } = await fs.promises.stat(filePath)
     const cached = mdCache[href]
     if (cached && timestamp === cached.timestamp) {

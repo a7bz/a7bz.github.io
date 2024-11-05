@@ -287,8 +287,8 @@ export const getGreetings = () => {
 export const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    // 解构赋值进行元素互换
-    [array[i], array[j]] = [array[j], array[i]]
+    if (array[i] && array[j])
+      [array[i], array[j]] = [array[j], array[i]]
   }
   return array
 }

@@ -22,12 +22,12 @@ import PostList from '../common/PostList.vue'
 const router = useRouter()
 const dataStore = useDataStore()
 const { categoryData, postsData } = storeToRefs(dataStore)
-const { frontmatter, page } = useData()
+const { frontmatter } = useData()
 
 const relatedData = ref(null)
 
 const path = computed(() => {
-    return page.value.filePath.replace('.md', '').replace('index', '')
+    return window.location.pathname
 })
 
 const getRelatedData = async () => {
@@ -38,7 +38,6 @@ const getRelatedData = async () => {
     relatedData.value = shuffleArray(filteredPosts).slice(0, 2)
     if (relatedData.value.length == 0)
         relatedData.value = null
-    console.log(relatedData.value)
 }
 
 watch(() => router.route?.path, () => {

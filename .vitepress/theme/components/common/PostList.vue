@@ -32,11 +32,11 @@
             </span>
             <span class="meta">
               <i class="iconfont icon-hot" />
-              <span class="post-pageview" :data-path="'/' + post(item).href">...</span>
+              <span class="post-pageview" :data-path="post(item).href">...</span>
             </span>
             <span class="meta">
               <i class="iconfont icon-chat" />
-              <span class="post-comment" :data-path="'/' + post(item).href">...</span>
+              <span class="post-comment" :data-path="post(item).href">...</span>
             </span>
           </div>
           <span class="post-time">{{ post(item)?.date ?
@@ -48,14 +48,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import MarkdownIt from 'markdown-it'
 import { useData, useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
 import { formatTimestamp } from '@/scripts/helper'
 
-const { theme, frontmatter } = useData()
+const { theme, frontmatter, page } = useData()
 const dataStore = useDataStore()
 const { mdData } = storeToRefs(dataStore)
 
@@ -89,8 +89,15 @@ const renderExcerpt = (excerpt) => {
   return md.render(excerpt)
 }
 
+const isPost = computed(() => {
+  return page.value.relativePath.startsWith('posts/')
+    && !page.value.relativePath.endsWith('index.md')
+})
+
 const postMetaUpdate = async () => {
+  if (isPost.value) return
   if (!frontmatter.value.comment && !theme.value.blog.pageComment) {
+    console.log('waline comment')
     const { pageviewCount, commentCount } = await import('@waline/client')
     pageviewCount({
       serverURL: theme.value.plugin.comment.serverURL,

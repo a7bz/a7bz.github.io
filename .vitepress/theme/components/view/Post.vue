@@ -31,11 +31,11 @@
                 </span>
                 <span class="hot meta">
                     <i class="iconfont icon-hot" />
-                    <span class="post-pageview" :data-path="'/' + postData.href">...</span>
+                    <span class="post-pageview" :data-path="postData.href">...</span>
                 </span>
                 <span class="chat meta hover" @click="commentRef?.scrollToComments">
                     <i class="iconfont icon-chat" />
-                    <span class="post-comment" :data-path="'/' + postData.href">...</span>
+                    <span class="post-comment" :data-path="postData.href">...</span>
                 </span>
             </div>
         </div>
@@ -85,7 +85,7 @@ const { mdData } = storeToRefs(dataStore)
 const commentRef = ref(null)
 
 const postData = computed(() => {
-    const href = page.value.filePath.replace('.md', '').replace('index', '')
+    const href = window.location.pathname
     return mdData.value[href].post
 })
 </script>
