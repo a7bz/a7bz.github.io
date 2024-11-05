@@ -16,7 +16,6 @@
 </template>
 
 <script setup>
-import { useData } from 'vitepress'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -38,9 +37,8 @@ const props = defineProps({
     }
 })
 
-const { page } = useData()
 const pageHref = computed(() => {
-    return '/' + page.value.filePath.replace('.md', '').replace('index', '')
+    return window.location.pathname
 })
 
 </script>
@@ -129,6 +127,5 @@ const pageHref = computed(() => {
                 color: var(--main-color);
             }
         }
-    }
-}
+    }}
 </style>

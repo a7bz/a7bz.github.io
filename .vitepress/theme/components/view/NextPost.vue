@@ -1,23 +1,23 @@
 <template>
-    <div v-if="nextPostData" :class="[
-        'next-post',
-        's-card',
-        {
-            fixed: infoPosition === 'fixed',
-            show: infoPosition === 'fixed' && nextPostShow && !footerIsShow,
-        }]" @click="router.go(nextPostData.href)">
-        <span class="post-tip">
-            {{ isNextPost ? "下一篇阅读" : "阅读上一篇" }}
-        </span>
-        <span class="post-title">
-            {{ mdData[nextPostData.href].post.title || "暂无标题" }}
-        </span>
-    </div>
+  <div v-if="nextPostData" :class="[
+    'next-post',
+    's-card',
+    {
+      fixed: infoPosition === 'fixed',
+      show: infoPosition === 'fixed' && nextPostShow && !footerIsShow,
+    }]" @click="router.go(nextPostData.href)">
+    <span class="post-tip">
+      {{ isNextPost ? "下一篇阅读" : "阅读上一篇" }}
+    </span>
+    <span class="post-title">
+      {{ mdData[nextPostData.href].post.title || "暂无标题" }}
+    </span>
+  </div>
 </template>
 
 <script setup>
 import { computed, onMounted, onBeforeUnmount, ref, watch } from 'vue'
-import { useData, useRouter } from 'vitepress'
+import { useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useDataStore } from '@/store/index'
 
@@ -31,52 +31,51 @@ const mainStore = useMainStore()
 const dataStore = useDataStore()
 const { infoPosition, footerIsShow } = storeToRefs(mainStore)
 const { mdData, postsData } = storeToRefs(dataStore)
-const { page } = useData()
 
 const path = computed(() => {
-    return page.value.filePath.replace('.md', '').replace('index', '')
+  return window.location.pathname
 })
 
 const geNextPostData = () => {
-    if (!page.value.filePath || !postsData.value.length) return false
-    const index = postsData.value.findIndex(item => item.href === path.value)
-    if (index >= 0 && index < postsData.value.length - 1) {
-        nextPostData.value = postsData.value[index + 1]
-        isNextPost.value = true
-        return true
-    } else if (index > 0) {
-        nextPostData.value = postsData.value[index - 1]
-        isNextPost.value = false
-        return true
-    }
-    nextPostData.value = null
-    return false
+  if (!path.value || !postsData.value.length) return false
+  const index = postsData.value.findIndex(item => item.href === path.value)
+  if (index >= 0 && index < postsData.value.length - 1) {
+    nextPostData.value = postsData.value[index + 1]
+    isNextPost.value = true
+    return true
+  } else if (index > 0) {
+    nextPostData.value = postsData.value[index - 1]
+    isNextPost.value = false
+    return true
+  }
+  nextPostData.value = null
+  return false
 }
 
 const isShowNext = () => {
-    const postDom = document.getElementById("page-content")
-    if (!postDom) return false
-    if (observer.value) observer.value?.disconnect()
-    observer.value = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            nextPostShow.value = entry.isIntersecting ? false : true
-        })
+  const postDom = document.getElementById("page-content")
+  if (!postDom) return false
+  if (observer.value) observer.value?.disconnect()
+  observer.value = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      nextPostShow.value = entry.isIntersecting ? false : true
     })
-    observer.value?.observe(postDom)
+  })
+  observer.value?.observe(postDom)
 }
 
 watch(() => router.route.path, () => {
-    geNextPostData()
-    isShowNext()
+  geNextPostData()
+  isShowNext()
 })
 
 onMounted(() => {
-    geNextPostData()
-    isShowNext()
+  geNextPostData()
+  isShowNext()
 })
 
 onBeforeUnmount(() => {
-    if (observer.value) observer.value?.disconnect()
+  if (observer.value) observer.value?.disconnect()
 })
 
 </script>

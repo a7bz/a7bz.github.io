@@ -107,10 +107,10 @@ const store = useMainStore()
 const dataStore = useDataStore()
 const { postsData } = storeToRefs(dataStore)
 const { scrollData } = storeToRefs(store)
-const { site, theme, frontmatter, page } = useData()
+const { site, theme } = useData()
 
 const pageHref = computed(() => {
-  return '/' + page.value.filePath.replace('.md', '').replace('index', '')
+  return window.location.pathname
 })
 
 </script>
