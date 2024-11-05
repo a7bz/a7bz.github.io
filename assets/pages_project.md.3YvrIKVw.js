@@ -1,1 +1,0 @@
-import{_ as e,s as t,q as a}from"./chunks/framework.OdgUePS5.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"pages/project.md","filePath":"pages/project.md"}'),r={name:"pages/project.md"};function o(s,c,p,n,_,d){return a(),t("div")}const f=e(r,[["render",o]]);export{m as __pageData,f as default};
