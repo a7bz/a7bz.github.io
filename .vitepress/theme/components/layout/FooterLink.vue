@@ -10,7 +10,7 @@
         <img :src="theme.logo" alt="author" class="author" />
       </div>
       <div v-for="(item, index) in btnData" :key="index">
-        <a :href="item.link" v-if="index >= btnData.length / 2" target="_blank" class="social-link">
+        <a :href="item.link" v-if="index >= btnData.length / 2" target="_blank" class="social-link" rel="noreferrer">
           <i :class="`iconfont icon-${item.icon}`"></i>
         </a>
       </div>
@@ -31,7 +31,7 @@
         </span>
         <div v-if="randomFriends?.length" class="links">
           <a v-for="(link, linkIndex) in randomFriends" :key="linkIndex" :href="link.url" target="_blank"
-            class="link-text">
+            class="link-text" rel="noreferrer">
             {{ link.name }}
           </a>
           <a href="/pages/link" class="link-text"> 更多 </a>

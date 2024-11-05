@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useData, useRouter } from 'vitepress'
 import { useDataStore } from '@/store/index'
@@ -26,10 +26,7 @@ const { frontmatter } = useData()
 
 const relatedData = ref(null)
 
-const path = computed(() => {
-    if (typeof window === 'undefined') return
-    return window.location.pathname
-})
+const path = ref('')
 
 const getRelatedData = async () => {
     const catName = frontmatter.value.category || ''
@@ -43,10 +40,12 @@ const getRelatedData = async () => {
 
 watch(() => router.route?.path, () => {
     getRelatedData()
+    path.value = window.location.pathname
 })
 
 onMounted(() => {
     getRelatedData()
+    path.value = window.location.pathname
 })
 
 </script>

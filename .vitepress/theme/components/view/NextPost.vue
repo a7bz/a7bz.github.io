@@ -10,17 +10,18 @@
       {{ isNextPost ? "下一篇阅读" : "阅读上一篇" }}
     </span>
     <span class="post-title">
-      {{ mdData[nextPostData.href].post.title || "暂无标题" }}
+      {{ mdData[nextPostData.href]?.post.title || "暂无标题" }}
     </span>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount, ref, watch } from 'vue'
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue'
 import { useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useDataStore } from '@/store/index'
 
+const path = ref()
 const observer = ref(null)
 const isNextPost = ref(true)
 const nextPostData = ref(null)
@@ -31,11 +32,6 @@ const mainStore = useMainStore()
 const dataStore = useDataStore()
 const { infoPosition, footerIsShow } = storeToRefs(mainStore)
 const { mdData, postsData } = storeToRefs(dataStore)
-
-const path = computed(() => {
-  if (typeof window === 'undefined') return
-  return window.location.pathname
-})
 
 const geNextPostData = () => {
   if (!path.value || !postsData.value.length) return false
@@ -68,11 +64,13 @@ const isShowNext = () => {
 watch(() => router.route.path, () => {
   geNextPostData()
   isShowNext()
+  path.value = window.location.pathname
 })
 
 onMounted(() => {
   geNextPostData()
   isShowNext()
+  path.value = window.location.pathname
 })
 
 onBeforeUnmount(() => {

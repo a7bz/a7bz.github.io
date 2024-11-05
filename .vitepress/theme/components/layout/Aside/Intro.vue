@@ -6,7 +6,7 @@
         <img :src="theme.logo" alt="logo" class="logo-img" />
       </div>
       <div class="site-desc">
-         {{ theme.description }}
+        {{ theme.description }}
       </div>
     </div>
     <div class="info">
@@ -15,7 +15,8 @@
         <span class="desc">{{ theme.description }}</span>
       </div>
       <div class="link">
-        <a v-for="(item, index) in theme.social" :key="index" target="_blank" class="social-link" :href="item.link">
+        <a v-for="(item, index) in theme.social" :key="index" target="_blank" class="social-link" :href="item.link"
+          rel="noreferrer">
           <i :class="`iconfont icon-${item.icon}`"></i>
         </a>
       </div>

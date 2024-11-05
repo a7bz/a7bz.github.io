@@ -54,7 +54,7 @@
                             <span class="name">{{ item }}</span>
                         </a>
                     </div>
-                    <a :href="theme.blog.feedback" class="report" target="_blank">
+                    <a :href="theme.blog.feedback" class="report" target="_blank" rel="noreferrer">
                         <i class="iconfont icon-question" />
                         反馈与投诉
                     </a>
@@ -70,9 +70,9 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useData } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 import { formatTimestamp } from "@/scripts/helper"
 import { useDataStore } from '@/store/index'
 import Aside from '@/components/layout/Aside/index.vue'
@@ -81,14 +81,23 @@ import RelatedPost from './RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
 
 const dataStore = useDataStore()
+const router = useRouter()
 const { theme } = useData()
 const { mdData } = storeToRefs(dataStore)
 const commentRef = ref(null)
+const pageHref = ref()
 
 const postData = computed(() => {
-    if (typeof window === 'undefined') return
-    const href = window.location.pathname
-    return mdData?.value[href].post
+    const href = pageHref.value
+    return mdData?.value[href]?.post
+})
+
+onMounted(() => {
+    pageHref.value = window.location.pathname
+})
+
+watch(() => router.route?.path, () => {
+    pageHref.value = window.location.pathname
 })
 </script>
 
