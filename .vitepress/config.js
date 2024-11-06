@@ -33,7 +33,7 @@ export default defineConfig({
       ...(frontmatter.category || []),
       ...(frontmatter.tag || [])
     ]
-    return keywords.length > 0 ? [['meta', { name: 'keywords', content: [...new Set(keywords)].join(', ') }]] : []
+    return keywords.length > 0 ? [['meta', { name: 'keywords', content: [...new Set(keywords)].join(',') }]] : []
   },
   transformPageData: async (pageData) => {
     const canonicalUrl = `${siteData.site}/${pageData.relativePath}`
