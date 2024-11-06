@@ -24,6 +24,24 @@ export default defineConfig({
     },
     config: markdownConfig,
   },
+  transformHead: async (context) => {
+    const { frontmatter } = context.pageData
+    const keywords = [
+      ...(typeof frontmatter.keywords === 'string'
+        ? frontmatter.keywords.split(',')
+        : frontmatter.keywords || []),
+      ...(frontmatter.category || []),
+      ...(frontmatter.tag || [])
+    ]
+    return keywords.length > 0 ? [['meta', { name: 'keywords', content: [...new Set(keywords)].join(', ') }]] : []
+  },
+  transformPageData: async (pageData) => {
+    const canonicalUrl = `${siteData.site}/${pageData.relativePath}`
+      .replace(/index\.md$/, "")
+      .replace(/\.md$/, "");
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(["link", { rel: "canonical", href: canonicalUrl }])
+  },
   sitemap: {
     hostname: siteData.site,
   },
