@@ -66,8 +66,10 @@ const btnData = computed(() => {
 
 const getRandomFriends = () => {
   fetch(theme.value.blog.friendsLink).then(res => res.json()).then(data => {
-    const tmpLink = data.content || []
-    tmpLink.filter(item => item.url != theme.value.site)
+    let tmpLink = data.content || []
+    tmpLink = tmpLink.filter(item => {
+      return item.url.replace(/\/+$/, '') !== theme.value.site.replace(/\/+$/, '')
+    })
     randomFriends.value = tmpLink.length >= 4 ? shuffleArray(tmpLink).slice(0, 3) : tmpLink
   })
 }
