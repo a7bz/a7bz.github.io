@@ -136,6 +136,7 @@ import VPNavBarSearch from 'vitepress/dist/client/theme-default/components/VPNav
             position: relative;
             display: inline-flex;
             color: var(--main-color);
+            word-break: break-all;
         }
 
         // 重点
@@ -236,7 +237,7 @@ import VPNavBarSearch from 'vitepress/dist/client/theme-default/components/VPNav
                 cursor: pointer;
 
                 &::after {
-                    content: "\e01c";
+                    content: "\e83d";
                     transition: color 0.3s;
                 }
 
@@ -786,7 +787,7 @@ import VPNavBarSearch from 'vitepress/dist/client/theme-default/components/VPNav
     --vp-local-search-bg: #ffffff;
     --vp-local-search-highlight-bg: #3451b2;
     --vp-local-search-highlight-text: #ffffff;
-    --vp-backdrop-bg-color:rgba(0, 0, 0, .6);
+    --vp-backdrop-bg-color: rgba(0, 0, 0, .6);
 }
 
 

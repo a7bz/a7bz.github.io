@@ -115,6 +115,7 @@
       position: relative;
       display: inline-flex;
       color: var(--main-color);
+      word-break: break-all;
 
       &::before {
         content: "";
@@ -246,7 +247,7 @@
         cursor: pointer;
 
         &::after {
-          content: "\e01c";
+          content: "\e83d";
           transition: color 0.3s;
         }
 

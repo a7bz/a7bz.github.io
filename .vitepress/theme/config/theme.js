@@ -44,7 +44,8 @@ export const themeConfig = {
   blog: {
     excerptLength: 200,
     feedback: social.qq.link,
-    pageComment: false
+    pageComment: false,
+    friendsLink: 'https://friends.a7bz.cn/v2/data.json'
   },
   nav,
   social,

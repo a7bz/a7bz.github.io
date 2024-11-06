@@ -23,7 +23,7 @@ export const headConfig = [
         {
             crossorigin: "anonymous",
             rel: "stylesheet",
-            href: "//at.alicdn.com/t/c/font_4562321_r8aza9anecp.css",
+            href: "//at.alicdn.com/t/c/font_4562321_2i6g3uwh96.css",
         },
     ],
     // HarmonyOS font
