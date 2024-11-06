@@ -1,8 +1,11 @@
 ---
 icon: host
 date: 2024-06-22
+keywords: 串口别名设置,串口权限
 category:
   - ros
+tag:
+  - 教程
 ---
 
 # ros -设置权限和串口别名规则

@@ -23,11 +23,11 @@
 </template>
 
 <script setup>
-import { useData } from 'vitepress'
-import { computed, onMounted } from 'vue';
+import { useData, useRoute } from 'vitepress'
+import { computed, onMounted, watch } from 'vue'
 import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
-import { calculateScroll } from './scripts/helper';
+import { calculateScroll } from './scripts/helper'
 import BackGround from './components/layout/BackGround.vue'
 import Nav from './components/layout/NavBar.vue'
 import NotFound from './components/pages/NotFound.vue'
@@ -65,11 +65,38 @@ const isPage = computed(() => {
 
 onMounted(() => {
   changeSiteFont()
+  addKeyWords()
   window.addEventListener("scroll", calculateScroll);
 })
 
 const dataStore = useDataStore()
 const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
+
+const route = useRoute()
+
+watch(() => route.path, () => {
+  addKeyWords()
+})
+
+const addKeyWords = () => {
+  if (typeof document !== 'undefined') {
+    const existingMeta = document.querySelector('meta[name="keywords"]')
+    if (existingMeta) {
+      existingMeta.remove()
+    }
+    let keywords = []
+    keywords = (typeof frontmatter.value.keywords === 'string' ? frontmatter.value.keywords.split(',') : frontmatter.value.keywords) || []
+    const categories = frontmatter.value.category || []
+    const tags = frontmatter.value.tag || []
+    keywords = [...keywords, ...categories, ...tags]
+    if (keywords) {
+      const metaTag = document.createElement('meta')
+      metaTag.name = 'keywords'
+      metaTag.content = keywords.join(',')
+      document.head.appendChild(metaTag)
+    }
+  }
+}
 
 if (import.meta.env.DEV && import.meta.hot) {
   __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {
