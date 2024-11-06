@@ -57,7 +57,15 @@ const getAllMdFiles = async (dirPath) => {
 // 添加/修改/删除 Markdown 文件的核心处理
 const updateMdCache = async (filePath, operation) => {
     try {
-        const href = `posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
+        const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
+        const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
+        let href
+        if (match) {
+            const id = match[4] || ''
+            href = id ? `/posts/${match[1]}/${match[4]}` : `/posts/${match[1]}/${match[3]}`
+        }
+        if (!href)
+            href = `/posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
         const cachedPost = mdCache[href]
         if (operation === 'del') {
             if (cachedPost) {
