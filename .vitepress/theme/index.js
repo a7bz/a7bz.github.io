@@ -5,9 +5,10 @@ import persistedstate from 'pinia-plugin-persistedstate'
 import '@/styles/main.scss'
 
 import Empty from '@/components/view/Empty.vue'
+import LazyLoader from '@/components/common/LazyLoader.vue'
 
 const pinia = createPinia()
-if (typeof window !== 'undefined') 
+if (typeof window !== 'undefined')
   pinia.use(persistedstate)
 
 export default {
@@ -17,6 +18,7 @@ export default {
     // ...
     app.use(pinia)
     app.component('Empty', Empty)
+    app.component('LazyLoader', LazyLoader)
   }
 }
 
