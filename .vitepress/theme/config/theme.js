@@ -42,7 +42,7 @@ export const themeConfig = {
   },
   ...siteData,
   blog: {
-    excerptLength: 216,
+    excerptLength: 200,
     feedback: social.qq.link,
     pageComment: false,
     friendsLink: 'https://friends.a7bz.cn/v2/data.json'
