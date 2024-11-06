@@ -32,7 +32,7 @@
         <div v-if="randomFriends?.length" class="links">
           <a v-for="(link, linkIndex) in randomFriends" :key="linkIndex" :href="link.url" target="_blank"
             class="link-text" rel="noreferrer">
-            {{ link.name }}
+            {{ link.name || link.title }}
           </a>
           <a href="/pages/link" class="link-text"> 更多 </a>
         </div>
@@ -46,7 +46,7 @@
 
 <script setup>
 import { useData } from 'vitepress'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 const { theme } = useData()
 const { footer } = theme.value
 
@@ -64,6 +64,17 @@ const btnData = computed(() => {
   }
 })
 
+const getRandomFriends = () => {
+  fetch(theme.value.blog.friendsLink).then(res => res.json()).then(data => {
+    const tmpLink = data.content || []
+    tmpLink.filter(item => item.url != theme.value.site)
+    randomFriends.value = tmpLink.length >= 4 ? shuffleArray(tmpLink).slice(0, 3) : tmpLink
+  })
+}
+
+onMounted(() => {
+  getRandomFriends()
+})
 </script>
 
 <style lang="scss" scoped>

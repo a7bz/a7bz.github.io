@@ -15,7 +15,6 @@ const link = ref([])
 onMounted(() => {
     fetch(theme.value.blog.friendsLink).then(res => res.json()).then(data => {
         link.value = data.content
-        console.log(data)
     })
 })
 </script>
