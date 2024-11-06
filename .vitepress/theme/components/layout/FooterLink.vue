@@ -37,7 +37,7 @@
           <a href="/pages/link" class="link-text"> 更多 </a>
         </div>
         <div v-else class="links">
-          <a class="link-text"> 暂无友链 </a>
+          <span class="link-text"> 暂无友链 </span>
         </div>
       </div>
     </div>

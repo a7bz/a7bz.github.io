@@ -5,7 +5,7 @@
                 <i class="iconfont icon-chat"></i>
                 评论
             </span>
-            <span class="tool" @click="router.go('/pages/privacy')"> 隐私政策 </span>
+            <!-- <span class="tool" @click="router.go('/pages/privacy')"> 隐私政策 </span> -->
         </div>
         <Waline v-if="theme.plugin.comment.provider === 'Waline'" />
     </div>
@@ -68,6 +68,7 @@ defineExpose({ scrollToComments })
                 opacity: 1;
                 color: var(--main-color);
             }
-        } }
+        }
+    }
 }
 </style>

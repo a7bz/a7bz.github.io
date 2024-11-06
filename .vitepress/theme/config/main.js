@@ -49,15 +49,6 @@ export const nav = [
         ],
     },
     {
-        icon: "clipboard",
-        text: "专栏",
-        items: [
-            // { text: "技术分享", link: "/pages/category/技术分享", icon: "technical" },
-            { text: "我的项目", link: "/pages/project", icon: "code" },
-            { text: "效率工具", link: "/pages/tools", icon: "tools" },
-        ],
-    },
-    {
         icon: "links",
         text: "友链",
         items: [
@@ -69,8 +60,7 @@ export const nav = [
         icon: "cross",
         text: "我的",
         items: [
-            { text: "畅所欲言", link: "/pages/message", icon: "chat" },
-            { text: "致谢名单", link: "/pages/thanks", icon: "reward" },
+            { text: "留言板", link: "/pages/message", icon: "chat" },
             { text: "关于本站", link: "/pages/about", icon: "contacts" },
         ],
     },
