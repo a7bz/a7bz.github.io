@@ -135,7 +135,7 @@ watch(() => router.route?.path, () => {
 
   img {
     object-fit: contain;
-    height: 200px !important;
+    max-height: 200px !important;
   }
 
   h1 {

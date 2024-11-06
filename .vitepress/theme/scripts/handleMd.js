@@ -158,16 +158,23 @@ const saveCache = async () => {
 
 // 获取 Markdown 文件的元数据和内容
 const getExcerpt = (file) => {
-    let excerpt = file.content.slice(0, themeConfig.blog.excerptLength)
-    if (excerpt.length > themeConfig.blog.excerptLength) {
-        const lastSpace = excerpt.lastIndexOf(" ")
-        if (lastSpace !== -1) {
-            excerpt = excerpt.slice(0, lastSpace)
+    // 去除 H1 标题以及可能存在的开头换行符
+    const content = file.content.replace(/^\s*# .*\r?\n+/, '')
+    // 初步截取指定长度的内容
+    let excerpt = content.slice(0, themeConfig.blog.excerptLength)
+    // 检查截取的内容是否以完整的行结束
+    let lastNewline = excerpt.lastIndexOf("\r\n")
+    if (lastNewline !== -1 && lastNewline < excerpt.length - 2) {
+        // 如果最后一个换行符不在末尾，则扩展到下一个完整行
+        const nextNewline = content.indexOf("\r\n", themeConfig.blog.excerptLength)
+        if (nextNewline !== -1) {
+            excerpt = content.slice(0, nextNewline)
         }
-        excerpt += "..."
     }
     file.excerpt = excerpt
 }
+
+
 
 // 解析 Markdown 文件内容
 const getMdData = async (filePath) => {

@@ -171,7 +171,6 @@ export const shufflePost = (postData) => {
   lastIndex = randomIndex
   // 随机文章
   const randomPost = postData[randomIndex]
-  console.log(randomPost)
   // 跳转到随机文章
   return randomPost.href
 }
