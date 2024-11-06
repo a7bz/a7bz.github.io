@@ -1,8 +1,11 @@
 ---
 icon: driverless
 date: 2024-09-14
+keywords: web_video_server
 category:
   - ros
+tag:
+  - ros工具包
 ---
 
 # ros 图像传输-web_video_server 的使用

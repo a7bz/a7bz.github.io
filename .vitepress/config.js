@@ -24,6 +24,9 @@ export default defineConfig({
     },
     config: markdownConfig,
   },
+  sitemap: {
+    hostname: siteData.site,
+  },
   rewrites: {
     'posts/:year/(.*)/(.*)-:id': 'posts/:year/:id',
     'posts/:year/(.*)/:filename': 'posts/:year/:filename'
