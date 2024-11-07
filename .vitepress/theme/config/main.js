@@ -40,7 +40,7 @@ export const social = {
     },
     qq: {
         icon: 'qq',
-        link: 'https://admin.qidian.qq.com/static_proxy/b2b-qq/wpa-link/index.html#/person?uin=2484068670'
+        link: 'https://admin.qidian.qq.com/static_proxy/b2b-qq/wpa-link/index.html#/person?uin=841105248'
     },
 }
 
@@ -69,6 +69,7 @@ export const nav = [
         items: [
             { text: "留言板", link: "/pages/message", icon: "chat" },
             { text: "关于本站", link: "/pages/about", icon: "contacts" },
+            { text: "反馈与投诉", link: "/pages/contact", icon: "question" },
         ],
     },
 ]
