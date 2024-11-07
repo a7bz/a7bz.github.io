@@ -1,0 +1,166 @@
+<template>
+    <footer id="main-footer" class="main-footer">
+        <div class="footer-content">
+            <div class="copyright">
+                <span class="time">@ {{ theme.begin }} - {{ thisYear }} By </span>
+                <a :href="theme.author.link" class="author link" target="_blank">
+                    {{ theme.author.name }}
+                </a>
+                <a v-if="theme.icp" class="icp link" href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+                    <i class="iconfont icon-safe" />
+                    {{ theme.icp }}
+                </a>
+            </div>
+            <div class="meta">
+                <a class="power link" href="https://vitepress.dev/" target="_blank" rel="noreferrer">
+                    <span class="by">Powered by</span>
+                    <span class="name">VitePress</span>
+                </a>
+                <a class="cc link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank"
+                    rel="noreferrer">
+                    <i class="iconfont icon-cc" />
+                    <i class="iconfont icon-by" />
+                    <i class="iconfont icon-nc" />
+                    <i class="iconfont icon-sa" />
+                </a>
+            </div>
+        </div>
+    </footer>
+</template>
+
+<script setup>
+import { useData } from 'vitepress'
+import { computed } from 'vue'
+
+const thisYear = computed(() => new Date().getFullYear())
+const { theme } = useData()
+</script>
+
+<style scoped>
+.main-footer {
+    display: flex;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    background-color: var(--main-card-background);
+    border-top: 1px solid var(--main-card-border);
+    overflow: hidden;
+    animation: show 0.3s backwards;
+    transition:
+        color 0.3s,
+        border 0.3s,
+        background-color 0.3s;
+
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        color: var(--main-font-color);
+        line-height: 1;
+        min-height: 32px;
+
+        .copyright {
+            .icp {
+                .iconfont {
+                    font-size: 20px;
+                    opacity: 0.6;
+                }
+            }
+
+            .upyun {
+                .iconfont {
+                    font-size: 20px;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .meta {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .power {
+                margin-right: 4px;
+
+                .by {
+                    font-weight: normal;
+                    opacity: 0.8;
+                    margin-right: 6px;
+                }
+            }
+
+            .rss {
+                margin-right: 4px;
+
+                .iconfont {
+                    font-weight: normal;
+                    margin-right: 6px;
+                }
+            }
+
+            .cc {
+                .iconfont {
+                    margin: 0 2px;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .link {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px;
+            margin: 0 2px;
+            height: 38px;
+            border-radius: 12px;
+            transition:
+                color 0.3s,
+                background-color 0.3s;
+            cursor: pointer;
+
+            .iconfont {
+                font-size: 22px;
+                margin-right: 4px;
+                transition: color 0.3s;
+            }
+
+            &:hover {
+                color: var(--main-color);
+                background-color: var(--main-color-bg);
+
+                .iconfont {
+                    color: var(--main-color);
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            font-size: 14px;
+
+            .meta {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .copyright {
+                .icp {
+                    .iconfont {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+</style>

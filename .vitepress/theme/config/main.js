@@ -20,6 +20,13 @@ export const siteData = {
     description: "记录分享一些笔记",
     logo: "/logo.png",
     site: "https://blog.a7bz.cn",
+    begin: "2024",
+    author: {
+        name: "荒芜",
+        cover: "/logo.png",
+        email: "2484068670@qq.com",
+        link: "https://blog.a7bz.cn",
+    },
 }
 
 export const social = {
