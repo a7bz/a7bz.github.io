@@ -1,4 +1,4 @@
 ---
-title: 友情鱼塘
+title: 友链鱼塘
 aside: false
 ---

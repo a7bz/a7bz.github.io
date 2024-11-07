@@ -24,6 +24,7 @@ const footer = {
       text: "页面",
       items: [
         { text: "留言板", link: "/pages/message" },
+        { text: "反馈与投诉", link: "/pages/contact" },
         // { text: "关于本站", link: "/pages/about" },
         // { text: "隐私政策", link: "/pages/privacy" },
         // { text: "版权协议", link: "/pages/cc" },
@@ -43,7 +44,7 @@ export const themeConfig = {
   ...siteData,
   blog: {
     excerptLength: 200,
-    feedback: social.qq.link,
+    feedback: '/pages/contact',
     pageComment: false,
     friendsLink: 'https://friends.a7bz.cn/v2/data.json'
   },
