@@ -13,6 +13,7 @@
   </main>
 
   <FooterLink />
+  <Footer />
 
   <Teleport to="body">
     <div :class="['left-menu', { hidden: footerIsShow }]">
@@ -34,6 +35,7 @@ import NotFound from './components/pages/NotFound.vue'
 import Post from './components/view/Post.vue'
 import Page from './components/view/Page.vue'
 import FooterLink from './components/layout/FooterLink.vue'
+import Footer from './components/layout/Footer.vue'
 import WelcomeBox from './components/view/WelcomeBox.vue'
 
 const store = useMainStore()
