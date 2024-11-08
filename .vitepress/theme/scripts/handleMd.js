@@ -163,10 +163,10 @@ const getExcerpt = (file) => {
     // 初步截取指定长度的内容
     let excerpt = content.slice(0, themeConfig.blog.excerptLength)
     // 检查截取的内容是否以完整的行结束
-    let lastNewline = excerpt.lastIndexOf("\r\n")
+    let lastNewline = excerpt.lastIndexOf("\n")
     if (lastNewline !== -1 && lastNewline < excerpt.length - 2) {
         // 如果最后一个换行符不在末尾，则扩展到下一个完整行
-        const nextNewline = content.indexOf("\r\n", themeConfig.blog.excerptLength)
+        const nextNewline = content.indexOf("\n", themeConfig.blog.excerptLength)
         if (nextNewline !== -1) {
             excerpt = content.slice(0, nextNewline)
         }
