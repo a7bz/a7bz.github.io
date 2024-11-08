@@ -48,10 +48,10 @@ export const social = {
 export const nav = [
     { icon: "home", text: "主页", link: "/", },
     {
-        icon: "article",
+        icon: "article-fill",
         text: "文库",
         items: [
-            { text: "文章列表", link: "/pages/article", icon: "article" },
+            { text: "文章列表", link: "/pages/article", icon: "doc-fill" },
             { text: "全部分类", link: "/pages/category", icon: "folder" },
             { text: "全部标签", link: "/pages/tag", icon: "hashtag" },
         ],
@@ -68,9 +68,16 @@ export const nav = [
         icon: "cross",
         text: "我的",
         items: [
-            { text: "留言板", link: "/pages/message", icon: "chat" },
+            { text: "动态", link: "/pages/talk", icon: "planet-fill" },
             { text: "关于本站", link: "/pages/about", icon: "contacts" },
-            { text: "反馈与投诉", link: "/pages/contact", icon: "question" },
         ],
     },
+    {
+        icon: "other",
+        text: "其他",
+        items: [
+            { text: "留言板", link: "/pages/message", icon: "chat" },
+            { text: "反馈与投诉", link: "/pages/contact", icon: "question" },
+        ],
+    }
 ]
