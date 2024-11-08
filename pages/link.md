@@ -13,7 +13,7 @@ import ApplyLink from '@/components/plugin/Qexo/ApplyLink.vue'
 
 # 友情链接申请
 
-欢迎交换友链，本站友链目前提交表单审核后添加，如果你想加入友链,请填写下方表单或按指定格式留言。
+欢迎交换友链，本站友链目前提交表单审核后添加，如果你想加入友链，请填写下方表单或按指定格式留言。
 
 ::: details 友链申请
 <ApplyLink />

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="theme.value?.blog?.qexo" class="s-card">
+    <div v-if="theme.blog?.qexo" class="s-card">
         <div id="qexoDaoDao"></div>
     </div>
 </template>
@@ -19,8 +19,8 @@ onMounted(() => {
     }).then(() => {
         qexoDaodao?.init({
             el: "#qexoDaoDao",
-            avatar: theme.value?.siteData.author.cover,
-            name: theme.value?.siteData.author.name,
+            avatar: theme.value?.author.cover,
+            name: theme.value?.author.name,
             limit: 10,
             useLoadingImg: false,
             baseURL: theme.value?.blog.qexo,
