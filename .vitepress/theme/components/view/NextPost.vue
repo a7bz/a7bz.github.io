@@ -21,7 +21,7 @@ import { useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useDataStore } from '@/store/index'
 
-const path = ref()
+const path = ref('')
 const observer = ref(null)
 const isNextPost = ref(true)
 const nextPostData = ref(null)
@@ -62,15 +62,15 @@ const isShowNext = () => {
 }
 
 watch(() => router.route.path, () => {
+  path.value = window.location.pathname
   geNextPostData()
   isShowNext()
-  path.value = window.location.pathname
 })
 
 onMounted(() => {
+  path.value = window.location.pathname
   geNextPostData()
   isShowNext()
-  path.value = window.location.pathname
 })
 
 onBeforeUnmount(() => {
