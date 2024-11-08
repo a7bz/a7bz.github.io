@@ -5,6 +5,7 @@
             <Toc v-if="toc" class="weidgets" />
             <!-- <Clock class="weidgets" /> -->
             <HotTags class="weidgets" />
+            <SiteData class="weidgets" />
         </div>
     </aside>
 </template>
@@ -13,6 +14,7 @@
 import HotTags from './HotTags.vue'
 import Intro from './Intro.vue'
 import Toc from './Toc.vue'
+import SiteData from './SiteData.vue'
 import Clock from './Clock.vue'
 const props = defineProps({
     toc: {
