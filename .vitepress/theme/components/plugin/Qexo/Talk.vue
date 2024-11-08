@@ -1,27 +1,31 @@
 <template>
-    <div class="s-card">
+    <div v-if="theme.value?.blog?.qexo" class="s-card">
         <div id="qexoDaoDao"></div>
     </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
+import { useData } from 'vitepress'
 import { loadScript } from '@/scripts/tool'
 
+const { theme } = useData()
+
 onMounted(() => {
+    if (!theme.value?.blog?.qexo) return
     loadScript("https://cdn.jsdelivr.net/gh/Uyoahz26/daodao@main/dist/qexo-dao.min.js", {
         async: true,
         reload: true,
     }).then(() => {
         qexoDaodao?.init({
             el: "#qexoDaoDao",
-            avatar: "https://q1.qlogo.cn/g?b=qq&nk=2484068670&s=640",
-            name: "荒芜",
+            avatar: theme.value?.siteData.author.cover,
+            name: theme.value?.siteData.author.name,
             limit: 10,
             useLoadingImg: false,
-            baseURL: "https://qexo.a7bz.cn/",
-        }).then(function () {
-            console.log("qexoDaodao加载完成");
+            baseURL: theme.value?.blog.qexo,
+        }).then(() => {
+
         })
     })
 })

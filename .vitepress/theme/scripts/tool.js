@@ -26,7 +26,6 @@ export const loadScript = (src, option = {}) => {
     // 检查是否已经加载过此脚本
     const existingScript = document.querySelector(`script[src="${src}"]`)
     if (existingScript) {
-        console.log("已有重复脚本")
         if (!reload) {
             callback && callback(null, existingScript)
             return false
