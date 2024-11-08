@@ -36,8 +36,8 @@
                 </div>
             </div>
         </div>
-        <div v-else>
-            <empty description="暂无友链数据" />
+        <div class="s-card empty" v-else>
+            <empty description="友链加载中..." />
         </div>
     </Transition>
 </template>
@@ -63,6 +63,10 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+.empty {
+    padding: 25px;
+}
+
 .link-list {
     .link-type-list {
         margin-top: 2rem;
