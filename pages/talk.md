@@ -5,7 +5,7 @@ comment: true
 ---
 
 <script setup>
-import Talk from '@/components/pages/Talk.vue'
+import Talk from '@/components/plugin/Qexo/Talk.vue'
 </script>
 
 <Talk />

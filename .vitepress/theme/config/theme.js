@@ -46,7 +46,8 @@ export const themeConfig = {
     excerptLength: 200,
     feedback: '/pages/contact',
     pageComment: false,
-    friendsLink: 'https://friends.a7bz.cn/v2/data.json'
+    friendsLink: 'https://qexo.a7bz.cn/pub/friends/',
+    qexo: 'https://qexo.a7bz.cn/'
   },
   nav,
   social,

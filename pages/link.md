@@ -6,13 +6,18 @@ comment: true
 
 <script setup>
 import Link from '@/components/pages/Link.vue'
+import ApplyLink from '@/components/plugin/Qexo/ApplyLink.vue'
 </script>
 
 <Link />
 
 # 友情链接申请
 
-欢迎交换友链，本站友链目前采用**github issues 添加**，如果你想加入友链，可以去[这里](https://github.com/a7bz/friends/issues)申请，或在评论区留言。
+欢迎交换友链，本站友链目前提交表单审核后添加，如果你想加入友链,请填写下方表单或按指定格式留言。
+
+::: details 友链申请
+<ApplyLink />
+:::
 
 ### 留言格式
 

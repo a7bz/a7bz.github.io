@@ -182,6 +182,8 @@ onMounted(() => {
       img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
+        border: 5px solid white;
       }
 
       &:hover {

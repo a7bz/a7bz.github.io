@@ -21,8 +21,8 @@
                     <a v-for="(link, index) in listData" :key="index" :class="['link-card', 's-card']" :href="link?.url"
                         target="_blank" rel="noreferrer">
                         <div class="cover">
-                            <LazyLoader :useFriendsLink="link.avatar || link.ico">
-                                <img :src="link.avatar || link.ico"
+                            <LazyLoader :useFriendsLink="link.avatar || link.ico || link.image">
+                                <img :src="link.avatar || link.ico || link.image"
                                     :class="['cover-img', { 'cf-friends-avatar': useFriendsLink }]"
                                     :alt="link?.name || 'cover'" @load="(e) => e.target.classList.add('loaded')" />
                             </LazyLoader>

@@ -13,8 +13,8 @@ const { theme } = useData()
 const link = ref([])
 
 onMounted(() => {
-    fetch(theme.value.blog.friendsLink).then(res => res.json()).then(data => {
-        link.value = data.content
+    fetch(theme.value?.blog?.friendsLink).then(res => res.json()).then(data => {
+        link.value = data.content || data.data
     })
 })
 </script>
