@@ -46,6 +46,7 @@
                     <Empty description="暂无内容" />
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
+                <Copyright v-if="frontmatter.copyright !== false" :postData="postData" />
                 <div class="other-meta">
                     <div class="all-tags">
                         <a v-for="(item, index) in postData?.tag" :key="index" :href="`/pages/tag/${item}`"
@@ -79,10 +80,11 @@ import Aside from '@/components/layout/Aside/index.vue'
 import NextPost from './NextPost.vue'
 import RelatedPost from './RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
+import Copyright from './Copyright.vue'
 
 const dataStore = useDataStore()
 const router = useRouter()
-const { theme } = useData()
+const { theme, frontmatter } = useData()
 const { mdData } = storeToRefs(dataStore)
 const commentRef = ref(null)
 const pageHref = ref()

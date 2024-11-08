@@ -28,7 +28,7 @@
             </div>
             <div class="data-item">
                 <span class="name">
-                    <i class="iconfont icon-peoples"></i>
+                    <i class="iconfont icon-people"></i>
                     总访客数
                 </span>
                 <span class="num" id="busuanzi_value_site_uv">0</span>
