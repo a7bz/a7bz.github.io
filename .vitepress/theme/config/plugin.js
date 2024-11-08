@@ -1,6 +1,6 @@
 const comment = {
     provider: "Waline",
-    serverURL: "https://comment.zwymw.top",
+    serverURL: "https://waline.a7bz.cn/",
     reaction: [
         'https://unpkg.com/@waline/emojis@1.2.0/tieba/tieba_agree.png',
         'https://unpkg.com/@waline/emojis@1.2.0/tieba/tieba_sunglasses.png',
