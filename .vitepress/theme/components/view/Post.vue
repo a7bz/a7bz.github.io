@@ -95,11 +95,11 @@ const postData = computed(() => {
 })
 
 onMounted(() => {
-    pageHref.value = window.location.pathname
+    pageHref.value = decodeURIComponent(window.location.pathname)
 })
 
 watch(() => router.route?.path, () => {
-    pageHref.value = window.location.pathname
+    pageHref.value = decodeURIComponent(window.location.pathname)
 })
 </script>
 

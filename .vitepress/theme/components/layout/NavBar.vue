@@ -106,11 +106,11 @@ const { site, theme } = useData()
 const pageHref = ref('')
 
 onMounted(() => {
-  pageHref.value = window.location.pathname
+  pageHref.value = decodeURIComponent(window.location.pathname)
 })
 
 watch(() => router.route?.path, () => {
-  pageHref.value = window.location.pathname
+  pageHref.value = decodeURIComponent(window.location.pathname)
 })
 
 </script>

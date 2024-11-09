@@ -6,6 +6,7 @@
     </div>
     <div class="all-tags">
       <a v-for="(item, index) in tabData" :key="index" :href="`/pages/tag/${item.name}`" class="tags">
+        <i class="iconfont icon-tag"></i>
         <span class="name">{{ item.name }}</span>
         <sup class="num">{{ item.count }}</sup>
       </a>
@@ -47,6 +48,10 @@ const tabData = computed(() => {
       padding: 4px 8px;
       margin: 2px;
       border-radius: 8px;
+
+      .icon-tag {
+        margin-right: 5px;
+      }
 
       .num {
         margin-left: 2px;

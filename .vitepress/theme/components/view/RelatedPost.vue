@@ -40,12 +40,12 @@ const getRelatedData = async () => {
 
 watch(() => router.route?.path, () => {
     getRelatedData()
-    path.value = window.location.pathname
+    path.value = decodeURIComponent(window.location.pathname)
 })
 
 onMounted(() => {
     getRelatedData()
-    path.value = window.location.pathname
+    path.value = decodeURIComponent(window.location.pathname)
 })
 
 </script>
