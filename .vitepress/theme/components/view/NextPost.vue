@@ -62,13 +62,13 @@ const isShowNext = () => {
 }
 
 watch(() => router.route.path, () => {
-  path.value = window.location.pathname
+  path.value = decodeURIComponent(window.location.pathname)
   geNextPostData()
   isShowNext()
 })
 
 onMounted(() => {
-  path.value = window.location.pathname
+  path.value = decodeURIComponent(window.location.pathname)
   geNextPostData()
   isShowNext()
 })

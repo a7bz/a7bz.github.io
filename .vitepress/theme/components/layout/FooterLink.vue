@@ -66,7 +66,7 @@ const btnData = computed(() => {
 
 const getRandomFriends = () => {
   fetch(theme.value.blog.friendsLink).then(res => res.json()).then(data => {
-    let tmpLink = data.content || []
+    let tmpLink = data.content || data.data || []
     tmpLink = tmpLink.filter(item => {
       return item.url.replace(/\/+$/, '') !== theme.value.site.replace(/\/+$/, '')
     })

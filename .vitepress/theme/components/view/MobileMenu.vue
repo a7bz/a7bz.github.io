@@ -144,11 +144,12 @@ const pageJump = (path) => {
             }
 
             .nav-child {
-                margin-top: .5rem;
+                margin-top: 1.5rem;
                 margin-left: 15%;
                 color: var(--main-font-color);
 
                 &:hover {
+                    margin-top: .5rem;
                     padding: 10px;
                     border-radius: 10px;
                     background-color: var(--main-color);
@@ -163,7 +164,7 @@ const pageJump = (path) => {
     }
 
     .menu-item {
-        margin-bottom: 12px;
+        margin-bottom: 100px;
 
         .link-title {
             font-size: 14px;

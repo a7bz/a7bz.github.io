@@ -7,7 +7,7 @@
         <div class="all-data">
             <div class="data-item">
                 <span class="name">
-                    <i class="iconfont icon-article"></i>
+                    <i class="iconfont icon-article-fill"></i>
                     文章总数
                 </span>
                 <span class="num">{{ postsData?.length || 0 }} 篇</span>
