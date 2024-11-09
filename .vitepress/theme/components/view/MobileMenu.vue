@@ -113,7 +113,6 @@ const pageJump = (path) => {
     .nav-list {
         .nav-item {
             margin-bottom: .7rem;
-            font-weight: 600;
 
             .iconfont {
                 font-size: 1.2rem;
@@ -134,15 +133,13 @@ const pageJump = (path) => {
 
                 &:hover {
                     border-radius: 10px;
+                    background-color: var(--main-color);
+                    color: var(--main-card-background);
 
                     .iconfont {
                         margin-left: 10px;
                         color: var(--main-card-background);
                     }
-
-                    background-color: var(--main-color);
-                    color: var(--main-card-background);
-                    font-weight: 400;
                 }
             }
 
@@ -154,14 +151,12 @@ const pageJump = (path) => {
                 &:hover {
                     padding: 10px;
                     border-radius: 10px;
+                    background-color: var(--main-color);
+                    color: var(--main-card-background);
 
                     .iconfont {
                         color: var(--main-card-background);
                     }
-
-                    background-color: var(--main-color);
-                    color: var(--main-card-background);
-                    font-weight: 400;
                 }
             }
         }
@@ -183,16 +178,6 @@ const pageJump = (path) => {
             grid-template-columns: 1fr 1fr;
 
             .link-child-btn {
-
-                &:hover {
-                    .iconfont {
-                        color: var(--main-card-background);
-                    }
-
-                    color: var(--main-card-background);
-                    background-color: var(--main-color);
-                }
-
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -219,6 +204,15 @@ const pageJump = (path) => {
                     opacity: 0.4;
                     font-size: 12px;
                     margin-left: 4px;
+                }
+
+                &:hover {
+                    color: var(--main-card-background);
+                    background-color: var(--main-color);
+
+                    .iconfont {
+                        color: var(--main-card-background);
+                    }
                 }
             }
         }
