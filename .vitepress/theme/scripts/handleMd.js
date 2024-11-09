@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 
-import { themeConfig } from '../config/index'
+import { blog } from '../config/index'
 import { generateId } from './tool'
 
 const postDir = path.join(process.cwd(), 'posts')
@@ -161,12 +161,12 @@ const getExcerpt = (file) => {
     // 去除 H1 标题以及可能存在的开头换行符
     const content = file.content.replace(/^\s*# .*\r?\n+/, '')
     // 初步截取指定长度的内容
-    let excerpt = content.slice(0, themeConfig.blog.excerptLength)
+    let excerpt = content.slice(0, blog.post.excerptLength)
     // 检查截取的内容是否以完整的行结束
     let lastNewline = excerpt.lastIndexOf("\n")
     if (lastNewline !== -1 && lastNewline < excerpt.length - 2) {
         // 如果最后一个换行符不在末尾，则扩展到下一个完整行
-        const nextNewline = content.indexOf("\n", themeConfig.blog.excerptLength)
+        const nextNewline = content.indexOf("\n", blog.post.excerptLength)
         if (nextNewline !== -1) {
             excerpt = content.slice(0, nextNewline)
         }
@@ -220,13 +220,15 @@ const getMdData = async (filePath) => {
 const updateCategoryAndTag = (post) => {
     if (!post) return
     // 更新分类
-    if (post.category) {
-        if (!categoryCache[post.category]) {
-            categoryCache[post.category] = []
-        }
-        if (!categoryCache[post.category].includes(post.href)) {
-            categoryCache[post.category].push(post.href)
-        }
+    if (post.category && Array.isArray(post.category)) {
+        post.category.forEach(category => {
+            if (!categoryCache[category]) {
+                categoryCache[category] = []
+            }
+            if (!categoryCache[category].includes(post.href)) {
+                categoryCache[category].push(post.href)
+            }
+        })
     }
 
     // 更新标签
@@ -245,28 +247,27 @@ const updateCategoryAndTag = (post) => {
 // 从分类和标签缓存中移除文章引用
 const removeCategoryAndTag = (post) => {
     // 移除分类
-    if (post.category && categoryCache[post.category]) {
-        const index = categoryCache[post.category].indexOf(post.href)
-        if (index !== -1) {
-            categoryCache[post.category].splice(index, 1)
-        }
-        // 如果分类不再有文章引用，则删除该分类
-        if (categoryCache[post.category].length === 0) {
-            delete categoryCache[post.category]
-        }
+    if (post.category && Array.isArray(post.category)) {
+        post.category.forEach(category => {
+            if (categoryCache[category]) {
+                const index = categoryCache[category].indexOf(post.href)
+                if (index !== -1)
+                    categoryCache[category].splice(index, 1)
+                if (categoryCache[category].length === 0)
+                    delete categoryCache[category]
+            }
+        })
     }
     // 移除标签
     if (post.tag && Array.isArray(post.tag)) {
         post.tag.forEach(tag => {
             if (tagsCache[tag]) {
                 const index = tagsCache[tag].indexOf(post.href)
-                if (index !== -1) {
+                if (index !== -1)
                     tagsCache[tag].splice(index, 1)
-                }
                 // 如果标签不再有文章引用，则删除该标签
-                if (tagsCache[tag].length === 0) {
+                if (tagsCache[tag].length === 0)
                     delete tagsCache[tag]
-                }
             }
         })
     }

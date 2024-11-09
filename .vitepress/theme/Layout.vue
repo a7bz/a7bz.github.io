@@ -61,7 +61,7 @@ const isPost = computed(() => {
 })
 
 const isPage = computed(() => {
-  return page.value.relativePath.startsWith('pages/')
+  return page.value.relativePath.startsWith('pages/') || page.value.relativePath.startsWith('page/')
     || page.value.relativePath.endsWith('index.md')
 })
 

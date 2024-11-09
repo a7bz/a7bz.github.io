@@ -40,19 +40,24 @@ const footer = {
   ]
 }
 
+export const blog = {
+  feedback: '/pages/contact',
+  friendsLink: 'https://qexo.a7bz.cn/pub/friends/',
+  qexo: 'https://qexo.a7bz.cn/',
+  pageComment: false,
+  post: {
+    excerptLength: 200,
+  },
+  pageSize: 5
+}
+
 export const themeConfig = {
   ...main,
   search: {
     provider: 'local',
   },
+  blog,
   ...siteData,
-  blog: {
-    excerptLength: 200,
-    feedback: '/pages/contact',
-    pageComment: false,
-    friendsLink: 'https://qexo.a7bz.cn/pub/friends/',
-    qexo: 'https://qexo.a7bz.cn/'
-  },
   nav,
   social,
   footer,

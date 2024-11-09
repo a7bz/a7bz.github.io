@@ -175,6 +175,7 @@ watch(() => router.route?.path, () => {
           display: flex;
           flex-direction: row;
           align-items: center;
+          margin-right: .8rem;
 
           .iconfont {
             opacity: 0.8;
