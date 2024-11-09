@@ -23,8 +23,8 @@ const footer = {
     {
       text: "页面",
       items: [
+        { text: "动态", link: "/pages/talk", icon: "planet-fill" },
         { text: "留言板", link: "/pages/message" },
-        { text: "反馈与投诉", link: "/pages/contact" },
         // { text: "关于本站", link: "/pages/about" },
         // { text: "隐私政策", link: "/pages/privacy" },
         // { text: "版权协议", link: "/pages/cc" },
@@ -32,6 +32,10 @@ const footer = {
     },
     {
       text: "其他",
+      items: [
+        { text: "反馈与投诉", link: "/pages/contact" },
+        { text: "友情链接", link: "/pages/link", icon: "people" },
+      ]
     }
   ]
 }

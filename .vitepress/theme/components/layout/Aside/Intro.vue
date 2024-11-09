@@ -14,6 +14,26 @@
         <span class="author">{{ theme.title }}</span>
         <span class="desc">{{ theme.description }}</span>
       </div>
+      <div class="site-data">
+        <div class="data-item">
+          <div @click="pageJump('/pages/article')">
+            <div class="data-name">文章</div>
+            <div class="data-num">{{ postsData.length }}</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div @click="pageJump('/pages/category')">
+            <div class="data-name">分类</div>
+            <div class="data-num">{{ Object.keys(categoryData).length }}</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div @click="pageJump('/pages/tag')">
+            <div class="data-name">标签</div>
+            <div class="data-num">{{ Object.keys(tagsData).length }}</div>
+          </div>
+        </div>
+      </div>
       <div class="link">
         <a v-for="(item, index) in theme.social" :key="index" target="_blank" class="social-link" :href="item.link"
           rel="noreferrer">
@@ -25,10 +45,16 @@
 </template>
 
 <script setup>
-import { useData } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { storeToRefs } from 'pinia'
 import { getGreetings } from '@/scripts/helper'
+import { useDataStore, useMainStore } from '@/store'
 
+const store = useMainStore()
+const dataStore = useDataStore()
+const router = useRouter()
+const { postsData, tagsData, categoryData } = storeToRefs(dataStore)
 const { theme } = useData()
 const helloClick = ref(0)
 const helloTimeOut = ref(null)
@@ -37,6 +63,12 @@ const resetHello = () => {
   helloClick.value = 0
   if (isHasUser()) return false
   helloText.value = getGreetings()
+}
+
+const pageJump = (path) => {
+  if (!path) return false
+  store.changeShowStatus("mobileMenuShow")
+  router.go(path)
 }
 
 const changeHello = () => {
@@ -170,6 +202,38 @@ onBeforeUnmount(() => {
       .desc {
         font-size: 12px;
         opacity: 0.6;
+      }
+    }
+
+    .site-data {
+      text-align: center;
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-top: 1rem;
+
+      .data-item {
+        display: table-cell;
+        position: relative;
+
+        &:not(:last-child)::after {
+          opacity: .8;
+          position: absolute;
+          content: "";
+          width: 2px;
+          right: 0;
+          height: 70%;
+          background: var(--main-card-background);
+          top: 15%
+        }
+
+        .data-name {
+          color: var(--main-card-background) !important;
+        }
+
+        .data-num {
+          color: var(--main-card-background) !important;
+        }
       }
     }
 

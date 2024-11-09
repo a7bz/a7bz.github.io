@@ -56,10 +56,6 @@
           <div class="menu-btn nav-btn" title="随机前往一篇文章" @click="router.go(shufflePost(postsData))">
             <i class="iconfont icon-shuffle"></i>
           </div>
-          <!-- 搜索
-          <div class="menu-btn nav-btn" title="全站搜索" @click="store.changeShowStatus('searchShow')">
-            <i class="iconfont icon-search"></i>
-          </div> -->
           <!-- 中控台 -->
           <!-- <div id="open-control" class="menu-btn nav-btn pc" title="打开中控台"
             @click="store.changeShowStatus('controlShow')">
@@ -80,18 +76,14 @@
             </div>
           </div>
           <!-- 移动端菜单 -->
-          <!-- <div class="menu-btn nav-btn mobile" title="打开菜单" @click="store.changeShowStatus('mobileMenuShow')">
+          <div class="menu-btn nav-btn mobile" title="打开菜单" @click="store.changeShowStatus('mobileMenuShow')">
             <i class="iconfont icon-toc" />
-          </div> -->
+          </div>
         </div>
       </div>
     </nav>
     <!-- 移动端菜单 -->
-    <!-- <MobileMenu /> -->
-    <!-- 全局搜索 -->
-    <ClientOnly>
-      <!-- <Search /> -->
-    </ClientOnly>
+    <MobileMenu />
   </header>
 </template>
 
@@ -102,6 +94,7 @@ import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
 import { smoothScrolling, shufflePost } from "@/scripts/helper"
 import Search from '@/components/plugin/Search/index.vue'
+import MobileMenu from "../view/MobileMenu.vue"
 
 const router = useRouter()
 const store = useMainStore()
@@ -658,8 +651,9 @@ watch(() => router.route?.path, () => {
               opacity: 0;
             }
 
-            .icon-up {
+            .icon-rocket {
               opacity: 1;
+              color: #fff !important;
             }
           }
 

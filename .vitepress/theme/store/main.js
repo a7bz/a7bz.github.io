@@ -15,10 +15,18 @@ export const useMainStore = defineStore('main', {
             fontSize: 16,
             infoPosition: "fixed",
             footerIsShow: false,
+            mobileMenuShow: false,
         }
     },
     actions: {
-
+        changeShowStatus(value, blur = true) {
+            this[value] = !this[value]
+            document.body.style.overflowY = this[value] ? "hidden" : ""
+            const globalApp = document.getElementById("app")
+            this[value] && this.backgroundBlur && blur
+                ? globalApp.classList.add("blur")
+                : globalApp.classList.remove("blur")
+        }
     },
     persist: [
         {
