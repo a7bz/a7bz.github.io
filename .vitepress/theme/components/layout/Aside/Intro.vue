@@ -242,7 +242,6 @@ onBeforeUnmount(() => {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      margin-left: 20px;
       margin-top: 10px;
 
       .social-link {

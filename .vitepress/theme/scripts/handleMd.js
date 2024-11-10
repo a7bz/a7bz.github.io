@@ -7,191 +7,52 @@ import { generateId } from './tool'
 
 const postDir = path.join(process.cwd(), 'posts')
 const cacheDir = path.join(process.cwd(), 'casual') // 缓存目录
-const cacheMd = path.join(cacheDir, 'mdCache.js')
-const cacheCategory = path.join(cacheDir, 'category.js')
-const cacheTags = path.join(cacheDir, 'tags.js')
-const cachePosts = path.join(cacheDir, 'posts.js')
-const cacheStar = path.join(cacheDir, 'star.js')
 
-if (!fs.existsSync(cacheDir)) {
-    fs.mkdirSync(cacheDir, { recursive: true })
-    await fs.promises.writeFile(cacheDir + '/index.js', `export * from './category' 
-export * from './mdCache'
-export * from './posts'
-export * from './star'
-export * from './tags'`, 'utf-8')
+// 缓存文件路径
+const cacheFiles = {
+    md: path.join(cacheDir, 'md.js'),
+    category: path.join(cacheDir, 'category.js'),
+    tags: path.join(cacheDir, 'tags.js'),
+    posts: path.join(cacheDir, 'posts.js'),
+    star: path.join(cacheDir, 'star.js')
 }
 
-// 缓存结构：包括文章、分类和标签
-const mdCache = {}
-const categoryCache = {}
-const tagsCache = {}
-const postsCache = []
-const starCache = []
+// 缓存结构
+const cache = {
+    md: {},
+    category: {},
+    tags: {},
+    posts: [],
+    star: []
+}
 
-let lastSavedCache = {
-    mdCache: {},
-    categoryCache: {},
-    tagsCache: {},
-    postsCache: [],
-    starCache: []
+// 上次保存的缓存
+let lastSavedCache = { ...cache }
+
+// 创建缓存目录及导出文件
+if (!fs.existsSync(cacheDir)) {
+    fs.mkdirSync(cacheDir, { recursive: true })
+    await fs.promises.writeFile(path.join(cacheDir, 'index.js'),
+        Object.keys(cacheFiles).map(key => `export * from './${key}'`).join('\n'), 'utf-8')
 }
 
 // 获取所有 Markdown 文件
-const getAllMdFiles = async (dirPath) => {
-    let arrayOfFiles = []
-    const files = await fs.promises.readdir(dirPath)
-    for (const file of files) {
-        const fullPath = path.join(dirPath, file)
-        const stats = await fs.promises.stat(fullPath)
-        if (stats.isDirectory()) {
-            const subDirFiles = await getAllMdFiles(fullPath)
-            arrayOfFiles = arrayOfFiles.concat(subDirFiles)
-        } else if (fullPath.endsWith('.md')) {
-            arrayOfFiles.push(fullPath)
-        }
-    }
-    return arrayOfFiles
+const getAllMdFiles = async (dir) => {
+    const files = await fs.promises.readdir(dir, { withFileTypes: true })
+    const mdFiles = await Promise.all(files.map(async (file) => {
+        const fullPath = path.join(dir, file.name)
+        return file.isDirectory() ? await getAllMdFiles(fullPath) : (fullPath.endsWith('.md') ? fullPath : null)
+    }))
+    return mdFiles.flat().filter(Boolean)
 }
 
-// 添加/修改/删除 Markdown 文件的核心处理
-const updateMdCache = async (filePath, operation) => {
-    try {
-        const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
-        const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
-        let href
-        if (match) {
-            const id = match[4] || ''
-            href = id ? `/posts/${match[1]}/${match[4]}` : `/posts/${match[1]}/${match[3]}`
-        }
-        if (!href)
-            href = `/posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
-        const cachedPost = mdCache[href]
-        if (operation === 'del') {
-            if (cachedPost) {
-                removeCategoryAndTag(cachedPost.post)
-                delete mdCache[href]
-                // 删除 postsCache 中的条目
-                const postIndex = postsCache.findIndex(post => post.href === href)
-                if (postIndex !== -1) {
-                    postsCache.splice(postIndex, 1)
-                }
-                // 删除 starCache 中的条目
-                const starIndex = starCache.findIndex(star => star.href === href)
-                if (starIndex !== -1) {
-                    starCache.splice(starIndex, 1)
-                }
-            }
-        } else {
-            if (operation === 'change') {
-                if (cachePosts) {
-                    removeCategoryAndTag(cachedPost.post)
-                }
-            }
-            const post = await getMdData(filePath)
-            if (!post) return
-            updateCategoryAndTag(post)
-            updatePosts(post)
-            updateStarCache(post)
-            mdCache[href] = { timestamp: post.update, post }
-        }
-        await saveCache()
-    } catch (error) {
-        console.error(`Error ${operation} Markdown file:`, error)
-    }
-}
-
-export const addMd = async (e) => {
-    updateMdCache(e, 'add')
-}
-
-export const delMd = async (e) => {
-    updateMdCache(e, 'del')
-}
-
-export const changeMd = async (e) => {
-    updateMdCache(e, 'change')
-}
-
-
-const hotCode = (data) => {
-    return `
-if (import.meta.hot)
-  import.meta.hot.accept(({ ${data} }) => {
-    if(__VUE_HMR_RUNTIME__.${data}Update)
-        __VUE_HMR_RUNTIME__.${data}Update(${data})
-  })
-    `
-}
-
-const shallowClone = (source) => {
-    return JSON.parse(JSON.stringify(source))
-}
-
-// 保存缓存到文件
-const saveCache = async () => {
-    try {
-        if (JSON.stringify(lastSavedCache.mdCache) !== JSON.stringify(mdCache) || !fs.existsSync(cacheMd)) {
-            await fs.promises.writeFile(cacheMd, `export const mdData = ${JSON.stringify(mdCache, null, 2)}` + hotCode('mdData'), 'utf-8')
-            lastSavedCache.mdCache = shallowClone(mdCache)
-        }
-        if (JSON.stringify(lastSavedCache.tagsCache) !== JSON.stringify(tagsCache) || !fs.existsSync(cacheTags)) {
-            await fs.promises.writeFile(cacheTags, `export const tagsData = ${JSON.stringify(tagsCache, null, 2)}` + hotCode('tagsData'), 'utf-8')
-            lastSavedCache.tagsCache = shallowClone(tagsCache)
-        }
-        if (JSON.stringify(lastSavedCache.categoryCache) !== JSON.stringify(categoryCache) || !fs.existsSync(cacheCategory)) {
-            await fs.promises.writeFile(cacheCategory, `export const categoryData = ${JSON.stringify(categoryCache, null, 2)}` + hotCode('categoryData'), 'utf-8')
-            lastSavedCache.categoryCache = shallowClone(categoryCache)
-        }
-        if (JSON.stringify(lastSavedCache.postsCache) !== JSON.stringify(postsCache) || !fs.existsSync(cachePosts)) {
-            await fs.promises.writeFile(cachePosts, `export const postsData = ${JSON.stringify(postsCache, null, 2)}` + hotCode('postsData'), 'utf-8')
-            lastSavedCache.postsCache = shallowClone(postsCache)
-        }
-        if (JSON.stringify(lastSavedCache.starCache) !== JSON.stringify(starCache) || !fs.existsSync(cacheStar)) {
-            await fs.promises.writeFile(cacheStar, `export const starData = ${JSON.stringify(starCache, null, 2)}` + hotCode('starData'), 'utf-8')
-            lastSavedCache.starCache = shallowClone(starCache)
-        }
-    } catch (error) {
-        console.error('Failed to save cache:', error)
-    }
-}
-
-// 获取 Markdown 文件的元数据和内容
-const getExcerpt = (file) => {
-    // 去除 H1 标题以及可能存在的开头换行符
-    const content = file.content.replace(/^\s*# .*\r?\n+/, '')
-    // 初步截取指定长度的内容
-    let excerpt = content.slice(0, blog.post.excerptLength)
-    // 检查截取的内容是否以完整的行结束
-    let lastNewline = excerpt.lastIndexOf("\n")
-    if (lastNewline !== -1 && lastNewline < excerpt.length - 2) {
-        // 如果最后一个换行符不在末尾，则扩展到下一个完整行
-        const nextNewline = content.indexOf("\n", blog.post.excerptLength)
-        if (nextNewline !== -1) {
-            excerpt = content.slice(0, nextNewline)
-        }
-    }
-    file.excerpt = excerpt
-}
-
-
-
-// 解析 Markdown 文件内容
+// Markdown 解析及缓存更新
 const getMdData = async (filePath) => {
-    const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
-    const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
-    let href
-    if (match) {
-        const id = match[4] || ''
-        href = id ? `/posts/${match[1]}/${match[4]}` : `/posts/${match[1]}/${match[3]}`
-    }
-    if (!href)
-        href = `/posts${filePath.replace(postDir, '').replace('.md', '').replace(/\\/g, '/').replace('index', '')}`
+    const href = createHref(filePath)
     const { mtimeMs: timestamp, birthtimeMs: createTime } = await fs.promises.stat(filePath)
-    const cached = mdCache[href]
-    if (cached && timestamp === cached.timestamp) {
-        return cached.post
-    }
+    const cached = cache.md[href]
+    if (cached && timestamp === cached.timestamp) return cached.post
+
     try {
         const src = await fs.promises.readFile(filePath, 'utf-8')
         const matterData = matter(src, { excerpt: getExcerpt })
@@ -202,11 +63,8 @@ const getMdData = async (filePath) => {
             excerpt: matterData.excerpt,
             href,
             create: +(new Date(matterData.data.date || createTime)),
-            update: timestamp
-        }
-        if (!post.title) {
-            const titleMatch = matterData.content.match(/^#\s(.+)$/m)
-            post.title = titleMatch ? titleMatch[1] : '未命名'
+            update: timestamp,
+            title: matterData.data.title || matterData.content.match(/^#\s(.+)$/m)?.[1] || '未命名'
         }
         return post
     } catch (error) {
@@ -215,148 +73,144 @@ const getMdData = async (filePath) => {
     }
 }
 
+// 处理缓存更新和保存
+const updateMdCache = async (filePath, operation) => {
+    const href = createHref(filePath)
+    const cachedPost = cache.md[href]
 
-// 更新分类和标签缓存
+    if (operation === 'del' && cachedPost) {
+        removeCategoryAndTag(cachedPost.post)
+        delete cache.md[href]
+        removeFromCache(cache.posts, href)
+        removeFromCache(cache.star, href)
+    } else {
+        if (operation === 'change' && cachedPost) removeCategoryAndTag(cachedPost.post)
+        const post = await getMdData(filePath)
+        if (!post) return
+
+        updateCategoryAndTag(post)
+        updateSortedCache(cache.posts, post, 'top')
+        updateSortedCache(cache.star, post, 'star')
+        cache.md[href] = { timestamp: post.update, post }
+    }
+
+    await saveCache()
+}
+
+const saveCache = async () => {
+    await Promise.all(Object.entries(cache).map(async ([key, data]) => {
+        const cachePath = cacheFiles[key]
+        const dataKey = `${key}Data`
+        const dataString = JSON.stringify(data, null, 2)
+        const needsUpdate = JSON.stringify(lastSavedCache[key]) !== dataString || !fs.existsSync(cachePath)
+
+        if (needsUpdate) {
+            await fs.promises.writeFile(cachePath, `export const ${dataKey} = ${dataString}${hotCode(dataKey)}`, 'utf-8')
+            lastSavedCache[key] = shallowClone(data)
+        }
+    }))
+}
+
+const createHref = (filePath) => {
+    const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
+    const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
+    return match ? `/posts/${match[1]}/${match[4] || match[3]}` : `/posts${newPath.replace('.md', '').replace('index', '')}`
+}
+
+const getExcerpt = (file) => {
+    const content = file.content.replace(/^\s*# .*\r?\n+/, '')
+    let excerpt = content.slice(0, blog.post.excerptLength)
+    const lastNewline = excerpt.lastIndexOf("\n")
+    if (lastNewline !== -1 && lastNewline < excerpt.length - 2) {
+        const nextNewline = content.indexOf("\n", blog.post.excerptLength)
+        if (nextNewline !== -1) excerpt = content.slice(0, nextNewline)
+    }
+    file.excerpt = excerpt
+}
+
+const hotCode = (data) => `
+if (import.meta.hot)
+  import.meta.hot.accept(({ ${data} }) => {
+    if (__VUE_HMR_RUNTIME__.${data}Update)
+      __VUE_HMR_RUNTIME__.${data}Update(${data})
+  })`
+
+const shallowClone = (source) => JSON.parse(JSON.stringify(source))
+
+const removeFromCache = (array, href) => {
+    const index = array.findIndex(item => item.href === href)
+    if (index !== -1) array.splice(index, 1)
+}
+
+const updateSortedCache = (array, post, sortKey) => {
+    if (sortKey === 'star' && !post[sortKey]) return
+    removeFromCache(array, post.href)
+    array.push({ href: post.href, [sortKey]: post[sortKey] || 0, create: post.create || 0 })
+    array.sort((a, b) => b[sortKey] !== a[sortKey] ? b[sortKey] - a[sortKey] : b.create - a.create)
+}
+
 const updateCategoryAndTag = (post) => {
-    if (!post) return
-    // 更新分类
-    if (post.category && Array.isArray(post.category)) {
-        post.category.forEach(category => {
-            if (!categoryCache[category]) {
-                categoryCache[category] = []
-            }
-            if (!categoryCache[category].includes(post.href)) {
-                categoryCache[category].push(post.href)
-            }
-        })
-    }
-
-    // 更新标签
-    if (post.tag && Array.isArray(post.tag)) {
-        post.tag.forEach(tag => {
-            if (!tagsCache[tag]) {
-                tagsCache[tag] = []
-            }
-            if (!tagsCache[tag].includes(post.href)) {
-                tagsCache[tag].push(post.href)
-            }
-        })
-    }
+    ['category', 'tag'].forEach((key) => {
+        if (Array.isArray(post[key])) {
+            post[key].forEach((item) => {
+                const cacheItem = key === 'category' ? cache.category : cache.tags
+                if (!cacheItem[item]) cacheItem[item] = []
+                if (!cacheItem[item].includes(post.href)) cacheItem[item].push(post.href)
+            })
+        }
+    })
 }
 
-// 从分类和标签缓存中移除文章引用
 const removeCategoryAndTag = (post) => {
-    // 移除分类
-    if (post.category && Array.isArray(post.category)) {
-        post.category.forEach(category => {
-            if (categoryCache[category]) {
-                const index = categoryCache[category].indexOf(post.href)
-                if (index !== -1)
-                    categoryCache[category].splice(index, 1)
-                if (categoryCache[category].length === 0)
-                    delete categoryCache[category]
-            }
-        })
-    }
-    // 移除标签
-    if (post.tag && Array.isArray(post.tag)) {
-        post.tag.forEach(tag => {
-            if (tagsCache[tag]) {
-                const index = tagsCache[tag].indexOf(post.href)
-                if (index !== -1)
-                    tagsCache[tag].splice(index, 1)
-                // 如果标签不再有文章引用，则删除该标签
-                if (tagsCache[tag].length === 0)
-                    delete tagsCache[tag]
-            }
-        })
-    }
-}
-
-const updatePosts = (post) => {
-    const existingIndex = postsCache.findIndex(item => item.href === post.href);
-    // 如果已经存在，则移除旧的
-    if (existingIndex !== -1) {
-        postsCache.splice(existingIndex, 1)
-    }
-    // 添加新的文章信息到 postsCache 中
-    postsCache.push({
-        href: post.href,
-        top: post.top || 0, // top 默认值为 0
-        create: post.create || 0 // create 默认为 0
-    })
-    // 排序规则：先按 top 排序，top 越大越靠前；相同 top 值按 create 排序，越新越靠前
-    postsCache.sort((a, b) => {
-        if (b.top !== a.top) {
-            return b.top - a.top; // top 值降序
+    ['category', 'tag'].forEach((key) => {
+        if (Array.isArray(post[key])) {
+            post[key].forEach((item) => {
+                const cacheItem = key === 'category' ? cache.category : cache.tags
+                const index = cacheItem[item]?.indexOf(post.href)
+                if (index !== -1) cacheItem[item].splice(index, 1)
+                if (cacheItem[item]?.length === 0) delete cacheItem[item]
+            })
         }
-        return b.create - a.create; // create 值降序
     })
 }
 
-// 更新星标文章缓存
-const updateStarCache = (post) => {
-    if (post.star) {
-        const existingIndex = starCache.findIndex(item => item.href === post.href);
-        // 如果已经存在，则移除旧的
-        if (existingIndex !== -1) {
-            starCache.splice(existingIndex, 1);
-        }
-        // 添加新的文章信息到 starCache 中
-        starCache.push({
-            href: post.href,
-            star: post.star || 0, // star 默认值为 0
-            create: post.create || 0 // create 默认为 0
-        })
-        // 排序规则：先按 star 排序，star 越大越靠前；相同 star 值按 create 排序，越新越靠前
-        starCache.sort((a, b) => {
-            if (b.star !== a.star) {
-                return b.star - a.star; // star 值降序
-            }
-            return b.create - a.create; // create 值降序
-        })
-    }
-}
+// 导出方法
+export const addMd = async (e) => updateMdCache(e, 'add')
+export const delMd = async (e) => updateMdCache(e, 'del')
+export const changeMd = async (e) => updateMdCache(e, 'change')
 
 // 初始化缓存
 export const initData = async () => {
-    try {
-        await loadCache()
-        const allMdFiles = await getAllMdFiles(postDir)
-        const existingCacheKeys = Object.keys(mdCache)
+    await loadCache()
+    const allMdFiles = await getAllMdFiles(postDir)
+    const existingCacheKeys = Object.keys(cache.md)
 
-        await Promise.all(allMdFiles.map(async file => {
-            const post = await getMdData(file)
-            if (post) {
-                const href = post.href
-                mdCache[href] = { timestamp: post.update, post }
-                updateCategoryAndTag(post)
-                updatePosts(post)
-                updateStarCache(post)
-                const index = existingCacheKeys.indexOf(href)
-                if (index !== -1) {
-                    existingCacheKeys.splice(index, 1)
-                }
-            }
-        }))
+    await Promise.all(allMdFiles.map(async (file) => {
+        const post = await getMdData(file)
+        if (post) {
+            const href = post.href
+            cache.md[href] = { timestamp: post.update, post }
+            updateCategoryAndTag(post)
+            updateSortedCache(cache.posts, post, 'top')
+            updateSortedCache(cache.star, post, 'star')
+            existingCacheKeys.splice(existingCacheKeys.indexOf(href), 1)
+        }
+    }))
 
-        existingCacheKeys.forEach(key => {
-            const cachedPost = mdCache[key].post
-            removeCategoryAndTag(cachedPost)
-            delete mdCache[key]
-        })
+    existingCacheKeys.forEach((key) => {
+        const cachedPost = cache.md[key].post
+        removeCategoryAndTag(cachedPost)
+        delete cache.md[key]
+    })
 
-        await saveCache()
-        console.log('mdCache initialized and cleaned')
-    } catch (error) {
-        console.error('Failed to initialize mdCache:', error)
-    }
+    await saveCache()
+    console.log('mdCache initialized and cleaned')
 }
 
 // 加载缓存文件
 const loadCache = async () => {
-    if (fs.existsSync(cacheMd)) {
-        const { mdData } = await import(`file://${cacheMd}`);
-        Object.assign(mdCache, mdData)
+    if (fs.existsSync(cacheFiles.md)) {
+        const { mdData } = await import(`file://${cacheFiles.md}`)
+        Object.assign(cache.md, mdData)
     }
 }

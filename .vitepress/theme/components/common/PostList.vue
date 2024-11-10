@@ -16,6 +16,10 @@
             <i class="iconfont icon-align-top" />
             置顶
           </span>
+          <span v-if="post(item)?.star" class="star">
+            <i class="iconfont icon-star" />
+            星标
+          </span>
         </div>
         <span class="post-title">
           <i :class="`iconfont icon-${post(item)?.icon}`" />
@@ -31,12 +35,14 @@
               {{ tag }}
             </span>
             <span class="meta">
-              <i class="iconfont icon-hot" />
-              <span class="post-pageview" :data-path="post(item)?.href">...</span>
-            </span>
-            <span class="meta">
-              <i class="iconfont icon-chat" />
-              <span class="post-comment" :data-path="post(item)?.href">...</span>
+              <div class="meta-item">
+                <i class="iconfont icon-hot" />
+                <span class="post-pageview" :data-path="post(item)?.href">...</span>
+              </div>
+              <div class="meta-item">
+                <i class="iconfont icon-chat" />
+                <span class="post-comment" :data-path="post(item)?.href">...</span>
+              </div>
             </span>
           </div>
           <span class="post-time">{{ post(item)?.date ?
@@ -193,6 +199,16 @@ watch(() => router.route?.path, () => {
             color: var(--main-color);
           }
         }
+
+        .star {
+          margin-left: 12px;
+          color: var(--main-color);
+
+          .iconfont {
+            opacity: 0.8;
+            color: var(--main-color);
+          }
+        }
       }
 
       .post-title {
@@ -242,7 +258,13 @@ watch(() => router.route?.path, () => {
               hsla(0, 0%, 100%, 0) 100%);
 
           .meta {
+            display: flex;
+            align-items: center;
             margin-right: 10px;
+
+            .meta-item {
+              margin-right: 12px;
+            }
 
             .iconfont {
               margin-right: 5px;
@@ -274,7 +296,13 @@ watch(() => router.route?.path, () => {
           }
 
           @media (max-width: 768px) {
-            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .tags-name {
+              width: 100%;
+              margin-bottom: 0.5rem; // 增加标签和元数据之间的间距
+            }
           }
         }
 

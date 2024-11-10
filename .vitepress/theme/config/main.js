@@ -7,6 +7,11 @@ export const navMore = [
                 name: "主站",
                 url: "/"
             },
+            {
+                icon: "/logo.png",
+                name: "github线路",
+                url: "https://a7bz.github.io/"
+            },
         ]
     },
 ]

@@ -35,6 +35,7 @@ const footer = {
       items: [
         { text: "反馈与投诉", link: "/pages/contact" },
         { text: "友情链接", link: "/pages/link", icon: "people" },
+        { text: "siteMap", link: "/sitemap.xml", icon: "map" }
       ]
     }
   ]

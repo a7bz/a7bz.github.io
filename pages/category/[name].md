@@ -1,5 +1,5 @@
 ---
-title: {{$params}}
+title: 分类
 aside: false
 ---
 

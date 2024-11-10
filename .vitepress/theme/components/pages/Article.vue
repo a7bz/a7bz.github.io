@@ -7,7 +7,7 @@
       </div>
       <div class="item" :class="tab == 1 ? 'activate' : ''" @click="tab = 1">
         <h1 class="name">星标文章</h1>
-        <sup v-if="starData?.length" class="num">{{ starData.length }}"></sup>
+        <sup v-if="starData?.length" class="num">{{ starData.length }}</sup>
       </div>
     </div>
     <div class="archives-list">
@@ -146,7 +146,8 @@ const { postsData, starData } = storeToRefs(dataStore)
 
       &:last-child {
         margin-bottom: 0;
-      } }
+      }
+    }
   }
 }
 </style>
