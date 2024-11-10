@@ -47,7 +47,6 @@ export default defineConfig({
     const fs = await import('fs')
     let mdCache = {}
     try {
-      console.log(fs.existsSync(cacheDir))
       if (fs.existsSync(cacheDir)) {
         const mdData = await import(`file://${cacheDir}/md.js`)
         mdCache = mdData.mdData
@@ -70,9 +69,11 @@ export default defineConfig({
         .trim()
         .slice(0, 160)
     }
+    if (!description) {
+      description = `${context.pageData?.params?.name || frontmatter?.title || ''} ${context.siteData.description}`
+    }
     if (description)
       heads.push(['meta', { name: 'description', content: description }])
-    console.log('heads', heads)
     return heads
   },
   transformPageData: async (pageData) => {

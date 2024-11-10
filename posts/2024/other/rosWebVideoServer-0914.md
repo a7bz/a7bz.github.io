@@ -3,8 +3,9 @@ icon: driverless
 date: 2024-09-14
 keywords: web_video_server
 category:
-  - ros
+  - 教程
 tag:
+  - ros
   - ros工具包
 ---
 

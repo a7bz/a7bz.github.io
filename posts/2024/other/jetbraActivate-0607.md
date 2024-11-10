@@ -4,7 +4,7 @@ date: 2024-06-07
 category:
   - 软件
 tag:
-  - 教程
+  - 补丁
 ---
 
 # JetBrains 全家桶激活补丁
