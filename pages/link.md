@@ -26,17 +26,28 @@ import ApplyLink from '@/components/plugin/Qexo/ApplyLink.vue'
   "title": "网站或个人昵称",
   "url": "完整的主页地址",
   "avatar": "头像链接",
-  "description": "网站或个人简介"
+  "desc": "网站或个人简介"
 }
 ```
 
 ### 我的友链信息
+
+::: code-group
 
 ```json
 {
   "title": "荒芜",
   "url": "https://blog.a7bz.cn/",
   "avatar": "https://blog.a7bz.cn/logo.png",
-  "description": "记录分享一些笔记"
+  "desc": "记录分享一些笔记"
 }
 ```
+
+```yml
+title: 荒芜
+url: https://blog.a7bz.cn/
+avatar: https://blog.a7bz.cn/logo.png
+desc: 记录分享一些笔记
+```
+
+:::

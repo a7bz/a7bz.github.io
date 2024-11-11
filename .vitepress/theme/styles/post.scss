@@ -196,6 +196,83 @@
     }
   }
 
+  //代码组
+  .vp-code-group {
+    .tabs {
+      width: 100%;
+      height: 45px;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: var(--main-card-second-background);
+      border-bottom: 1px solid var(--main-card-border);
+      padding-left: 16px;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 12px 12px 0 0;
+      border: 1px solid var(--main-card-border);
+
+      input {
+        position: fixed;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .blocks {
+      .lang {
+        all: unset;
+        position: absolute;
+        margin-top: 5px;
+        margin-right: 35px;
+      }
+
+      .copy {
+        position: absolute;
+      }
+    }
+
+    label {
+      margin-right: 15px;
+
+      &:hover {
+        color: var(--main-color);
+      }
+    }
+
+    input:checked+label {
+      color: var(--main-color);
+      position: relative;
+
+      &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        background-color: var(--main-color);
+        border-radius: 2px;
+        margin-left: 5%;
+        width: 85%;
+        margin-top: 3px;
+        height: 2px;
+      }
+    }
+
+    div[class*='language-'],
+    .vp-block {
+      display: none;
+      margin: 0;
+      padding-top: 0px;
+      border-radius: 0 0 12px 12px;
+    }
+
+    div[class*='language-'].active,
+    .vp-block.active {
+      display: flex;
+    }
+  }
+
   // 代码块
   div {
     &[class*="language-"] {

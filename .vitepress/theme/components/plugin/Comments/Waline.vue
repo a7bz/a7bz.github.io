@@ -12,7 +12,7 @@ const commentRef = ref(null)
 
 onMounted(async () => {
   const { init } = await import('@waline/client')
-  const waline = init({
+  window.waline = init({
     el: '#comment-dom',
     ...theme.value.plugin.comment
   })
@@ -33,6 +33,4 @@ onMounted(async () => {
 }
 </style>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

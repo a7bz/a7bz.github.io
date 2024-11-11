@@ -30,10 +30,12 @@
         </span>
         <div v-if="!simple" class="post-meta">
           <div class="post-tags">
-            <span v-for="tag in post(item)?.tag" v-if="post(item)?.tag" :key="tag" class="tags-name">
-              <i class="iconfont icon-hashtag" />
-              {{ tag }}
-            </span>
+            <div class="tags-name">
+              <span v-for="tag in post(item)?.tag" v-if="post(item)?.tag" :key="tag" class="tag-item">
+                <i class="iconfont icon-hashtag" />
+                {{ tag }}
+              </span>
+            </div>
             <span class="meta">
               <div class="meta-item">
                 <i class="iconfont icon-hot" />
@@ -60,6 +62,7 @@ import { useData, useRouter } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
 import { formatTimestamp } from '@/scripts/helper'
+import { preWrapperPlugin } from '@/components/plugin/Markdown/preWrapper'
 
 const { theme, frontmatter, page } = useData()
 const dataStore = useDataStore()
@@ -91,8 +94,9 @@ const toPost = (href) => {
   router.go(href)
 }
 
-const md = new MarkdownIt()
 const renderExcerpt = (excerpt) => {
+  const md = new MarkdownIt()
+  md.use(preWrapperPlugin, { codeCopyButtonTitle: 'Copy Code', hasSingleTheme: false })
   return md.render(excerpt)
 }
 
@@ -155,39 +159,6 @@ watch(() => router.route?.path, () => {
     padding: 0 !important;
   }
 
-  pre {
-    margin: 0;
-    padding: 6px 10px;
-    width: 100%;
-    overflow-y: auto;
-    user-select: text;
-    border-left: 1px solid var(--main-card-border);
-
-    code {
-      font-family: "Fira Code", var(--main-font-family), monospace;
-      font-optical-sizing: auto;
-
-      .line {
-        display: inline-block;
-        height: 22px;
-
-        span {
-          color: var(--shiki-light);
-          transition: color 0.3s;
-        }
-
-        &.highlighted {
-          width: 100%;
-          background-color: var(--main-card-border);
-          border-radius: 6px;
-        }
-
-        &:empty {
-          height: 17px;
-        }
-      }
-    }
-  }
 }
 
 .post-lists {
@@ -279,8 +250,6 @@ watch(() => router.route?.path, () => {
         color: var(--main-font-second-color);
 
         .post-tags {
-          display: flex;
-          flex-wrap: wrap;
           width: 100%;
           opacity: 0.8;
           margin-right: 20px;
@@ -312,11 +281,15 @@ watch(() => router.route?.path, () => {
             margin-right: 12px;
             white-space: nowrap;
             transition: color 0.3s;
+            margin-bottom: 10px;
+
+            .tag-item {
+              margin-right: 15px;
+            }
 
             .iconfont {
               font-weight: normal;
               opacity: 0.6;
-              margin-right: 4px;
               transition: color 0.3s;
             }
 
@@ -326,16 +299,6 @@ watch(() => router.route?.path, () => {
               .iconfont {
                 color: var(--main-color);
               }
-            }
-          }
-
-          @media (max-width: 768px) {
-            flex-direction: column;
-            align-items: flex-start;
-
-            .tags-name {
-              width: 100%;
-              margin-bottom: 0.5rem; // 增加标签和元数据之间的间距
             }
           }
         }
