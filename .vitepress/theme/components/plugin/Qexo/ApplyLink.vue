@@ -73,9 +73,7 @@ async function handleSubmit() {
             redirect: 'follow'
         })
         if (res.ok) {
-            console.log(res)
             const result = await res.json()
-            console.log(result)
             alert(result.msg)
             form.name = ''
             form.url = ''

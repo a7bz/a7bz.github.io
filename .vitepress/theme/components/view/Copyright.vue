@@ -105,7 +105,7 @@ const route = useRoute()
     }
 
     &::after {
-        content: "\e021";
+        content: "\e6d6";
         position: absolute;
         top: -4rem;
         right: -4rem;

@@ -1,6 +1,6 @@
 ---
 icon: linux
-date: 2024-11-08
+date: 2024-11-10
 category:
   - 教程
 tag:
@@ -19,6 +19,20 @@ sudo touch /etc/systemd/system/custom.service
 
 ## 编写 service 文件内容
 
+桌面模式下，可以使用 **gedit** 编辑服务文件。
+
+```bash
+sudo gedit /etc/systemd/system/custom.service
+```
+
+使用 **nano** 编辑服务文件。
+
+```bash
+sudo nano /etc/systemd/system/custom.service
+```
+
+自行选择合适的方式
+
 在服务文件中，定义服务的基本信息和启动参数。以下是一个示例文件：
 
 ```ini
@@ -27,7 +41,7 @@ Description=Custom Service #服务描述。
 After=network.target #定义服务依赖关系，network.target 表示在网络启动后再启动该服务。
 
 [Service]
-ExecStart=/path/to/your/executable --option #指定服务启动的命令和参数。
+ExecStart=/path/to/your/executable --option #指定服务启动的命令和参数，可以是可执行文件，脚本或者其他命令。
 WorkingDirectory=/path/to/working/directory #指定服务运行时的工作目录。
 User=username #指定服务的用户。
 Restart=on-failure #设置服务异常时重启。

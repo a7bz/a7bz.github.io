@@ -154,6 +154,40 @@ watch(() => router.route?.path, () => {
     margin: 5px 0;
     padding: 0 !important;
   }
+
+  pre {
+    margin: 0;
+    padding: 6px 10px;
+    width: 100%;
+    overflow-y: auto;
+    user-select: text;
+    border-left: 1px solid var(--main-card-border);
+
+    code {
+      font-family: "Fira Code", var(--main-font-family), monospace;
+      font-optical-sizing: auto;
+
+      .line {
+        display: inline-block;
+        height: 22px;
+
+        span {
+          color: var(--shiki-light);
+          transition: color 0.3s;
+        }
+
+        &.highlighted {
+          width: 100%;
+          background-color: var(--main-card-border);
+          border-radius: 6px;
+        }
+
+        &:empty {
+          height: 17px;
+        }
+      }
+    }
+  }
 }
 
 .post-lists {
