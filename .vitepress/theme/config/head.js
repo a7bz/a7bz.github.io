@@ -4,7 +4,6 @@ export const headConfig = [
     [
         "link",
         {
-            crossorigin: "",
             rel: "preconnect",
             href: "https://s1.hdslb.com",
         },
@@ -12,7 +11,6 @@ export const headConfig = [
     [
         "link",
         {
-            crossorigin: "",
             rel: "preconnect",
             href: "https://cdn.staticfile.net",
         },

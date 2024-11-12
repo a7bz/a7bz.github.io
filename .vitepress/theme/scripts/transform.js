@@ -19,7 +19,7 @@ export const getKeywords = async (context) => {
     return heads
 }
 
-export const addDescription = async (pageData) => {
+export const addDescription = async (pageData, desc) => {
     const key = '/' + pageData.relativePath.replace(/\.md$/, '')
     const fs = await import('fs')
     let mdCache = {}
@@ -47,15 +47,18 @@ export const addDescription = async (pageData) => {
             .slice(0, 160)
     }
     if (!description) {
-        description = `${pageData?.params?.name || pageData.frontmatter?.title || ''}`
+        description = `${pageData?.params?.name || desc || pageData.frontmatter?.title || ''}`
     }
-    if (description) {
-        pageData.frontmatter.head.push(["meta", { property: 'og:description', content: description }])
-    }
+    return description
 }
 
 export const transformHead = async (context) => {
     const heads = []
+    const description = await addDescription(context.pageData, context.description)
+    context.pageData.frontmatter.description = description
+    context.pageData.description = description
+    heads.push(['meta', { name: 'description', content: description }])
+    heads.push(['meta', { property: 'og:description', content: description }])
     heads.push(...await getKeywords(context))
     return heads
 }

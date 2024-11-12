@@ -5,6 +5,7 @@ category:
   - 笔记
 tag:
   - linux
+top: 1
 ---
 
 # 命令备忘录

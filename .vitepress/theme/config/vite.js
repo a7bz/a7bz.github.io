@@ -21,5 +21,12 @@ export const viteConfig = {
                 .on('unlink', (e) => { delMd(e) })
         }
     }],
-
+    build: {
+        minify: "terser",
+        terserOptions: {
+            compress: {
+                pure_funcs: ["console.log"],
+            },
+        },
+    },
 }
