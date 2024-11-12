@@ -1,16 +1,16 @@
 <template>
   <div class="toc s-card">
-    <div class="toc-title">
-      <i class="iconfont icon-toc" />
-      <span class="name">目录</span>
-    </div>
-    <div id="toc-all" class="toc-list" :style="{ '--height': activeTocHeight + 'px' }">
-      <a v-for="(item, index) in tocData" :key="index" :id="'toc-' + item.id" :class="[
-        'toc-item', item.type,
-        { active: item.id === activeHeader || (index === 0 && !activeHeader) },
-      ]" :href="'#' + item.id" @click="activeHeader = item.id">
-        {{ item.text }}
-      </a>
+    <div v-if="tocData?.length">
+      <div class="toc-title">
+        <i class="iconfont icon-toc" />
+        <span class="name">目录</span>
+      </div>
+      <div id="toc-all" class="toc-list" :style="{ '--height': activeTocHeight + 'px' }">
+        <a v-for="(toc, i) in tocData" :key="i" :id="`toc-${toc.id}`" :href="`#${toc.id}`" @click="tocClick(toc.id)"
+          :class="['toc-item', toc.type, { active: toc.id === activeHeader || (i === 0 && !activeHeader) },]">
+          {{ toc.text }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +64,10 @@ const tocScroll = (val) => {
   tocAllDom?.scrollTo({ top: activeTocHeight.value - 80, behavior: "smooth" });
 }
 
+const isScrolling = ref(false)
+
 const activeTocItem = throttle(() => {
+  isScrolling.value = true
   if (!tocData.value) return false
   const headers = getAllTitle()
   if (!headers) return false
@@ -73,15 +76,23 @@ const activeTocItem = throttle(() => {
     const rect = header.getBoundingClientRect()
     if (rect.top <= bufferHeight && rect.bottom + bufferHeight / 2 >= 0) {
       activeHeader.value = header.id
-      window.location.hash = '#' + header.id
+      tocScroll(header.id)
+      updateHash(`${header?.id}`)
     }
   }
-}, 100, true)
+}, 200, true)
 
 
-watch(() => activeHeader.value, (val) => {
+const tocClick = (val) => {
+  activeHeader.value = val
   tocScroll(val)
-})
+}
+
+const updateHash = (newHash = '') => {
+  if (newHash) {
+    history.replaceState(null, null, `#${newHash}`)
+  }
+}
 
 watch(
   () => store.scrollData.percentage,
@@ -91,8 +102,11 @@ watch(
       if (!headers) return false
       activeTocHeight.value = 0
       activeHeader.value = headers[0]?.id
+      if (headers.length)
+        updateHash(`${headers[0]?.id}`)
     }
-  })
+  }
+)
 
 watch(
   () => route.path,

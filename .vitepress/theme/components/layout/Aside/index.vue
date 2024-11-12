@@ -15,6 +15,7 @@ import HotTags from './HotTags.vue'
 import Intro from './Intro.vue'
 import Toc from './Toc.vue'
 import SiteData from './SiteData.vue'
+import CommentList from '../../plugin/Comments/CommentList.vue'
 import Clock from './Clock.vue'
 const props = defineProps({
     toc: {

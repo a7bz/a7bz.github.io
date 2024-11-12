@@ -12,7 +12,7 @@ const commentRef = ref(null)
 
 onMounted(async () => {
   const { init } = await import('@waline/client')
-  window.waline = init({
+  init({
     el: '#comment-dom',
     ...theme.value.plugin.comment
   })
