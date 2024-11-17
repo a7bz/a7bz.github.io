@@ -41,7 +41,7 @@ git clone https://github.com/RobotWebTools/web_video_server.git
 
 ```bash
 cd ../
-
+sudo apt-get install ros-${ROS_DISTRO}-async-web-server-cpp
 catkin_make
 ```
 
@@ -57,6 +57,7 @@ cd src/web_video_server
 
 ```bash
 mkdir launch
+cd launch
 touch web_video_server.launch
 ```
 

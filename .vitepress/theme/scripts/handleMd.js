@@ -61,6 +61,7 @@ const getMdData = async (filePath) => {
             ...matterData.data,
             content: matterData.content,
             excerpt: matterData.excerpt,
+            desc: matterData.desc || matterData.description || getDesc(matterData.content),
             href,
             create: +(new Date(matterData.data.date || createTime)),
             update: timestamp,
@@ -126,6 +127,20 @@ const getExcerpt = (file) => {
         if (nextNewline !== -1) excerpt = content.slice(0, nextNewline)
     }
     file.excerpt = excerpt
+}
+
+const getDesc = (content) => {
+    return content
+        .replace(/```[\s\S]*?```/g, '')               // 移除多行代码块
+        .replace(/!\[.*?\]\(.*?\)/g, '')              // 移除图片语法
+        .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')     // 移除链接，仅保留链接文本
+        .replace(/`([^`]+)`/g, '$1')                  // 移除行内代码
+        .replace(/<[^>]+>/g, '')                      // 移除 HTML 标签
+        .replace(/\|.*\|/g, '')                       // 移除表格
+        .replace(/[#*>\[\]_\-]/g, '')                 // 移除常见 Markdown 标记
+        .replace(/\s+/g, ' ')                         // 处理多余空格
+        .trim()
+        .slice(0, 160) + '...'
 }
 
 const hotCode = (data) => `

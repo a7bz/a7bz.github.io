@@ -8,7 +8,7 @@
             <div v-if="visible" class="info-box" :style="{
                 background: `linear-gradient(${angle}deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5))`,
             }">
-                <LazyLoader>
+                <LazyLoader useFriendsLink="/logo.png">
                     <img @dragstart.prevent src="/logo.png" alt="logo" class="avatar" />
                 </LazyLoader>
                 <span class="name">{{ name }}</span>

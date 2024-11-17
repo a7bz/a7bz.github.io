@@ -31,21 +31,7 @@ export const addDescription = async (pageData, desc) => {
     } catch (err) {
         console.log(err)
     }
-    let description = pageData.frontmatter.description || ''
-    if (!description) {
-        const content = mdCache[key]?.post?.content || ''
-        description = content
-            .replace(/```[\s\S]*?```/g, '')               // 移除多行代码块
-            .replace(/!\[.*?\]\(.*?\)/g, '')              // 移除图片语法
-            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')     // 移除链接，仅保留链接文本
-            .replace(/`([^`]+)`/g, '$1')                  // 移除行内代码
-            .replace(/<[^>]+>/g, '')                      // 移除 HTML 标签
-            .replace(/\|.*\|/g, '')                       // 移除表格
-            .replace(/[#*>\[\]_\-]/g, '')                 // 移除常见 Markdown 标记
-            .replace(/\s+/g, ' ')                         // 处理多余空格
-            .trim()
-            .slice(0, 160)
-    }
+    let description = pageData.frontmatter.description || mdCache[key]?.post?.desc || ''
     if (!description) {
         description = `${pageData?.params?.name || desc || pageData.frontmatter?.title || ''}`
     }
