@@ -200,10 +200,13 @@ watch(() => router.route?.path, () => {
       flex: 0 0 35%;
       overflow: hidden;
       transform: translateZ(0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       img {
-        width: 100%;
-        height: 100%;
+        width: 300px;
+        height: 200px;
         object-fit: cover;
         transform-origin: center center;
         will-change: transform, filter;
@@ -263,7 +266,7 @@ watch(() => router.route?.path, () => {
       .post-title {
         font-size: 15px;
         line-height: 30px;
-        min-height: 25px;
+        min-height: 15px;
         font-weight: bold;
         margin: 0.6rem 0;
         transition: color 0.3s;
@@ -276,15 +279,15 @@ watch(() => router.route?.path, () => {
 
       .post-desc {
         margin-top: -0.6rem;
-        margin-bottom: -0.2rem;
+        margin-bottom: 0.2rem;
         opacity: 0.8;
         line-height: 25px;
-        max-height: 50px;
+        max-height: 75px;
         display: -webkit-box;
         overflow: hidden;
         word-break: break-all;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         text-overflow: ellipsis;
       }
 

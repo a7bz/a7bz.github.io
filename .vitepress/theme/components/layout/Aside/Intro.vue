@@ -67,7 +67,8 @@ const resetHello = () => {
 
 const pageJump = (path) => {
   if (!path) return false
-  store.changeShowStatus("mobileMenuShow")
+  if (window.matchMedia("(max-width: 768px)").matches)
+    store.changeShowStatus("mobileMenuShow")
   router.go(path)
 }
 

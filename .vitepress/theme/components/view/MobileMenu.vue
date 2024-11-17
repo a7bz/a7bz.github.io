@@ -55,7 +55,6 @@ const dataStore = useDataStore()
 const { tagsData } = storeToRefs(dataStore)
 const { theme } = useData()
 const curInedx = ref(0)
-
 const navClick = (nav, navIndex) => {
     if (curInedx.value !== navIndex)
         curInedx.value = navIndex
@@ -71,15 +70,17 @@ const childClick = (item) => {
 }
 
 const router = useRouter()
+
 const pageJump = (path) => {
     if (!path) return
-    store.changeShowStatus("mobileMenuShow")
+    if (window.matchMedia("(max-width: 768px)").matches)
+        store.changeShowStatus("mobileMenuShow")
     router.go(path)
 }
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .mobile-menu {
     position: fixed;
     top: 0;
