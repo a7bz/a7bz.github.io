@@ -13,7 +13,8 @@
             </div>
             <div class="meta-item">
                 <span class="tip">发布于</span>
-                <span class="name">{{ formatTimestamp(postData?.date) }}</span>
+                <span class="name">{{ postData?.date ? formatTimestamp(postData?.date) :
+                    formatTimestamp(postData?.create) }}</span>
             </div>
             <div class="meta-item">
                 <span class="tip">更新于</span>
