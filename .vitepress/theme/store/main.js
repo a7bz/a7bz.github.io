@@ -16,6 +16,7 @@ export const useMainStore = defineStore('main', {
             infoPosition: "fixed",
             footerIsShow: false,
             mobileMenuShow: false,
+            loadingStatus: true,
         }
     },
     actions: {

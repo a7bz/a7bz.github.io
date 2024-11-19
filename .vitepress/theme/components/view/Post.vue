@@ -77,10 +77,10 @@ import { useData, useRouter } from 'vitepress'
 import { formatTimestamp } from "@/scripts/helper"
 import { useDataStore } from '@/store/index'
 import Aside from '@/components/layout/Aside/index.vue'
-import NextPost from './NextPost.vue'
-import RelatedPost from './RelatedPost.vue'
+import NextPost from '../post/NextPost.vue'
+import RelatedPost from '../post/RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
-import Copyright from './Copyright.vue'
+import Copyright from '../post/Copyright.vue'
 
 const dataStore = useDataStore()
 const router = useRouter()

@@ -7,7 +7,7 @@ tag:
   - 补丁
 ---
 
-# JetBrains 全家桶激活补丁
+# JetBrains 全家桶补丁
 
 打开[https://3.jetbra.in/](https://3.jetbra.in/)，等待检测可用的网页
 

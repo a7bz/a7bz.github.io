@@ -1,6 +1,7 @@
 <template>
   <!-- 背景 -->
   <BackGround />
+  <Loading />
   <Nav />
 
   <main :class="['mian-layout', { 'is-post': isPost }]">
@@ -37,9 +38,10 @@ import Page from './components/view/Page.vue'
 import FooterLink from './components/layout/FooterLink.vue'
 import Footer from './components/layout/Footer.vue'
 import WelcomeBox from './components/view/WelcomeBox.vue'
+import Loading from './components/common/Loading.vue'
 
 const store = useMainStore()
-const { fontFamily, fontSize } = storeToRefs(store)
+const { fontFamily, fontSize, loadingStatus } = storeToRefs(store)
 const { site, theme, page, frontmatter } = useData()
 
 const footerIsShow = false
