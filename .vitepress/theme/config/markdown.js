@@ -1,7 +1,7 @@
-import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
+import { tabsMarkdownPlugin } from "vitepress-plugin-tabs"
 import markdownItAttrs from "markdown-it-attrs"
 import container from "markdown-it-container"
-
+import { plugin } from "./plugin"
 export const markdownConfig = (md) => {
     md.use(markdownItAttrs)
     md.use(tabsMarkdownPlugin)
@@ -65,17 +65,17 @@ export const markdownConfig = (md) => {
     md.renderer.rules.table_close = () => {
         return "</table></div>"
     }
-    // 图片
-    // md.renderer.rules.image = (tokens, idx) => {
-    //     const token = tokens[idx]
-    //     const src = token.attrs[token.attrIndex("src")][1]
-    //     const alt = token.content
-    //     if (!themeConfig.fancybox.enable) {
-    //         return `<img src="${src}" alt="${alt}" loading="lazy">`
-    //     }
-    //     return `<a class="img-fancybox" href="${src}" data-fancybox="gallery" data-caption="${alt}">
-    //             <img class="post-img" src="${src}" alt="${alt}" loading="lazy" />
-    //             <span class="post-img-tip">${alt}</span>
-    //           </a>`
-    // }
+    //图片
+    md.renderer.rules.image = (tokens, idx) => {
+        const token = tokens[idx]
+        const src = token.attrs[token.attrIndex("src")][1]
+        const alt = token.content
+        if (!plugin.fancybox.enable) {
+            return `<img src="${src}" alt="${alt}" loading="lazy">`
+        }
+        return `<a class="img-fancybox" href="${src}" data-fancybox="gallery" data-caption="${alt}">
+                <img class="post-img" src="${src}" alt="${alt}" loading="lazy" />
+                <span class="post-img-tip">${alt}</span>
+              </a>`
+    }
 }

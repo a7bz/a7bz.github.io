@@ -48,3 +48,40 @@ export const loadScript = (src, option = {}) => {
         document.head.appendChild(script)
     })
 }
+
+/**
+ * 动态加载样式表
+ * @param {string} href - 样式表 URL
+ * @param {object} option - 配置
+ */
+export const loadCSS = (href, option = {}) => {
+    if (typeof document === "undefined" || !href) return false
+    // 获取配置
+    const { reload = false, callback } = option
+    // 检查是否已经加载过此样式表
+    const existingLink = document.querySelector(`link[href="${href}"]`)
+    if (existingLink) {
+        console.log("已有重复样式")
+        if (!reload) {
+            callback && callback(null, existingLink)
+            return false
+        }
+        existingLink.remove()
+    }
+    // 创建新的link标签并设置属性
+    return new Promise((resolve, reject) => {
+        const link = document.createElement("link")
+        link.href = href
+        link.rel = "stylesheet"
+        link.type = "text/css"
+        link.onload = () => {
+            resolve(link)
+            callback && callback(null, link)
+        }
+        link.onerror = (error) => {
+            reject(error)
+            callback && callback(error)
+        }
+        document.head.appendChild(link)
+    })
+}

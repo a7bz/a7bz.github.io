@@ -81,6 +81,7 @@ import NextPost from '../post/NextPost.vue'
 import RelatedPost from '../post/RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
 import Copyright from '../post/Copyright.vue'
+import { initFancybox } from '../plugin/Img/initFancybox'
 
 const dataStore = useDataStore()
 const router = useRouter()
@@ -96,6 +97,7 @@ const postData = computed(() => {
 
 onMounted(() => {
     pageHref.value = decodeURIComponent(window.location.pathname)
+    initFancybox(theme.value)
 })
 
 watch(() => router.route?.path, () => {
