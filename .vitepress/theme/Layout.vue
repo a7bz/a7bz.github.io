@@ -22,11 +22,13 @@
     </div>
   </Teleport>
 
+  <!-- <RightMenu ref="rightMenuRef" /> -->
+
 </template>
 
 <script setup>
 import { useData, useRoute } from 'vitepress'
-import { computed, onMounted, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
 import { calculateScroll } from './scripts/helper'
@@ -39,13 +41,13 @@ import FooterLink from './components/layout/FooterLink.vue'
 import Footer from './components/layout/Footer.vue'
 import WelcomeBox from './components/view/WelcomeBox.vue'
 import Loading from './components/common/Loading.vue'
+import RightMenu from './components/common/RightMenu.vue'
 
 const store = useMainStore()
 const { fontFamily, fontSize, loadingStatus } = storeToRefs(store)
 const { site, theme, page, frontmatter } = useData()
 
 const footerIsShow = false
-
 const changeSiteFont = () => {
   try {
     const htmlElement = document.documentElement
@@ -69,11 +71,24 @@ const isPage = computed(() => {
 
 onMounted(() => {
   changeSiteFont()
-  window.addEventListener("scroll", calculateScroll);
+  window.addEventListener("scroll", calculateScroll)
+  window.addEventListener("contextmenu", openRightMenu)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", calculateScroll)
+  window.removeEventListener("contextmenu", openRightMenu)
 })
 
 const dataStore = useDataStore()
 const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
+
+
+const rightMenuRef = ref(null)
+
+const openRightMenu = (e) => {
+  rightMenuRef.value?.openRightMenu(e)
+}
 
 if (import.meta.env.DEV && import.meta.hot) {
   __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {

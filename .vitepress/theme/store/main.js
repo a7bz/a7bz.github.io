@@ -17,6 +17,7 @@ export const useMainStore = defineStore('main', {
             footerIsShow: false,
             mobileMenuShow: false,
             loadingStatus: true,
+            useRightMenu: true
         }
     },
     actions: {
