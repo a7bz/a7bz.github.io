@@ -46,6 +46,7 @@
                     <Empty description="暂无内容" />
                 </div>
                 <Content id="page-content" class="markdown-main-style" />
+                <References />
                 <Copyright v-if="frontmatter.copyright !== false" :postData="postData" />
                 <div class="other-meta">
                     <div class="all-tags">
@@ -81,6 +82,7 @@ import NextPost from '../post/NextPost.vue'
 import RelatedPost from '../post/RelatedPost.vue'
 import Comments from '@/components/plugin/Comments/index.vue'
 import Copyright from '../post/Copyright.vue'
+import References from '../post/References.vue'
 import { initFancybox } from '../plugin/Img/initFancybox'
 
 const dataStore = useDataStore()

@@ -14,7 +14,8 @@ onMounted(async () => {
   const { init } = await import('@waline/client')
   init({
     el: '#comment-dom',
-    ...theme.value.plugin.comment
+    ...theme.value.plugin.comment,
+    dark: 'html.dark'
   })
 })
 </script>
@@ -23,14 +24,16 @@ onMounted(async () => {
 #comment-dom,
 .comment-content {
   --waline-theme-color: var(--main-color) !important;
-  --waline-active-color: #556AF1 !important;
+  --waline-active-color: var(--custom-active-color) !important;
 }
 
 .wl-header {
   label {
     font-size: 1rem !important;
   }
+
+  input {
+    font-size: 1rem !important;
+  }
 }
 </style>
-
-<style lang="scss" scoped></style>
