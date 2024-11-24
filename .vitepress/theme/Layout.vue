@@ -22,7 +22,9 @@
     </div>
   </Teleport>
 
-  <!-- <RightMenu ref="rightMenuRef" /> -->
+  <RightMenu ref="rightMenuRef" />
+
+  <Message />
 
 </template>
 
@@ -42,9 +44,10 @@ import Footer from './components/layout/Footer.vue'
 import WelcomeBox from './components/view/WelcomeBox.vue'
 import Loading from './components/common/Loading.vue'
 import RightMenu from './components/common/RightMenu.vue'
+import Message from './components/common/Message.vue'
 
 const store = useMainStore()
-const { fontFamily, fontSize, loadingStatus } = storeToRefs(store)
+const { fontFamily, fontSize, backgroundType, themeType, themeValue } = storeToRefs(store)
 const { site, theme, page, frontmatter } = useData()
 
 const footerIsShow = false
@@ -69,10 +72,21 @@ const isPage = computed(() => {
     || page.value.relativePath.endsWith('index.md')
 })
 
+const copyTip = () => {
+  const copiedText = window.getSelection().toString()
+  // 检查文本内容是否不为空
+  if (copiedText.trim().length > 0 && typeof $message !== "undefined") {
+    $message.success("复制成功，在转载时请标注本文地址")
+  }
+}
+
 onMounted(() => {
   changeSiteFont()
+  changeSiteThemeType()
   window.addEventListener("scroll", calculateScroll)
   window.addEventListener("contextmenu", openRightMenu)
+  window.addEventListener("copy", copyTip)
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", changeSiteThemeType)
 })
 
 onBeforeUnmount(() => {
@@ -88,6 +102,32 @@ const rightMenuRef = ref(null)
 
 const openRightMenu = (e) => {
   rightMenuRef.value?.openRightMenu(e)
+}
+
+watch(() => [themeType.value, backgroundType.value], () => changeSiteThemeType(),)
+
+const changeSiteThemeType = () => {
+  // 主题 class
+  const themeClasses = { dark: "dark", light: "light", auto: "auto", }
+  // 必要数据
+  const htmlElement = document.documentElement
+  // 清除所有 class
+  Object.values(themeClasses).forEach((themeClass) => {
+    htmlElement.classList.remove(themeClass)
+  })
+  // 添加新的 class
+  if (themeType.value === "auto") {
+    // 根据当前操作系统颜色方案更改明暗主题
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    const autoThemeClass = systemPrefersDark ? themeClasses.dark : themeClasses.light
+    htmlElement.classList.add(autoThemeClass)
+    themeValue.value = autoThemeClass
+  } else if (themeClasses[themeType.value]) {
+    htmlElement.classList.add(themeClasses[themeType.value])
+    themeValue.value = themeClasses[themeType.value]
+  }
+  if (backgroundType.value === "image") htmlElement.classList.add("image")
+  else htmlElement.classList.remove("image")
 }
 
 if (import.meta.env.DEV && import.meta.hot) {
