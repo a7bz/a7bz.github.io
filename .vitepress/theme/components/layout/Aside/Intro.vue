@@ -5,9 +5,7 @@
       <div class="site-logo">
         <img :src="theme.logo" alt="logo" class="logo-img" />
       </div>
-      <div class="site-desc">
-        {{ theme.description }}
-      </div>
+      <span class="site-desc" v-html="theme.aside.hello.text" />
     </div>
     <div class="info">
       <div class="name">

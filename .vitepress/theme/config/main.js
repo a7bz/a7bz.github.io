@@ -1,3 +1,17 @@
+export const siteData = {
+    title: "荒芜",
+    description: "记录分享一些笔记",
+    logo: "/logo.png",
+    site: "https://blog.a7bz.cn",
+    begin: "2024",
+    author: {
+        name: "荒芜",
+        cover: "/logo.png",
+        email: "2484068670@qq.com",
+        link: "https://blog.a7bz.cn",
+    },
+}
+
 export const navMore = [
     {
         name: "博客",
@@ -22,26 +36,6 @@ export const music = {
     id: 10162182605,
     server: "netease",
     type: "playlist",
-}
-
-export const main = {
-    navMore,
-    since: '2024-05-12',
-    music,
-}
-
-export const siteData = {
-    title: "荒芜",
-    description: "记录分享一些笔记",
-    logo: "/logo.png",
-    site: "https://blog.a7bz.cn",
-    begin: "2024",
-    author: {
-        name: "荒芜",
-        cover: "/logo.png",
-        email: "2484068670@qq.com",
-        link: "https://blog.a7bz.cn",
-    },
 }
 
 export const social = {
@@ -95,3 +89,16 @@ export const nav = [
         ],
     }
 ]
+
+const aside = {
+    hello: {
+        text: "记录分享一些<strong>笔记</strong>"
+    }
+}
+
+export const main = {
+    navMore,
+    since: '2024-05-12',
+    music,
+    aside,
+}

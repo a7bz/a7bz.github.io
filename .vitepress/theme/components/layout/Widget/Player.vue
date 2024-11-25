@@ -1,5 +1,5 @@
 <template>
-    <div v-if="playerShow" :class="['player', { playing: playState }]" @click="player?.toggle()">
+    <div v-if="playerShow" :class="['player', { playing: playState }]" @click="playClick">
         <div ref="playerDom" class="player-content" />
     </div>
 </template>
@@ -19,6 +19,13 @@ const { enable, url, id, server, type } = theme.value.music
 
 const player = ref(null)
 const playerDom = ref(null)
+
+const playClick = () => {
+    if (!playState.value) {
+        player.value.play()
+    }
+    player.value?.list.toggle()
+}
 
 const getMusicListData = async () => {
     try {
@@ -40,7 +47,7 @@ const initAPlayer = async (list) => {
             container: playerDom.value,
             volume: playerVolume.value,
             lrcType: 3,
-            listFolded: true,
+            listFolded: false,
             order: "random",
             audio: playlist,
         })
@@ -80,28 +87,21 @@ const initMediaSession = (title, artist) => {
 
 watch(() => playerVolume.value, (val) => { player.value?.volume(val, true) })
 
-onMounted(() => { if (window.innerWidth >= 768 && playerShow.value && enable) getMusicListData() })
+onMounted(() => { if (playerShow.value && enable) getMusicListData() })
 onBeforeUnmount(() => { player.value?.destroy() })
 </script>
 
 <style lang="scss" scoped>
 .player {
-    height: 42px;
+    height: auto;
     margin-top: 12px;
     transition: transform 0.3s;
     cursor: pointer;
 
     .player-content {
-        margin: 0;
-        width: fit-content;
-        border-radius: 50px;
-        overflow: hidden;
-        color: var(--main-font-color);
         font-family: var(--main-font-family);
-        background-color: var(--main-card-background);
-        border: 1px solid var(--main-card-border);
-        box-shadow: 0 6px 10px -4px var(--main-dark-shadow);
-        transition: all 0.3s;
+        background-color: transparent;
+        box-shadow: 0 8px 16px -4px var(--main-color-bg);
 
         :deep(.aplayer-body) {
             display: flex;
@@ -109,7 +109,31 @@ onBeforeUnmount(() => { player.value?.destroy() })
             align-items: center;
             padding: 6px;
             padding-right: 12px;
-            pointer-events: none;
+            background-color: var(--main-card-background);
+            border-radius: 50px;
+            border: 1px solid var(--main-card-border);
+            transition: all 0.3s;
+            overflow: hidden;
+            margin: 0;
+
+            // &::after {
+            //     content: "播放音乐";
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0;
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: center;
+            //     width: 100%;
+            //     height: 100%;
+            //     font-size: 14px;
+            //     opacity: 0;
+            //     color: var(--main-card-background);
+            //     background-color: var(--main-color);
+            //     pointer-events: none;
+            //     transition: opacity 0.3s;
+            //     z-index: 3;
+            // }
 
             .aplayer-pic {
                 width: 30px;
@@ -123,7 +147,7 @@ onBeforeUnmount(() => { player.value?.destroy() })
                 z-index: 2;
 
                 .aplayer-button {
-                    display: none;
+                    opacity: 0;
                 }
             }
 
@@ -235,44 +259,35 @@ onBeforeUnmount(() => { player.value?.destroy() })
             display: none;
         }
 
-        &::after {
-            content: "播放音乐";
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            font-size: 14px;
-            opacity: 0;
-            color: var(--main-card-background);
-            background-color: var(--main-color);
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 3;
-        }
-
         &:hover {
-            border-color: var(--main-color);
-            box-shadow: 0 8px 16px -4px var(--main-color-bg);
+            :deep(.aplayer-body) {
+                color: var(--main-card-background);
+                background-color: var(--main-color);
+                border-color: var(--main-color);
+                box-shadow: 0 8px 16px -4px var(--main-color-bg);
 
-            &::after {
-                opacity: 1;
+                &::after {
+                    opacity: 1;
+                }
             }
         }
     }
 
     &.playing {
         .player-content {
-            color: var(--main-card-background);
-            background-color: var(--main-color);
-            border: 1px solid var(--main-color);
 
             :deep(.aplayer-body) {
+                color: var(--main-card-background);
+                background-color: var(--main-color);
+                border: 1px solid var(--main-color);
+
                 .aplayer-pic {
                     animation-play-state: running;
+                    position: relative;
+
+                    .aplayer-button {
+                        opacity: 0;
+                    }
                 }
 
                 .aplayer-info {
@@ -280,12 +295,30 @@ onBeforeUnmount(() => { player.value?.destroy() })
                         opacity: 1;
                         width: 200px;
                     }
+                }
+            }
 
-                    .aplayer-controller {
-                        .aplayer-bar-wrap {
-                            opacity: 1;
-                        }
-                    }
+            :deep(.aplayer-list) {
+                background-color: transparent;
+                display: flex;
+                justify-content: center;
+
+                ol {
+                    width: 92%;
+                    background-color: var(--main-card-background);
+                }
+
+                .aplayer-list-index {
+                    color: var(--main-card-background);
+                }
+
+                .aplayer-list-light {
+                    color: var(--main-card-background);
+                    background-color: var(--main-color);
+                }
+
+                .aplayer-list-author {
+                    color: var(--main-card-background);
                 }
             }
 
@@ -299,8 +332,5 @@ onBeforeUnmount(() => { player.value?.destroy() })
         transform: scale(0.98);
     }
 
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 </style>
