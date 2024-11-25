@@ -18,7 +18,7 @@
 
   <Teleport to="body">
     <div :class="['left-menu', { hidden: footerIsShow }]">
-
+      <Player />
     </div>
   </Teleport>
 
@@ -45,6 +45,7 @@ import WelcomeBox from './components/view/WelcomeBox.vue'
 import Loading from './components/common/Loading.vue'
 import RightMenu from './components/common/RightMenu.vue'
 import Message from './components/common/Message.vue'
+import Player from './components/layout/Widget/Player.vue'
 
 const store = useMainStore()
 const { fontFamily, fontSize, backgroundType, themeType, themeValue } = storeToRefs(store)

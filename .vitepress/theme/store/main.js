@@ -18,7 +18,14 @@ export const useMainStore = defineStore('main', {
             footerIsShow: false,
             mobileMenuShow: false,
             loadingStatus: true,
-            useRightMenu: true
+            useRightMenu: true,
+            playState: false,
+            playerShow: true,
+            playerVolume: 0.7,
+            playerData: {
+                name: "未知曲目",
+                artist: "未知艺术家",
+            },
         }
     },
     actions: {
@@ -51,7 +58,7 @@ export const useMainStore = defineStore('main', {
     persist: [
         {
             key: 'casualData',
-            paths: ['themeType', 'backgroundUrl', 'backgroundType']
+            paths: ['themeType', "useRightMenu", "playerShow", "playerVolume", "backgroundBlur", 'backgroundUrl', 'backgroundType']
         }
     ]
 })

@@ -29,6 +29,28 @@
                             </div>
                         </div>
                     </div>
+                    <div v-if="playerShow" class="all-menu player">
+                        <div class="data">
+                            <span class="name">{{ playerData.name }}</span>
+                            <span class="artist">{{ playerData.artist }}</span>
+                        </div>
+                        <div class="volume" @click.stop>
+                            <i class="iconfont icon-volume-down"
+                                @click="playerVolume = Math.max(0, playerVolume - 0.1)" />
+                            <Slider :value="playerVolume" @update="(val) => (playerVolume = val)" />
+                            <i class="iconfont icon-volume-up"
+                                @click="playerVolume = Math.min(1, playerVolume + 0.1)" />
+                        </div>
+                        <div class="control" @click.stop>
+                            <div v-for="(play, index) in playBtn" :key="index">
+                                <div v-if="curState(index)" class="btn" :title="play.title"
+                                    @click="playerControl(play.icon)">
+                                    <i :class="`iconfont icon-${play.icon}`" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -42,16 +64,33 @@ import { computed, nextTick, onMounted, reactive, ref } from 'vue'
 import { useData, useRouter } from 'vitepress'
 import { useDataStore, useMainStore } from '@/store'
 import { shufflePost, smoothScrolling, copyText, copyImage, downloadImage } from '@/scripts/helper'
+import Slider from '../layout/Widget/Slider.vue'
 
 const router = useRouter()
 
 const dataStore = useDataStore()
 const { postsData } = storeToRefs(dataStore)
 const mainStore = useMainStore()
-const { useRightMenu, themeType } = storeToRefs(mainStore)
+const { useRightMenu, themeType, playState, playerShow, playerData, playerVolume } = storeToRefs(mainStore)
 const { theme } = useData()
 
 const btnList = ref({})
+
+const playBtn = ref([{ icon: 'prev', title: '上一曲' }, { icon: 'pause', title: '暂停' },
+{ icon: 'play', title: '播放' }, { icon: 'next', title: '下一曲' }])
+
+const curState = (index) => index === 1 ? playState.value : index === 2 ? !playState.value : true
+
+const playerControl = (type) => {
+    if (typeof $player !== "object" || !type) return false;
+    switch (type) {
+        case "pause": $player?.toggle(); break
+        case "play": $player?.toggle(); break
+        case "next": $player?.skipForward(); $player?.play(); break
+        case "prev": $player?.skipBack(); $player?.play(); break
+        default: return false
+    }
+}
 
 const judge = (type) => {
     if (type == 'inputOrStr') return clickedType.value == 'input' && typeof clickedTypeData.value == 'string'
@@ -73,9 +112,7 @@ const isLink = (data) => {
     try {
         new URL(urlData)
         return urlData
-    } catch (error) {
-        return false
-    }
+    } catch (error) { return false }
 }
 
 onMounted(() => {
@@ -315,9 +352,78 @@ defineExpose({ openRightMenu })
                 }
             }
 
-            &.general {
-                padding-top: 12px;
-                border-top: 1px solid var(--main-card-border);
+        }
+
+        .player {
+            margin-top: 10px;
+            padding: 10px 0;
+            border-top: 1px solid var(--main-card-border);
+
+            .data {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                span {
+                    width: 100%;
+                    padding: 0 8px;
+                    text-align: center;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .artist {
+                    font-size: 14px;
+                    margin-top: 4px;
+                    color: var(--main-font-second-color);
+                }
+            }
+
+            .volume {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 6px;
+                margin-top: 1rem;
+                width: 100%;
+
+                .iconfont {
+                    color: var(--main-font-second-color);
+                    font-size: 20px;
+                    transition: color 0.3s;
+                    cursor: pointer;
+
+                    &:first-child {
+                        margin-right: 6px;
+                    }
+
+                    &:last-child {
+                        margin-left: 6px;
+                    }
+
+                    &:hover {
+                        color: var(--main-color);
+                    }
+                }
+            }
+
+            .control {
+                display: flex;
+                align-items: center;
+                margin-top: 8px;
+                justify-content: center;
+
+                .btn {
+                    margin: 0 8px;
+                    padding: 6px;
+                    margin-bottom: 0;
+
+                    .iconfont {
+                        font-size: 18px;
+                    }
+                }
             }
         }
     }

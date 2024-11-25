@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "@vite-pwa/vitepress": "^0.5.3",
+    "aplayer": "^1.10.1",
     "pinia": "^2.2.4",
-    "pinia-plugin-persistedstate": "^4.1.1"
+    "pinia-plugin-persistedstate": "^4.1.1",
+    "vue-slider-component": "4.1.0-beta.7"
   },
   "devDependencies": {
     "@waline/client": "^3.3.2",

@@ -16,9 +16,18 @@ export const navMore = [
     },
 ]
 
+export const music = {
+    enable: true,
+    url: "https://meting.a7bz.cn/api",
+    id: 10162182605,
+    server: "netease",
+    type: "playlist",
+}
+
 export const main = {
     navMore,
-    since: '2024-05-12'
+    since: '2024-05-12',
+    music,
 }
 
 export const siteData = {
