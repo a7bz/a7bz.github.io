@@ -56,9 +56,37 @@ const initAPlayer = async (list) => {
         player.value?.on("pause", () => { playState.value = false })
         getMusicData()
         window.$player = player.value
+        addFold()
     } catch (error) {
         console.error("初始化播放器出错：", error)
     }
+}
+
+const isFold = ref(false)
+
+const addFold = () => {
+    const aplayerInfoEle = document.querySelectorAll('.aplayer-body')
+    if (aplayerInfoEle.length) {
+        const aplayerInfo = aplayerInfoEle[0]
+        if (aplayerInfo.querySelector('.fold-toggle')) return
+        const foldToggle = document.createElement('div')
+        foldToggle.className = 'fold-toggle'
+        const icon = document.createElement('i')
+        icon.className = 'iconfont icon-back'
+        foldToggle.appendChild(icon)
+        foldToggle.style.cursor = 'pointer'
+        icon.addEventListener('click', (event) => {
+            event.stopPropagation()
+            isFold.value = !isFold.value
+            if (isFold.value) {
+                aplayerInfo.classList.add('is-fold')
+            } else {
+                aplayerInfo.classList.remove('is-fold')
+            }
+        })
+        aplayerInfo.appendChild(foldToggle)
+    }
+
 }
 
 const getMusicData = () => {
@@ -116,6 +144,27 @@ onBeforeUnmount(() => { player.value?.destroy() })
             overflow: hidden;
             margin: 0;
 
+            &.is-fold {
+                .aplayer-controller {
+                    display: none;
+                }
+
+                .fold-toggle {
+                    transform: rotate(180deg) !important;
+                    transform-origin: center center;
+                    display: none;
+                }
+
+                .aplayer-lrc {
+                    display: none;
+                }
+            }
+
+            .fold-toggle {
+                z-index: 6;
+                display: none;
+            }
+
             // &::after {
             //     content: "播放音乐";
             //     position: absolute;
@@ -141,7 +190,7 @@ onBeforeUnmount(() => { player.value?.destroy() })
                 min-width: 30px;
                 border-radius: 50%;
                 margin-right: 8px;
-                outline: 1px solid var(--main-card-border);
+                border: 1px solid var(--main-card-border);
                 animation: rotate 20s linear infinite;
                 animation-play-state: paused;
                 z-index: 2;
@@ -168,7 +217,14 @@ onBeforeUnmount(() => { player.value?.destroy() })
                     line-height: normal;
                     z-index: 2;
 
+                    @media (max-width: 768px) {
+                        .aplayer-title {
+                            max-width: 60px !important;
+                        }
+                    }
+
                     .aplayer-title {
+                        font-size: 12px;
                         line-height: normal;
                         display: inline-block;
                         white-space: nowrap;
@@ -185,7 +241,7 @@ onBeforeUnmount(() => { player.value?.destroy() })
                 .aplayer-lrc {
                     margin: 0;
                     opacity: 0;
-                    margin-left: 12px;
+                    margin-left: 6px;
                     width: 0;
                     z-index: 2;
                     transition:
@@ -275,6 +331,7 @@ onBeforeUnmount(() => { player.value?.destroy() })
 
     &.playing {
         .player-content {
+            width: auto;
 
             :deep(.aplayer-body) {
                 color: var(--main-card-background);
@@ -290,10 +347,32 @@ onBeforeUnmount(() => { player.value?.destroy() })
                     }
                 }
 
+                .fold-toggle {
+                    display: block;
+                    width: 100%;
+
+                    .iconfont {
+                        color: var(--main-card-background);
+                    }
+                }
+
                 .aplayer-info {
                     .aplayer-lrc {
                         opacity: 1;
                         width: 200px;
+                    }
+
+                    @media (max-width: 768px) {
+                        .aplayer-lrc {
+                            opacity: 1;
+                            width: 150px;
+                        }
+                    }
+
+                    .aplayer-controller {
+                        .aplayer-bar-wrap {
+                            opacity: 1;
+                        }
                     }
                 }
             }
@@ -308,17 +387,10 @@ onBeforeUnmount(() => { player.value?.destroy() })
                     background-color: var(--main-card-background);
                 }
 
-                .aplayer-list-index {
-                    color: var(--main-card-background);
-                }
-
                 .aplayer-list-light {
-                    color: var(--main-card-background);
-                    background-color: var(--main-color);
-                }
-
-                .aplayer-list-author {
-                    color: var(--main-card-background);
+                    .aplayer-list-title {
+                        color: var(--custom-active-color);
+                    }
                 }
             }
 
@@ -331,6 +403,5 @@ onBeforeUnmount(() => { player.value?.destroy() })
     &:active {
         transform: scale(0.98);
     }
-
 }
 </style>
