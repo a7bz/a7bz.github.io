@@ -62,15 +62,15 @@ category:
 
 打开 [下载页](https://www.ventoy.net/cn/download.html) ，这里建议使用蓝奏云下载
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/image.png)
+![ventoy下载](/assets/image/2024/other/ventoyInstall-1118/image.png)
 
 ### 解压运行
 
 下载后，解压，双击运行
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/e1e89b29-7bae-4c8f-8b00-0e328f57b4be.png)
+![软件文件夹](/assets/image/2024/other/ventoyInstall-1118/e1e89b29-7bae-4c8f-8b00-0e328f57b4be.png)
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/image1.png)
+![安装](/assets/image/2024/other/ventoyInstall-1118/image1.png)
 
 确认框内是需要安装 Ventoy 的 u 盘
 
@@ -93,14 +93,14 @@ category:
 
 ::: details 下载 微 PE 工具箱 (非必要)
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/image2.png)
+![选择iso](/assets/image/2024/other/ventoyInstall-1118/image2.png)
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/image3.png)
+![生成iso](/assets/image/2024/other/ventoyInstall-1118/image3.png)
 
-![image.png](/assets/image/2024/other/ventoyInstall-1118/image4.png)
+![生成后](/assets/image/2024/other/ventoyInstall-1118/image4.png)
 
 :::
 制作完毕
 
 电脑进 Bios ，设置 u 盘为启动设备，保存重启，即可进入选择镜像的界面
-![image8.jpg](/assets/image/2024/other/ventoyInstall-1118/image8.png)
+![选择镜像启动](/assets/image/2024/other/ventoyInstall-1118/image8.png)
