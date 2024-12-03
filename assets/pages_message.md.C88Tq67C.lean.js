@@ -1,0 +1,1 @@
+import{_ as e,s,q as a}from"./chunks/framework.DHRXswU1.js";const t=JSON.parse('{"title":"留言板","description":"","frontmatter":{"title":"留言板","aside":false,"comment":true},"headers":[],"relativePath":"pages/message.md","filePath":"pages/message.md"}');const r=e({name:"pages/message.md"},[["render",function(e,t,r,m,n,i){return a(),s("div")}]]);export{t as __pageData,r as default};
