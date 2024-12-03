@@ -1,5 +1,5 @@
 import { postsData } from '../casual/index'
-import { blog } from '../.vitepress/theme/config/theme'
+import { blog } from '../.vitepress/config/locales/common/blog'
 
 const totalPages = Math.ceil(postsData.length / blog.pageSize)
 

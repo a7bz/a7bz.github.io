@@ -7,13 +7,15 @@ category:
 
 # 易语言支持库配置无法打开闪退问题
 
+## 问题描述
+
 在安装[**易 IDE 视觉库**](https://bbs.125.la/forum.php?mod=viewthread&tid=14672340&highlight=%E7%BE%8E%E5%8C%96)时，需要打开易语言的支持库配置，启用该支持库
 
 发现点击支持库配置后，易语言直接闪退了
 
 ![易语言主界面](/assets/image/2024/other/eLibOut-0528/e_s9T2hJOgNJ.png)
 
-解决方案
+## 解决方案
 
 给 e.exe 添加保护
 

@@ -15,7 +15,7 @@ import "aplayer/dist/APlayer.min.css"
 const mainStore = useMainStore()
 const { playerShow, playerVolume, playState, playerData } = storeToRefs(mainStore)
 const { theme } = useData()
-const { enable, url, id, server, type } = theme.value.music
+const { enable, url, id, server, type } = theme.value.plugin?.music || {}
 
 const player = ref(null)
 const playerDom = ref(null)

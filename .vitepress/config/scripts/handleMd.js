@@ -2,8 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 
-import { blog } from '../config/index'
-import { generateId } from './tool'
+import { blog } from '../locales/common'
+import { generateId } from './transform'
 
 const postDir = path.join(process.cwd(), 'posts')
 const cacheDir = path.join(process.cwd(), 'casual') // 缓存目录
@@ -229,3 +229,5 @@ const loadCache = async () => {
         Object.assign(cache.md, mdData)
     }
 }
+
+await initData()
