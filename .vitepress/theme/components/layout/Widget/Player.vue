@@ -1,5 +1,6 @@
 <template>
-    <div v-if="playerShow" :class="['player', { playing: playState }]" @click="playClick">
+    <div v-if="playerShow" :class="['player', { playing: playState }, { 'is-fold': isFold && playState }]"
+        @click="playClick">
         <div ref="playerDom" class="player-content" />
     </div>
 </template>
@@ -54,6 +55,9 @@ const initAPlayer = async (list) => {
         player.value?.on("canplay", () => { getMusicData() })
         player.value?.on("play", () => { playState.value = true })
         player.value?.on("pause", () => { playState.value = false })
+        player.value?.on("ended", () => {
+            addFold()
+        })
         getMusicData()
         window.$player = player.value
         addFold()
@@ -65,9 +69,11 @@ const initAPlayer = async (list) => {
 const isFold = ref(false)
 
 const addFold = () => {
-    const aplayerInfoEle = document.querySelectorAll('.aplayer-body')
-    if (aplayerInfoEle.length) {
-        const aplayerInfo = aplayerInfoEle[0]
+    const playerEle = document.querySelector('.player')
+    console.log(playerEle)
+    if (playerEle) {
+        const aplayerInfo = playerEle.querySelector('.aplayer-body')
+        console.log(aplayerInfo)
         if (aplayerInfo.querySelector('.fold-toggle')) return
         const foldToggle = document.createElement('div')
         foldToggle.className = 'fold-toggle'
@@ -78,11 +84,6 @@ const addFold = () => {
         icon.addEventListener('click', (event) => {
             event.stopPropagation()
             isFold.value = !isFold.value
-            if (isFold.value) {
-                aplayerInfo.classList.add('is-fold')
-            } else {
-                aplayerInfo.classList.remove('is-fold')
-            }
         })
         aplayerInfo.appendChild(foldToggle)
     }
@@ -120,6 +121,29 @@ onBeforeUnmount(() => { player.value?.destroy() })
 </script>
 
 <style lang="scss" scoped>
+.is-fold {
+    .player-content {
+        :deep(.aplayer-body) {
+            width: 65px;
+
+            .aplayer-info {
+                display: none !important;
+            }
+
+            .fold-toggle {
+                transform: rotate(180deg) !important;
+                transform-origin: center center;
+                display: none;
+                width: 30px;
+            }
+
+            .aplayer-lrc {
+                display: none;
+            }
+        }
+    }
+}
+
 .player {
     height: auto;
     margin-top: 12px;
@@ -143,22 +167,6 @@ onBeforeUnmount(() => { player.value?.destroy() })
             transition: all 0.3s;
             overflow: hidden;
             margin: 0;
-
-            &.is-fold {
-                .aplayer-controller {
-                    display: none;
-                }
-
-                .fold-toggle {
-                    transform: rotate(180deg) !important;
-                    transform-origin: center center;
-                    display: none;
-                }
-
-                .aplayer-lrc {
-                    display: none;
-                }
-            }
 
             .fold-toggle {
                 z-index: 6;
@@ -349,7 +357,6 @@ onBeforeUnmount(() => { player.value?.destroy() })
 
                 .fold-toggle {
                     display: block;
-                    width: 100%;
 
                     .iconfont {
                         color: var(--main-card-background);
