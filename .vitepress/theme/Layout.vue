@@ -1,7 +1,7 @@
 <template>
   <!-- 背景 -->
   <BackGround />
-  <Loading />
+
   <Nav />
 
   <main :class="['mian-layout', { 'is-post': isPost }]">
@@ -23,13 +23,13 @@
   </Teleport>
 
   <RightMenu ref="rightMenuRef" />
-
+  <Loading v-if="!page.isNotFound" />
   <Message />
 
 </template>
 
 <script setup>
-import { useData, useRoute } from 'vitepress'
+import { useData } from 'vitepress'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from "pinia"
 import { useMainStore, useDataStore } from "@/store/index"
@@ -49,7 +49,7 @@ import Player from './components/layout/Widget/Player.vue'
 
 const store = useMainStore()
 const { fontFamily, fontSize, backgroundType, themeType, themeValue } = storeToRefs(store)
-const { site, theme, page, frontmatter } = useData()
+const { page } = useData()
 
 const footerIsShow = false
 const changeSiteFont = () => {
@@ -80,6 +80,7 @@ const copyTip = () => {
     $message.success("复制成功，在转载时请标注本文地址")
   }
 }
+
 
 onMounted(() => {
   changeSiteFont()
