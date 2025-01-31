@@ -4,13 +4,16 @@ import { viteConfig } from './vite'
 import { markdownConfig } from './markdown'
 import { transformHead } from '../scripts/transform'
 import '../scripts/handleMd'
-import { zhSearch } from '../locales/zh/main'
+import { zhSearch, siteData } from '../locales/zh/main'
 
 export const shared = defineConfig({
     ignoreDeadLinks: true,
     cleanUrls: true,
     head: headConfig,
     vite: viteConfig,
+    sitemap: {
+        hostname: siteData.site,
+    },
     markdown: {
         math: true,
         lineNumbers: true,

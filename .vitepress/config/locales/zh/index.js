@@ -8,9 +8,6 @@ export const zh = defineConfig({
     description: siteData.description,
     lang: 'zh-CN',
     themeConfig: themeConfig,
-    sitemap: {
-        hostname: siteData.site,
-    },
     transformPageData: async (pageData) => {
         const canonicalUrl = `${siteData.site}/${pageData.relativePath}`
             .replace(/index\.md$/, "")
