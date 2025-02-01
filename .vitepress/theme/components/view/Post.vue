@@ -108,7 +108,7 @@ watch(() => router.route?.path, () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/post.scss";
+@use "@/styles/post.scss";
 
 .post {
     width: 100%;

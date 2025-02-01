@@ -3,6 +3,13 @@ import path from "path"
 import { addMd, changeMd, delMd } from '../scripts/handleMd'
 
 export const viteConfig = {
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler', // or 'modern'
+            },
+        },
+    },
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "../../theme"),

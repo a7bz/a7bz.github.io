@@ -37,7 +37,7 @@ watch(() => route.path, () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/post.scss";
+@use "@/styles/post.scss";
 
 .empty {
   width: 100%;
