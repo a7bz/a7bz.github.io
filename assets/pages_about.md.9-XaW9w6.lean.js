@@ -1,1 +1,0 @@
-import{_ as e,s as a,q as t}from"./chunks/framework.DHRXswU1.js";const s=JSON.parse('{"title":"关于本站","description":"","frontmatter":{"title":"关于本站","aside":false},"headers":[],"relativePath":"pages/about.md","filePath":"pages/about.md"}');const r=e({name:"pages/about.md"},[["render",function(e,s,r,o,i,n){return t(),a("div")}]]);export{s as __pageData,r as default};
