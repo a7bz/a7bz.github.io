@@ -15,7 +15,7 @@ tag:
 
 先查看需要的路由结构
 
-```jsx
+```js
 const routes = [
   {
     path: "/",
@@ -45,7 +45,7 @@ const routes = [
 
 获取目录路径
 
-```jsx
+```js
 const glob = require.context("@/views", true, /\.vue$/);
 ```
 
@@ -57,7 +57,7 @@ const glob = require.context("@/views", true, /\.vue$/);
 
 我这里判断了 index 的情况
 
-```jsx
+```js
 const pages = glob.keys().map((item) => {
   const name = item.slice(0, -4);
   const x = name.split("/");
@@ -88,7 +88,7 @@ const pages = glob.keys().map((item) => {
 
 项目目录结构
 
-```jsx
+```js
 ├── src
 │    ├── router
 │        ├── index.js
@@ -109,7 +109,7 @@ const pages = glob.keys().map((item) => {
 
 router/index.js
 
-```jsx
+```js
 import Vue from "vue";
 import VueRouter from "vue-router";
 
@@ -161,7 +161,7 @@ layout/index.vue
 
 这是只是示范 因为有一层 children，所以需要一个<router-view /> 其他的自行修改
 
-```jsx
+```js
 <template>
   <div>
     <div style="margin: 50px auto;">
@@ -192,7 +192,7 @@ layout/index.vue
 
 main.js
 
-```jsx
+```js
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -207,7 +207,7 @@ new Vue({
 
 app.vue
 
-```jsx
+```js
 <template>
   <div id="app">
     <router-view />

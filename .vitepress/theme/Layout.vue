@@ -96,9 +96,6 @@ onBeforeUnmount(() => {
   window.removeEventListener("contextmenu", openRightMenu)
 })
 
-const dataStore = useDataStore()
-const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
-
 
 const rightMenuRef = ref(null)
 
@@ -131,6 +128,9 @@ const changeSiteThemeType = () => {
   if (backgroundType.value === "image") htmlElement.classList.add("image")
   else htmlElement.classList.remove("image")
 }
+
+const dataStore = useDataStore()
+const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
 
 if (import.meta.env.DEV && import.meta.hot) {
   __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {

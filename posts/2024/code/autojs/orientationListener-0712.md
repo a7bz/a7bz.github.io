@@ -10,7 +10,7 @@ tag:
 
 # autojs 横竖屏监听
 
-```jsx
+```js
 "ui";
 
 let currentOrientation = context.resources.configuration.orientation;
