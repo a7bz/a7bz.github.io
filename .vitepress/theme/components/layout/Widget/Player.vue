@@ -70,10 +70,8 @@ const isFold = ref(false)
 
 const addFold = () => {
     const playerEle = document.querySelector('.player')
-    console.log(playerEle)
     if (playerEle) {
         const aplayerInfo = playerEle.querySelector('.aplayer-body')
-        console.log(aplayerInfo)
         if (aplayerInfo.querySelector('.fold-toggle')) return
         const foldToggle = document.createElement('div')
         foldToggle.className = 'fold-toggle'

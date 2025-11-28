@@ -223,10 +223,8 @@ export const copyImage = async (imageURL) => {
         [blob.type]: blob,
       }),
     ])
-    console.log("图片已复制到剪贴板")
     $message.success("图片已复制到剪贴板")
   } catch (error) {
-    console.error("复制图片出错：", error)
     $message.error("复制图片错误，请重试")
   }
 }

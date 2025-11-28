@@ -12,7 +12,6 @@ onMounted(async () => {
         serverURL: 'https://waline.a7bz.cn',
         count: 5
     }).then(({ comments }) => {
-        console.log(comments)
     })
 })
 </script>

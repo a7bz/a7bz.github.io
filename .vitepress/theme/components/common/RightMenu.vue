@@ -166,7 +166,6 @@ const rightMenuFunc = async (type, url) => {
                 break
             case "go": if (url) router.go(url); break
             case "copyLink":
-                console.log(clickedTypeData.value?.getAttribute('original-href') || clickedTypeData.value?.href)
                 copyText(clickedTypeData.value?.getAttribute('original-href') || clickedTypeData.value?.href)
                 break
             case "copyImage": copyImage(clickedTypeData.value?.src); break

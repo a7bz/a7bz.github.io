@@ -61,7 +61,6 @@ export const loadCSS = (href, option = {}) => {
     // 检查是否已经加载过此样式表
     const existingLink = document.querySelector(`link[href="${href}"]`)
     if (existingLink) {
-        console.log("已有重复样式")
         if (!reload) {
             callback && callback(null, existingLink)
             return false

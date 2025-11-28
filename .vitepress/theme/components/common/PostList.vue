@@ -134,7 +134,6 @@ const postMetaUpdate = async () => {
   if (typeof window === 'undefined') return
   if (isPost.value) return
   if (!frontmatter.value.comment && !theme.value.blog.pageComment) {
-    console.log('waline comment')
     const { pageviewCount, commentCount } = await import('@waline/client')
     pageviewCount({
       serverURL: theme.value.plugin.comment.serverURL,

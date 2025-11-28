@@ -1,5 +1,5 @@
 ---
-icon: upan
+icon: u-disk
 date: 2024-11-18
 keywords: Ventoy,系统盘,u盘启动盘制作,u盘启动盘
 category:
