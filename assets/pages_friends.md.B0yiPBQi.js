@@ -1,1 +1,0 @@
-import{_ as e,p as s,k as a}from"./chunks/framework.DlCmnb5Y.js";const r=JSON.parse('{"title":"友链鱼塘","description":"","frontmatter":{"title":"友链鱼塘","aside":false},"headers":[],"relativePath":"pages/friends.md","filePath":"pages/friends.md"}');const t=e({name:"pages/friends.md"},[["render",function(e,r,t,i,n,d){return a(),s("div")}]]);export{r as __pageData,t as default};
