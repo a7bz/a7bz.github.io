@@ -4,7 +4,7 @@ export const headConfig = [
     ["link", { rel: "preconnect", href: "https://s1.hdslb.com", },],
     ["link", { rel: "preconnect", href: "https://cdn.staticfile.net", },],
     // iconfont
-    ["link", { crossorigin: "anonymous", rel: "stylesheet", href: "//at.alicdn.com/t/c/font_4562321_c5mq3jocwwv.css", },],
+    ["link", { crossorigin: "anonymous", rel: "stylesheet", href: "//at.alicdn.com/t/c/font_4562321_3hj26qeed8v.css", },],
     // HarmonyOS font
     ["link", { crossorigin: "anonymous", rel: "stylesheet", href: "https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css", },],
     ["link", { crossorigin: "anonymous", rel: "stylesheet", href: "https://cdn.staticfile.net/lxgw-wenkai-screen-webfont/1.7.0/style.css", },],

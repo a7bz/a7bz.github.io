@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { categoryData, mdData, postsData, starData, tagsData } from '@casual/index'
+import { categoryData, mdData, postsData, starData, tagsData, timelineData } from '@casual/index'
 
 export const useDataStore = defineStore('data', {
     state: () => {
@@ -8,7 +8,8 @@ export const useDataStore = defineStore('data', {
             mdData,
             postsData,
             starData,
-            tagsData
+            tagsData,
+            timelineData
         }
     },
     actions: {

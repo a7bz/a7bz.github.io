@@ -14,7 +14,8 @@ const cacheFiles = {
     category: path.join(cacheDir, 'category.js'),
     tags: path.join(cacheDir, 'tags.js'),
     posts: path.join(cacheDir, 'posts.js'),
-    star: path.join(cacheDir, 'star.js')
+    star: path.join(cacheDir, 'star.js'),
+    timeline: path.join(cacheDir, 'timeline.js')
 }
 
 // 缓存结构
@@ -23,7 +24,8 @@ const cache = {
     category: {},
     tags: {},
     posts: [],
-    star: []
+    star: [],
+    timeline: {}
 }
 
 // 上次保存的
@@ -50,14 +52,22 @@ export const initData = async () => {
             updateCategoryAndTag(post)
             updateSortedCache(cache.posts, post, 'top')
             updateSortedCache(cache.star, post, 'star')
+            updateTimelineCache(href, post.year)
             existingCacheKeys.splice(existingCacheKeys.indexOf(href), 1)
         }
     }))
 
     existingCacheKeys.forEach((key) => {
         const cachedPost = cache.md[key].post
-        removeCategoryAndTag(cachedPost)
-        delete cache.md[key]
+        if (cachedPost) {
+            removeCategoryAndTag(cachedPost)
+            removeFromCache(cache.posts, key)
+            removeFromCache(cache.star, key)
+            Object.keys(cache.timeline).forEach(year => {
+                removeTimeline(cache.timeline[year], key)
+            })
+            delete cache.md[key]
+        }
     })
 
     await saveCache()
@@ -84,7 +94,7 @@ const getAllMdFiles = async (dir) => {
 
 // Markdown 解析及缓存更新
 const getMdData = async (filePath) => {
-    const href = createHref(filePath)
+    const [href, year, mothDate] = createHref(filePath)
     const { mtimeMs: timestamp, birthtimeMs: createTime } = await fs.promises.stat(filePath)
     const cached = cache.md[href]
     if (cached && timestamp === cached.timestamp) return cached.post
@@ -99,6 +109,8 @@ const getMdData = async (filePath) => {
             excerpt: matterData.excerpt,
             desc: matterData.desc || matterData.description || getDesc(matterData.content),
             href,
+            year: new Date(matterData.data.date || createTime).getFullYear() || year,
+            mothDate,
             create: +(new Date(matterData.data.date || createTime)),
             update: timestamp,
             title: matterData.data.title || matterData.content.match(/^#\s(.+)$/m)?.[1] || '未命名'
@@ -130,8 +142,18 @@ const updateSortedCache = (array, post, sortKey) => {
     array.sort((a, b) => b[sortKey] !== a[sortKey] ? b[sortKey] - a[sortKey] : b.create - a.create)
 }
 
+const updateTimelineCache = (href, year) => {
+    if (!cache.timeline[year]) cache.timeline[year] = []
+    if (!cache.timeline[year].includes(href)) cache.timeline[year].push(href)
+}
+
 const removeFromCache = (array, href) => {
     const index = array.findIndex(item => item.href === href)
+    if (index !== -1) array.splice(index, 1)
+}
+
+const removeTimeline = (array, href) => {
+    const index = array.findIndex(item => item === href)
     if (index !== -1) array.splice(index, 1)
 }
 
@@ -154,7 +176,7 @@ export const changeMd = async (e) => updateMdCache(e, 'change')
 
 // 处理缓存更新和保存
 const updateMdCache = async (filePath, operation) => {
-    const href = createHref(filePath)
+    const [href, year] = createHref(filePath)
     const cachedPost = cache.md[href]
 
     if (operation === 'del' && cachedPost) {
@@ -162,6 +184,7 @@ const updateMdCache = async (filePath, operation) => {
         delete cache.md[href]
         removeFromCache(cache.posts, href)
         removeFromCache(cache.star, href)
+        removeTimeline(cache.timeline[year], href)
     } else {
         if (operation === 'change' && cachedPost) removeCategoryAndTag(cachedPost.post)
         const post = await getMdData(filePath)
@@ -170,6 +193,7 @@ const updateMdCache = async (filePath, operation) => {
         updateCategoryAndTag(post)
         updateSortedCache(cache.posts, post, 'top')
         updateSortedCache(cache.star, post, 'star')
+        updateTimelineCache(href, post.year)
         cache.md[href] = { timestamp: post.update, post }
     }
 
@@ -193,7 +217,16 @@ const saveCache = async () => {
 const createHref = (filePath) => {
     const newPath = filePath.replace(postDir, '').replace(/\\/g, '/')
     const match = newPath.match(/\/([^/]+)\/(.*)\/(.*?)(?:-(\d+))?\.md/)
-    return match ? `/posts/${match[1]}/${match[4] || match[3]}` : `/posts${newPath.replace('.md', '').replace('index', '')}`
+    const date = new Date()
+    const year = date.getFullYear()
+    const monthDay = String(date.getMonth() + 1).padStart(2, '0') +
+        String(date.getDate()).padStart(2, '0')
+    //posts/2024/code/autojs/orientationListener-0712.md
+    if (match) {
+        return [`/posts/${match[1]}/${match[4] || match[3]}`, match[1] || year, match[4] || monthDay]
+    } else {
+        return [`/posts${newPath.replace('.md', '').replace('index', '')}`, year, monthDay]
+    }
 }
 
 const getExcerpt = (file) => {

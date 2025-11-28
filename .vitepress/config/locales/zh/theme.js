@@ -25,6 +25,7 @@ export const themeConfig = {
             text: "文库",
             items: [
                 { text: "文章列表", link: "/pages/article", icon: "doc-fill" },
+                { text: "时间线", link: "/pages/timeline", icon: "time" },
                 { text: "全部分类", link: "/pages/category", icon: "folder" },
                 { text: "全部标签", link: "/pages/tag", icon: "hashtag" },
             ],

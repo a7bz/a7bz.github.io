@@ -130,7 +130,7 @@ const changeSiteThemeType = () => {
 }
 
 const dataStore = useDataStore()
-const { categoryData, mdData, postsData, starData, tagsData } = storeToRefs(dataStore)
+const { categoryData, mdData, postsData, starData, tagsData, timelineData } = storeToRefs(dataStore)
 
 if (import.meta.env.DEV && import.meta.hot) {
   __VUE_HMR_RUNTIME__.categoryDataUpdate = (data) => {
@@ -152,6 +152,10 @@ if (import.meta.env.DEV && import.meta.hot) {
   __VUE_HMR_RUNTIME__.tagsDataUpdate = (data) => {
     tagsData.value = {}
     Object.assign(tagsData.value, data)
+  }
+  __VUE_HMR_RUNTIME__.tagsDataUpdate = (data) => {
+    timelineData.value = {}
+    Object.assign(timelineData.value, data)
   }
 }
 </script>
