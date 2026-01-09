@@ -1,14 +1,10 @@
 ---
 icon: markdown
-id: markdown-usage
-date: 2026-01-11
-keywords: markdown, 使用示例
+date: 2026-01-08
 category:
   - 教程
 tag:
   - markdown
-  - 博客
-  - 语法
 ---
 
 # 本站 Markdown 使用示例
