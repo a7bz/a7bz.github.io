@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>荒芜</title>
+        <link>https://blog.a7bz.cn</link>
+        <description>记录分享一些笔记</description>
+        <lastBuildDate>Tue, 13 Jan 2026 01:21:14 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>荒芜</generator>
+        <language>zh</language>
+        <copyright>Copyright © 2024-present 荒芜</copyright>
+        <item>
+            <title><![CDATA[Vue 3 使用 attrs 二次封装组件]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0111</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0111</guid>
+            <pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Vue 3 开发中，组件封装是一项核心技能。通过二次封装，可以将第三方组件或基础组件扩展为更符合业务需求的定制组件。Vue 3 提供的 attrs API 为组件封装带来了极大的便利，它允许我们轻松地将未被组件声明为 props 或 emits 的属性传递给子组件。 attrs 是 Vue 3 中 setup 函数的一个参数，它包含了父组件传递给子组件，但未被子组件声明为 props 或 em...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[Vue 3 Pinia 状态管理]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0109</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0109</guid>
+            <pubDate>Fri, 09 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Vue 3 开发中，状态管理是一个重要的话题。Pinia 作为 Vue 官方推荐的状态管理库，取代了 Vuex，提供了更简洁的 API、更好的 TypeScript 支持和更灵活的架构。 Pinia 的主要优势包括： 1. 简洁的 API：摒弃了 Vuex 中的 mutations 和 modules 概念 2. TypeScript 支持：天生支持类型推断，无需额外配置 3. 组合式 API...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[本站 Markdown 使用示例]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0108</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0108</guid>
+            <pubDate>Thu, 08 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[展示了本站支持的 Markdown 扩展语法和特性 ``markdown ` `markdown 粗体文本 斜体文本 粗斜体文本 ~~删除线~~ <u>下划线</u> 行内代码 ` 粗体文本 斜体文本 粗斜体文本 ~~删除线~~ <u>下划线</u> 行内代码 `markdown - 列表项 1 - 列表项 2   - 子列表项 2.1   - 子列表项 2.2 ` - 列表项 1 - 列表项 2...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[前端开发跨域问题解决方案]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0105</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0105</guid>
+            <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[跨域（Cross-Origin Resource Sharing，CORS）是浏览器安全策略的重要组成部分。当前端应用尝试访问不同源（协议、域名、端口任一不同）的资源时，浏览器会阻止这种请求，这就是跨域问题。 同源策略是浏览器最核心的安全功能之一，要求以下三个要素必须完全相同： | 要素 | 说明                 | 示例                              ...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[date: 2025-12-30]]></title>
+            <link>https://blog.a7bz.cn/posts/2025/1230</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/1230</guid>
+            <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[C    在 C  ``csharp // 传统方式 public class Person {     public string FirstName { get; set; }     public string LastName { get; set; }     public int Age { get; set; }          public Person(...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[vue 异步 emit 实现]]></title>
+            <link>https://blog.a7bz.cn/posts/2025/1120</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/1120</guid>
+            <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Vue 开发中，我们经常需要在父子组件之间进行通信。通常情况下，$emit 是同步的，但有些场景下我们需要异步触发事件，比如：  1. 在异步操作完成后触发事件 2. 需要确保在下一个 tick 中触发事件 3. 在组件销毁后仍然需要触发某些事件   先来看看同步 emit 的基本用法：  ``vue <!-- 子组件 --> <template>   <button ...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[如何在 VitePress 博客中实现 Markdown 热更新]]></title>
+            <link>https://blog.a7bz.cn/posts/2025/0621</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/0621</guid>
+            <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[在开发博客过程中，我发现对 Markdown 内容的修改不会自动热更新，必须重启开发环境，这极大影响了开发效率。之前我使用过 [vuepress-theme-hope](https://theme-hope.vuejs.press/zh/) 主题，它内置了完善的热更新功能。通过分析它的实现方式，我尝试在 VitePress 中复现类似功能。 VitePress 默认对 .md 文件的改动并不会触发...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[Electron 窗口管理工具封装]]></title>
+            <link>https://blog.a7bz.cn/posts/2024/1122</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1122</guid>
+            <pubDate>Fri, 22 Nov 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[在开发 Electron 应用时，管理窗口和与渲染进程通信是核心功能。为了让代码更模块化和易维护，我们可以封装一个工具对象来处理常用功能。 我们的工具对象包含以下两项核心功能： 1. 发送消息给渲染进程：通过指定的通道名称向聚焦的窗口发送消息。 2. 创建新窗口：动态创建带有特定配置的新窗口，并加载指定的页面。 为了适配开发和生产环境，我们动态生成窗口加载的 URL。在开发环境中，使用开发服务器的...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[Ventoy 制作 U 盘启动系统盘]]></title>
+            <link>https://blog.a7bz.cn/posts/2024/1118</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1118</guid>
+            <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[[Ventoy](https://www.ventoy.net/cn/index.html) 是一个非常流行的开源工具，用于制作多合一启动 U 盘，与传统启动盘制作工具相比，它具有以下显著优势：    - Ventoy 将 U 盘分为两个分区，一个用于启动文件，另一个用于正常存储。这意味着 U 盘既能作为启动盘使用，又能用于存储其他数据。   - Ventoy 支持多种操作系统类型，...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+        <item>
+            <title><![CDATA[ubuntu 设置开机自启动]]></title>
+            <link>https://blog.a7bz.cn/posts/2024/1110</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1110</guid>
+            <pubDate>Sun, 10 Nov 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 /etc/systemd/system/ 目录下新建一个 .service 文件。例如，为一个名为 custom 的服务，创建服务文件 ``bash sudo touch /etc/systemd/system/custom.service ` 桌面模式下，可以使用 gedit 编辑服务文件。 `bash sudo gedit /etc/systemd/system/custom.servic...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
+    </channel>
+</rss>
