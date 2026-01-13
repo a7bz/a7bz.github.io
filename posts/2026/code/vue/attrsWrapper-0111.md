@@ -409,7 +409,7 @@ const handleClose = () => {
       @mouseenter="handleMouseEnter"
     >
       <div class="announcement-content">
-        <h4>Vue 3 attrs 封装最佳实践</h4>
+        <h4>Vue 3 attrs 封装实践</h4>
         <p>使用 attrs 可以轻松封装灵活的组件，提高代码复用性和可维护性。</p>
         <a href="#" @click.stop="handleLinkClick">查看详情</a>
       </div>
@@ -1238,7 +1238,7 @@ h2 {
 </style>
 ```
 
-## 最佳实践
+## 实践
 
 ### 1. 明确区分核心 props 和透传属性
 
@@ -1643,7 +1643,7 @@ const processedAttrs = computed(() => {
 3. 创建灵活、可复用的组件
 4. 与 Vue 3 Composition API 完美契合
 
-通过遵循本文介绍的最佳实践和注意事项，你可以创建出更灵活、更可维护的组件，提高开发效率和代码质量。
+通过遵循本文介绍的实践和注意事项，你可以创建出更灵活、更可维护的组件，提高开发效率和代码质量。
 
 ## 参考资料
 

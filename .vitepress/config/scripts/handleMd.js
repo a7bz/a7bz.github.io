@@ -162,9 +162,11 @@ const removeCategoryAndTag = (post) => {
         if (Array.isArray(post[key])) {
             post[key].forEach((item) => {
                 const cacheItem = key === 'category' ? cache.category : cache.tags
-                const index = cacheItem[item]?.indexOf(post.href)
-                if (index !== -1) cacheItem[item].splice(index, 1)
-                if (cacheItem[item]?.length === 0) delete cacheItem[item]
+                if (cacheItem[item]) {
+                    const index = cacheItem[item].indexOf(post.href)
+                    if (index !== -1) cacheItem[item].splice(index, 1)
+                    if (cacheItem[item].length === 0) delete cacheItem[item]
+                }
             })
         }
     })

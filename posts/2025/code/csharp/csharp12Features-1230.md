@@ -1,10 +1,10 @@
 ---
-icon: c#
+icon: csharp
 date: 2025-12-30
 category:
   - 代码
 tag:
-  - c#
+  - csharp
   - .net
 ---
 
@@ -404,7 +404,7 @@ public class ProductsController : ControllerBase
 }
 ```
 
-## 9. 迁移到 C# 12 的最佳实践
+## 9. 迁移到 C# 12 的实践
 
 ### 9.1 逐步迁移
 

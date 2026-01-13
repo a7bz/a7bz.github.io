@@ -945,7 +945,7 @@ class ApiClient {
 const api = new ApiClient("http://localhost:8080/api");
 ```
 
-## 最佳实践总结
+## 实践总结
 
 ### 1. 开发环境
 
