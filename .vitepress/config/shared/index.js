@@ -3,6 +3,7 @@ import { headConfig } from './head'
 import { viteConfig } from './vite'
 import { markdownConfig } from './markdown'
 import { transformHead } from '../scripts/transform'
+import { createRssFile } from '../scripts/generateRSS.mjs'
 import '../scripts/handleMd'
 import { zhSearch, siteData } from '../locales/zh/main'
 
@@ -40,5 +41,8 @@ export const shared = defineConfig({
     rewrites: {
         'posts/:year/(.*)/(.*)-:id': 'posts/:year/:id',
         'posts/:year/(.*)/:filename': 'posts/:year/:filename'
+    },
+    buildEnd: async (config) => {
+        await createRssFile(config, siteData);
     },
 })

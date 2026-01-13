@@ -16,6 +16,10 @@
                     <span class="by">Powered by</span>
                     <span class="name">VitePress</span>
                 </a>
+                <a class="rss link" href="/rss.xml" target="_blank" rel="noreferrer">
+                    <i class="iconfont icon-rss" />
+                    <span class="name">订阅</span>
+                </a>
                 <a class="cc link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank"
                     rel="noreferrer">
                     <i class="iconfont icon-cc" />
