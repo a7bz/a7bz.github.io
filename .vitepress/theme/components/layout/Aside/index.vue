@@ -6,6 +6,7 @@
             <!-- <Clock class="weidgets" /> -->
             <HotTags class="weidgets" />
             <SiteData class="weidgets" />
+            <CommentList class="weidgets" />
         </div>
     </aside>
 </template>
