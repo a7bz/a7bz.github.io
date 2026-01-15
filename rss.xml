@@ -4,11 +4,19 @@
         <title>荒芜</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Wed, 14 Jan 2026 02:53:19 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 15 Jan 2026 04:33:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>荒芜</generator>
         <language>zh</language>
         <copyright>Copyright © 2024-present 荒芜</copyright>
+        <item>
+            <title><![CDATA[Vue 依赖注入 inject/provide]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0115</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0115</guid>
+            <pubDate>Thu, 15 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Vue 应用开发中，组件间通信是一个核心问题。除了常见的 props 传递和事件总线，Vue 还提供了一种强大的依赖注入机制：inject/provide。   inject/provide 是 Vue 提供的一种组件间通信方式，用于在组件树中传递数据，而无需通过 props 逐层传递。  - provide：在父组件中定义要共享的数据 - inject：在子组件中接收父组件提供的...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
         <item>
             <title><![CDATA[Vue 3 使用 attrs 二次封装组件]]></title>
             <link>https://blog.a7bz.cn/posts/2026/0111</link>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1118</guid>
             <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[[Ventoy](https://www.ventoy.net/cn/index.html) 是一个非常流行的开源工具，用于制作多合一启动 U 盘，与传统启动盘制作工具相比，它具有以下显著优势：    - Ventoy 将 U 盘分为两个分区，一个用于启动文件，另一个用于正常存储。这意味着 U 盘既能作为启动盘使用，又能用于存储其他数据。   - Ventoy 支持多种操作系统类型，...]]></description>
-            <author>2484068670@qq.com (荒芜)</author>
-        </item>
-        <item>
-            <title><![CDATA[ubuntu 设置开机自启动]]></title>
-            <link>https://blog.a7bz.cn/posts/2024/1110</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1110</guid>
-            <pubDate>Sun, 10 Nov 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[在 /etc/systemd/system/ 目录下新建一个 .service 文件。例如，为一个名为 custom 的服务，创建服务文件 ``bash sudo touch /etc/systemd/system/custom.service ` 桌面模式下，可以使用 gedit 编辑服务文件。 `bash sudo gedit /etc/systemd/system/custom.servic...]]></description>
             <author>2484068670@qq.com (荒芜)</author>
         </item>
     </channel>
