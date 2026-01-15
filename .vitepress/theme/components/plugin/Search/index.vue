@@ -790,6 +790,25 @@ import VPNavBarSearch from 'vitepress/dist/client/theme-default/components/VPNav
     --vp-backdrop-bg-color: rgba(0, 0, 0, .6);
 }
 
+/* 深色模式样式 */
+html.dark {
+    --vp-local-search-result-border: var(--main-card-border);
+    --vp-local-search-result-selected-border: var(--main-color);
+    --vp-local-search-result-selected-bg: var(--main-card-second-background);
+    --vp-c-bg-alt: var(--main-site-background);
+    --vp-c-brand-1: var(--main-color);
+    --docsearch-primary-color: var(--main-color);
+    --vp-c-text-1: var(--main-font-color);
+    --vp-c-text-2: var(--main-font-second-color);
+    --vp-c-bg-soft: var(--main-card-background);
+    --vp-c-bg: var(--main-site-background);
+    --vp-c-divider: var(--main-card-border);
+    --vp-local-search-bg: var(--main-card-background);
+    --vp-local-search-highlight-bg: var(--main-color);
+    --vp-local-search-highlight-text: #ffffff;
+    --vp-backdrop-bg-color: rgba(0, 0, 0, .8);
+}
+
 
 [class^='vpi-'],
 [class*=' vpi-'],
