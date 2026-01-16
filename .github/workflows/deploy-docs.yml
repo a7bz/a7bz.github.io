@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # 获取完整历史记录，这对恢复时间戳很重要
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
@@ -30,6 +30,11 @@ jobs:
           corepack enable
           npm ci
 
+      - name: 恢复文件修改时间
+        uses: chetan/git-restore-mtime-action@v2
+        with:
+          args: posts/
+
       - name: 构建文档
         env:
           NODE_OPTIONS: --max_old_space_size=8192
@@ -40,6 +45,5 @@ jobs:
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # 部署文档
           branch: gh-pages
           folder: .vitepress/dist
