@@ -28,7 +28,7 @@
                 </span>
                 <span class="update meta">
                     <i class="iconfont icon-update" />
-                    {{ formatTimestamp(postData?.update) }}
+                    {{ formatTimestamp(page.lastUpdated || postData?.update) }}
                 </span>
                 <span class="hot meta">
                     <i class="iconfont icon-hot" />
@@ -87,7 +87,7 @@ import { initFancybox } from '../plugin/Img/initFancybox'
 
 const dataStore = useDataStore()
 const router = useRouter()
-const { theme, frontmatter } = useData()
+const { theme, frontmatter, page } = useData()
 const { mdData } = storeToRefs(dataStore)
 const commentRef = ref(null)
 const pageHref = ref()
