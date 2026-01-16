@@ -4,11 +4,19 @@
         <title>荒芜</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Thu, 15 Jan 2026 04:41:42 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 16 Jan 2026 01:05:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>荒芜</generator>
         <language>zh</language>
         <copyright>Copyright © 2024-present 荒芜</copyright>
+        <item>
+            <title><![CDATA[Vue根据动态路由生成侧边栏]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0116</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0116</guid>
+            <pubDate>Fri, 16 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[在Vue项目开发中，我们经常需要根据路由配置自动生成侧边栏，特别是在管理系统等复杂应用中。这样可以减少手动维护侧边栏的工作量，同时确保路由和侧边栏的一致性。本文将详细介绍如何实现Vue根据动态路由生成侧边栏的功能。 实现Vue动态路由生成侧边栏的核心思路如下： 1. 路由配置增强：在路由配置中添加侧边栏相关的元信息（如标题、图标等） 2. 路由解析：遍历路由配置，提取需要显示在侧边栏的路由 3. ...]]></description>
+            <author>2484068670@qq.com (荒芜)</author>
+        </item>
         <item>
             <title><![CDATA[Vue 依赖注入 inject/provide]]></title>
             <link>https://blog.a7bz.cn/posts/2026/0115</link>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1122</guid>
             <pubDate>Fri, 22 Nov 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[在开发 Electron 应用时，管理窗口和与渲染进程通信是核心功能。为了让代码更模块化和易维护，我们可以封装一个工具对象来处理常用功能。 我们的工具对象包含以下两项核心功能： 1. 发送消息给渲染进程：通过指定的通道名称向聚焦的窗口发送消息。 2. 创建新窗口：动态创建带有特定配置的新窗口，并加载指定的页面。 为了适配开发和生产环境，我们动态生成窗口加载的 URL。在开发环境中，使用开发服务器的...]]></description>
-            <author>2484068670@qq.com (荒芜)</author>
-        </item>
-        <item>
-            <title><![CDATA[Ventoy 制作 U 盘启动系统盘]]></title>
-            <link>https://blog.a7bz.cn/posts/2024/1118</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1118</guid>
-            <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[[Ventoy](https://www.ventoy.net/cn/index.html) 是一个非常流行的开源工具，用于制作多合一启动 U 盘，与传统启动盘制作工具相比，它具有以下显著优势：    - Ventoy 将 U 盘分为两个分区，一个用于启动文件，另一个用于正常存储。这意味着 U 盘既能作为启动盘使用，又能用于存储其他数据。   - Ventoy 支持多种操作系统类型，...]]></description>
             <author>2484068670@qq.com (荒芜)</author>
         </item>
     </channel>
