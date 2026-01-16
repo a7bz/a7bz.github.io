@@ -1,11 +1,11 @@
 export const siteData = {
-    title: "荒芜",
+    title: "阿柒",
     description: "记录分享一些笔记",
     logo: "/logo.png",
     site: "https://blog.a7bz.cn",
     begin: "2024",
     author: {
-        name: "荒芜",
+        name: "阿柒",
         cover: "/logo.png",
         email: "2484068670@qq.com",
         link: "https://blog.a7bz.cn",

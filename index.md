@@ -1,7 +1,7 @@
 ---
 home: true
 aside: true
-keywords: 荒芜,荒芜博客,笔记分享,荒芜blog
+keywords: 阿柒,阿柒博客,笔记分享,阿柒blog
 ---
 
 <script setup>

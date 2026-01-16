@@ -36,7 +36,7 @@ import ApplyLink from '@/components/plugin/Qexo/ApplyLink.vue'
 
 ```json
 {
-  "title": "荒芜",
+  "title": "阿柒",
   "url": "https://blog.a7bz.cn/",
   "avatar": "https://blog.a7bz.cn/logo.png",
   "desc": "记录分享一些笔记"
@@ -44,7 +44,7 @@ import ApplyLink from '@/components/plugin/Qexo/ApplyLink.vue'
 ```
 
 ```yml
-title: 荒芜
+title: 阿柒
 url: https://blog.a7bz.cn/
 avatar: https://blog.a7bz.cn/logo.png
 desc: 记录分享一些笔记
