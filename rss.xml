@@ -4,11 +4,19 @@
         <title>阿柒</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Fri, 16 Jan 2026 10:11:17 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 17 Jan 2026 00:23:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>阿柒</generator>
         <language>zh</language>
         <copyright>Copyright © 2024-present 阿柒</copyright>
+        <item>
+            <title><![CDATA[博客上次修改时间的正确实现]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0117</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0117</guid>
+            <pubDate>Sat, 17 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[在博客搭建过程中，我发现一个困扰已久的问题：文章的"上次修改时间"总是显示为构建部署的时间，而不是文章内容真正的最后修改时间。这导致了以下问题：  1. 信息不准确：读者无法了解文章的实际更新时间 2. SEO 影响：搜索引擎可能会认为内容是最新的，影响搜索结果排序 3. 用户体验：定期构建部署会让所有文章的修改时间都被更新，造成混淆   经过排查，我发现问题出在 GitHub Ac...]]></description>
+            <author>2484068670@qq.com (阿柒)</author>
+        </item>
         <item>
             <title><![CDATA[Vue根据动态路由生成侧边栏]]></title>
             <link>https://blog.a7bz.cn/posts/2026/0116</link>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/0621</guid>
             <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[在开发博客过程中，我发现对 Markdown 内容的修改不会自动热更新，必须重启开发环境，这极大影响了开发效率。之前我使用过 [vuepress-theme-hope](https://theme-hope.vuejs.press/zh/) 主题，它内置了完善的热更新功能。通过分析它的实现方式，我尝试在 VitePress 中复现类似功能。 VitePress 默认对 .md 文件的改动并不会触发...]]></description>
-            <author>2484068670@qq.com (阿柒)</author>
-        </item>
-        <item>
-            <title><![CDATA[Electron 窗口管理工具封装]]></title>
-            <link>https://blog.a7bz.cn/posts/2024/1122</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2024/1122</guid>
-            <pubDate>Fri, 22 Nov 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[在开发 Electron 应用时，管理窗口和与渲染进程通信是核心功能。为了让代码更模块化和易维护，我们可以封装一个工具对象来处理常用功能。 我们的工具对象包含以下两项核心功能： 1. 发送消息给渲染进程：通过指定的通道名称向聚焦的窗口发送消息。 2. 创建新窗口：动态创建带有特定配置的新窗口，并加载指定的页面。 为了适配开发和生产环境，我们动态生成窗口加载的 URL。在开发环境中，使用开发服务器的...]]></description>
             <author>2484068670@qq.com (阿柒)</author>
         </item>
     </channel>
