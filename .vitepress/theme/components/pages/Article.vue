@@ -11,21 +11,53 @@
       </div>
     </div>
     <div class="archives-list">
-      <PostList v-show="tab == 0" :data="postsData" un-show-excerpt />
-      <PostList v-show="tab == 1" :data="starData" un-show-excerpt />
+      <PostList v-show="tab == 0" :data="curPostsData" un-show-excerpt />
+      <PostList v-show="tab == 1" :data="curStarData" un-show-excerpt />
+      <Pagination :total="tab == 0 ? postsData.length : starData.length" :page="props.page"
+        :limit="theme.blog.pageSize" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useData } from 'vitepress'
 import { storeToRefs } from 'pinia'
 import { useDataStore } from '@/store/index'
 import PostList from '@/components/common/PostList.vue'
+import Pagination from '@/components/common/Pagination.vue'
 
+const props = defineProps({
+  page: {
+    type: Number,
+    default: 1
+  }
+})
+
+const { theme } = useData()
 const tab = ref(0)
 const dataStore = useDataStore()
 const { postsData, starData } = storeToRefs(dataStore)
+
+const curPostsData = computed(() => {
+  // 获取每页显示的数量
+  const pageSize = theme.value.blog.pageSize
+  // 计算起始和结束索引
+  const start = (props.page - 1) * pageSize
+  const end = start + pageSize
+  // 返回当前页的数据
+  return postsData.value.slice(start, end)
+})
+
+const curStarData = computed(() => {
+  // 获取每页显示的数量
+  const pageSize = theme.value.blog.pageSize
+  // 计算起始和结束索引
+  const start = (props.page - 1) * pageSize
+  const end = start + pageSize
+  // 返回当前页的数据
+  return starData.value.slice(start, end)
+})
 
 </script>
 
