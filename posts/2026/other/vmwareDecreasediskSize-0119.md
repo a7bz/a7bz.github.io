@@ -1,4 +1,14 @@
+---
+date: 2026-01-19
+category:
+  - 教程
+tag:
+  - VMware
+---
+
 # VMware 减小硬盘大小教程
+
+> 转载 [减少vmware ubuntu虚拟机占用的磁盘空间\_修改虚拟机占用内存-CSDN博客](https://blog.csdn.net/qq_41263444/article/details/134445673)
 
 ## 准备工作
 
