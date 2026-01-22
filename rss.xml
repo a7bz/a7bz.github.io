@@ -4,7 +4,7 @@
         <title>阿柒</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Tue, 20 Jan 2026 08:59:32 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 22 Jan 2026 03:34:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>阿柒</generator>
         <language>zh</language>
@@ -15,6 +15,14 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0120</guid>
             <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[在开发Windows桌面应用程序时，经常会遇到需要实现开机自启的需求。本文将详细介绍几种在C#中实现Windows应用开机自启的方法，包括注册表、启动文件夹和任务计划程序等方式，并提供完整的代码示例。   通过修改Windows注册表来实现开机自启是最常见的方法，适用于大多数Windows版本。   Windows系统在启动时会检查以下注册表项： - HKEY_CURRENT_USE...]]></description>
+            <author>2484068670@qq.com (阿柒)</author>
+        </item>
+        <item>
+            <title><![CDATA[VMware 减小硬盘大小教程]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0119</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0119</guid>
+            <pubDate>Mon, 19 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[> 转载 [减少vmware ubuntu虚拟机占用的磁盘空间\_修改虚拟机占用内存-CSDN博客](https://blog.csdn.net/qq_41263444/article/details/134445673) 1. 下载 GParted 的 ISO 文件，官方下载地址：[GParted 官网](https://gparted.org/download.php) 2. 关闭虚拟机，设置...]]></description>
             <author>2484068670@qq.com (阿柒)</author>
         </item>
         <item>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/1230</guid>
             <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[C    在 C  ``csharp // 传统方式 public class Person {     public string FirstName { get; set; }     public string LastName { get; set; }     public int Age { get; set; }          public Person(...]]></description>
-            <author>2484068670@qq.com (阿柒)</author>
-        </item>
-        <item>
-            <title><![CDATA[vue 异步 emit 实现]]></title>
-            <link>https://blog.a7bz.cn/posts/2025/1120</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/1120</guid>
-            <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[在 Vue 开发中，我们经常需要在父子组件之间进行通信。通常情况下，$emit 是同步的，但有些场景下我们需要异步触发事件，比如：  1. 在异步操作完成后触发事件 2. 需要确保在下一个 tick 中触发事件 3. 在组件销毁后仍然需要触发某些事件   先来看看同步 emit 的基本用法：  ``vue <!-- 子组件 --> <template>   <button ...]]></description>
             <author>2484068670@qq.com (阿柒)</author>
         </item>
     </channel>
