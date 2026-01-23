@@ -4,11 +4,19 @@
         <title>阿柒</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Thu, 22 Jan 2026 03:34:29 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Jan 2026 08:55:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>阿柒</generator>
         <language>zh</language>
         <copyright>Copyright © 2024-present 阿柒</copyright>
+        <item>
+            <title><![CDATA[VMware Tools 安装教程]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0123</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0123</guid>
+            <pubDate>Fri, 23 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[VMware Tools 是 VMware 虚拟机提供的一套实用工具，安装后可以显著提升虚拟机的使用体验。本文将详细介绍在 Ubuntu 系统上安装 VMware Tools 的完整步骤，包括常见问题的解决方法。   - 增强交互体验：主机与虚拟机之间可自由复制粘贴文本 - 文件共享：支持主机与虚拟机之间的文件拖拽功能 - 鼠标无缝切换：鼠标可在虚拟机与主机之间自由移动（无需按 Ctrl...]]></description>
+            <author>2484068670@qq.com (阿柒)</author>
+        </item>
         <item>
             <title><![CDATA[C# Windows应用实现开机自启的多种方法]]></title>
             <link>https://blog.a7bz.cn/posts/2026/0120</link>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0105</guid>
             <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[跨域（Cross-Origin Resource Sharing，CORS）是浏览器安全策略的重要组成部分。当前端应用尝试访问不同源（协议、域名、端口任一不同）的资源时，浏览器会阻止这种请求，这就是跨域问题。 同源策略是浏览器最核心的安全功能之一，要求以下三个要素必须完全相同： | 要素 | 说明                 | 示例                              ...]]></description>
-            <author>2484068670@qq.com (阿柒)</author>
-        </item>
-        <item>
-            <title><![CDATA[C# 12 新特性深度解析]]></title>
-            <link>https://blog.a7bz.cn/posts/2025/1230</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2025/1230</guid>
-            <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[C    在 C  ``csharp // 传统方式 public class Person {     public string FirstName { get; set; }     public string LastName { get; set; }     public int Age { get; set; }          public Person(...]]></description>
             <author>2484068670@qq.com (阿柒)</author>
         </item>
     </channel>
