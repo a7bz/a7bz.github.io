@@ -4,11 +4,19 @@
         <title>阿柒</title>
         <link>https://blog.a7bz.cn</link>
         <description>记录分享一些笔记</description>
-        <lastBuildDate>Fri, 23 Jan 2026 08:55:29 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 24 Jan 2026 02:02:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>阿柒</generator>
         <language>zh</language>
         <copyright>Copyright © 2024-present 阿柒</copyright>
+        <item>
+            <title><![CDATA[Ubuntu 20.04 下 Xsens IMU 的 ROS 包下载与使用]]></title>
+            <link>https://blog.a7bz.cn/posts/2026/0124</link>
+            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0124</guid>
+            <pubDate>Sat, 24 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Xsens IMU（惯性测量单元）是一种高精度的传感器设备，广泛应用于机器人、自动驾驶、无人机等领域。本文将详细介绍在 Ubuntu 20.04 系统上下载、安装和使用 Xsens IMU 的 ROS 驱动包的完整步骤，帮助用户快速搭建 Xsens IMU 与 ROS 系统的连接。 Xsens IMU 的 ROS 驱动包包含在 MT 软件套件中，需要从官方网站下载： 下载链接：[https://w...]]></description>
+            <author>2484068670@qq.com (阿柒)</author>
+        </item>
         <item>
             <title><![CDATA[VMware Tools 安装教程]]></title>
             <link>https://blog.a7bz.cn/posts/2026/0123</link>
@@ -79,14 +87,6 @@
             <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0108</guid>
             <pubDate>Thu, 08 Jan 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[展示了本站支持的 Markdown 扩展语法和特性 ``markdown ` `markdown 粗体文本 斜体文本 粗斜体文本 ~~删除线~~ <u>下划线</u> 行内代码 ` 粗体文本 斜体文本 粗斜体文本 ~~删除线~~ <u>下划线</u> 行内代码 `markdown - 列表项 1 - 列表项 2   - 子列表项 2.1   - 子列表项 2.2 ` - 列表项 1 - 列表项 2...]]></description>
-            <author>2484068670@qq.com (阿柒)</author>
-        </item>
-        <item>
-            <title><![CDATA[前端开发跨域问题解决方案]]></title>
-            <link>https://blog.a7bz.cn/posts/2026/0105</link>
-            <guid isPermaLink="false">https://blog.a7bz.cn/posts/2026/0105</guid>
-            <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[跨域（Cross-Origin Resource Sharing，CORS）是浏览器安全策略的重要组成部分。当前端应用尝试访问不同源（协议、域名、端口任一不同）的资源时，浏览器会阻止这种请求，这就是跨域问题。 同源策略是浏览器最核心的安全功能之一，要求以下三个要素必须完全相同： | 要素 | 说明                 | 示例                              ...]]></description>
             <author>2484068670@qq.com (阿柒)</author>
         </item>
     </channel>
